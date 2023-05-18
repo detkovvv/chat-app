@@ -8,9 +8,8 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<AuthorizationPage />}>
-                    <Route path='chat' element={<ChatPage />} />
-                </Route>
+                <Route path='/' element={<AuthorizationPage />}></Route>
+                <Route path='chat' element={<ChatPage />} />
             </Routes>
         </BrowserRouter>
     );
