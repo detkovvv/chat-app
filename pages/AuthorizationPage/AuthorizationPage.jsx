@@ -9,29 +9,28 @@ export const AuthorizationPage = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
-        const password = form.password.value;
-        // функции, которые будут выполнены в случае правильного
-        // и неправильного ввода пароля для авторизации
-        const success = () => navigate('chat', { replace: true });
-        const failure = () => setInvalid(true);
-        login(password, success, failure);
+        const idInstance = form.idInstance.value;
+        console.log(form.idInstance.value);
+        const apiTokenInstance = form.apiTokenInstance.value;
+        console.log(form.apiTokenInstance.value);
+        // // функции, которые будут выполнены в случае правильного
+        // // и неправильного ввода пароля для авторизации
+        // const success = () => navigate('chat', { replace: true });
+        // const failure = () => setInvalid(true);
+        // login(idInstance, apiTokenInstance, success, failure);
     };
 
     return (
         <div className={styles.wrapper}>
-            <h1>Log in</h1>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <label>
-                    idInstance: <input name='idInstance' />
-                </label>
-                <label>
-                    apiTokenInstance: <input name='apiTokenInstance' />
-                </label>
-                <button type='submit' onClick={() => navigate('chat', { replace: true })}>
-                    Login
-                </button>
-            </form>
-            {invalid && <p style={{ color: 'red' }}>Неверный пароль</p>}
+            <div className={styles.container}>
+                <h1>Авторизация</h1>
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <input name='idInstance' placeholder='idInstance' required />
+                    <input name='apiTokenInstance' placeholder='apiTokenInstance' required />
+                    <button type='submit'>Войти</button>
+                </form>
+                {invalid && <p style={{ color: 'red' }}>Неверный пароль</p>}
+            </div>
         </div>
     );
 };
