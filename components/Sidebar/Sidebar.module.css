@@ -1,0 +1,77 @@
+.sidebar {
+    min-width: 300px;
+    width: 30%;
+    border-right: 1px solid lightgrey;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #fafafa;
+}
+
+.sidebarHeader {
+    height: 50px;
+    padding: 5px 0 5px 10px;
+    background-color: #ededed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.sidebarHeaderImg {
+    width: 42px;
+    height: 42px;
+}
+
+.sidebarHeaderImg > img {
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.sidebarHeaderBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 150px;
+    color: #51585c;
+}
+
+.sidebarSearch {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f6f6;
+}
+
+.sidebarSearchInput {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+}
+
+.sidebarSearchInput > input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-left: 6px;
+    margin-bottom: 2px;
+    width: 80%;
+}
+.sidebarSearchInput > button{
+    border: none;
+}
+
+.sidebarChatList {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}

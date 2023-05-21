@@ -1,0 +1,89 @@
+.chatContainer {
+    min-width: 348px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatContainerHeader {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 5px 0px 5px 10px;
+    background-color: #ededed;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatUserInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-transform: capitalize;
+}
+
+.chatUserImg {
+    width: 44px;
+    margin-right: 15px;
+    margin-left: 10px;
+}
+
+.chatUserImg > img {
+    width: 100%;
+    border-radius: 100%;
+}
+
+.chatContainerHeaderBtn {
+    margin-right: 10px;
+}
+
+.chatDisplayContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    background-color: #ece5dd;
+}
+
+.chatInput {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: #f0f0f0;
+    position: relative;
+}
+
+.chatInputBtn {
+    margin-right: 13px;
+    margin-left: 13px;
+}
+
+.chatInputBtn > .MuiSvgIcon-root {
+    font-size: 26px;
+    color: gray;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.chatInput > form {
+    flex: 1;
+    display: flex;
+}
+
+.chatInput > form > input {
+    height: 35px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+    width: 90%;
+    margin-right: 10px;
+}
+
+.chatInputSendBtn {
+    background-color: #128c7e;
+    height: 35px;
+    border-radius: 15px;
+    color: white;
+    box-sizing: content-box;
+}

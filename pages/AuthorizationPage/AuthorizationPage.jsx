@@ -14,9 +14,8 @@ export const AuthorizationPage = ({ ...props }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.get(API_AUTH);
-            console.log(response.data.stateInstance);
-            if (response.data.stateInstance === 'authorized') {
+            const { data } = await axios.get(API_AUTH);
+            if (data.stateInstance === 'authorized') {
                 setInvalid(false);
                 navigate('chat', { replace: true });
             } else {

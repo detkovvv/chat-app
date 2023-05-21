@@ -1,17 +1,12 @@
 * {
-    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html,
 body {
     margin: 0;
     padding: 0;
-    color: var(--black);
-    background: #F5F6F8;
-
-    font-family: 'Noto Sans', sans-serif;
 }
-
 :root {
     --black: #3B434E;
     --gray-light: #EBEBEB;
