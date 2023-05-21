@@ -1,35 +1,56 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AuthorizationPage.module.css';
+import axios from 'axios';
+import { API_URL } from '../../helpers/api.js';
 
-export const AuthorizationPage = () => {
+export const AuthorizationPage = ({ ...props }) => {
     const navigate = useNavigate();
+    const [idInstance, setIdInstance] = useState('');
+    const [apiTokenInstance, setApiTokenInstance] = useState('');
     const [invalid, setInvalid] = useState(false);
+    const API_AUTH = API_URL + `/waInstance${idInstance}/getStateInstance/${apiTokenInstance}`;
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const form = event.target;
-        const idInstance = form.idInstance.value;
-        console.log(form.idInstance.value);
-        const apiTokenInstance = form.apiTokenInstance.value;
-        console.log(form.apiTokenInstance.value);
-        // // функции, которые будут выполнены в случае правильного
-        // // и неправильного ввода пароля для авторизации
-        // const success = () => navigate('chat', { replace: true });
-        // const failure = () => setInvalid(true);
-        // login(idInstance, apiTokenInstance, success, failure);
+        try {
+            const response = await axios.get(API_AUTH);
+            console.log(response.data.stateInstance);
+            if (response.data.stateInstance === 'authorized') {
+                setInvalid(false);
+                navigate('chat', { replace: true });
+            } else {
+                setInvalid(true);
+            }
+        } catch (e) {
+            if (e instanceof Error) {
+                setInvalid(true);
+            }
+        }
     };
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} {...props}>
             <div className={styles.container}>
                 <h1>Авторизация</h1>
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <input name='idInstance' placeholder='idInstance' required />
-                    <input name='apiTokenInstance' placeholder='apiTokenInstance' required />
+                    <input
+                        name='idInstance'
+                        placeholder='idInstance'
+                        required
+                        onChange={(e) => setIdInstance(e.target.value)}
+                        value={idInstance}
+                    />
+                    <input
+                        name='apiTokenInstance'
+                        placeholder='apiTokenInstance'
+                        required
+                        onChange={(e) => setApiTokenInstance(e.target.value)}
+                        value={apiTokenInstance}
+                    />
                     <button type='submit'>Войти</button>
                 </form>
-                {invalid && <p style={{ color: 'red' }}>Неверный пароль</p>}
+                {invalid && <p style={{ color: 'red' }}>Ошибка авторизации</p>}
             </div>
         </div>
     );
