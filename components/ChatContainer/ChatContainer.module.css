@@ -20,17 +20,7 @@
     flex-direction: row;
     align-items: center;
     text-transform: capitalize;
-}
-
-.chatUserImg {
-    width: 44px;
-    margin-right: 15px;
-    margin-left: 10px;
-}
-
-.chatUserImg > img {
-    width: 100%;
-    border-radius: 100%;
+    font-weight: bold;
 }
 
 .chatContainerHeaderBtn {
@@ -56,13 +46,6 @@
 .chatInputBtn {
     margin-right: 13px;
     margin-left: 13px;
-}
-
-.chatInputBtn > .MuiSvgIcon-root {
-    font-size: 26px;
-    color: gray;
-    cursor: pointer;
-    margin-right: 10px;
 }
 
 .chatInput > form {

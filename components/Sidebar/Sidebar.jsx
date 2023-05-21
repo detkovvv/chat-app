@@ -4,11 +4,11 @@ import styles from './Sidebar.module.css';
 export const Sidebar = () => {
     const idInstance = localStorage.getItem('idInstance');
     const [user, setUser] = useState('');
+    const memory = (key, value) => localStorage.setItem(key, value);
 
     const startChat = (event) => {
         event.preventDefault();
-        setUser(value);
-        localStorage.setItem('phone', value);
+        memory('phone', user);
     };
 
     return (
@@ -18,12 +18,14 @@ export const Sidebar = () => {
                 <form className={styles.sidebarSearchInput} onSubmit={startChat}>
                     <input
                         type='text'
-                        name='search'
+                        name='user'
                         placeholder='79996663311'
                         value={user}
                         onChange={(e) => setUser(e.target.value)}
                     />
-                    <button type='submit'> > </button>
+                    <button type='submit' className={styles.startChat}>
+                        >
+                    </button>
                 </form>
             </div>
             <div className={styles.sidebarChatList}>
