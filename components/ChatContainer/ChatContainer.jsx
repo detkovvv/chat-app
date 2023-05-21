@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
+import { API_URL } from '../../helpers/api.js';
 
 export const ChatContainer = () => {
+    const idInstance = localStorage.getItem('idInstance');
+    const apiTokenInstance = localStorage.getItem('apiTokenInstance');
     const [chatMessages, setChatMessages] = useState([]);
     const [message, setMessage] = useState('');
+    const API_SEND = API_URL + `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
     const send = (e) => {
         e.preventDefault();
     };
@@ -32,7 +36,7 @@ export const ChatContainer = () => {
                 <form onSubmit={send}>
                     <input
                         type='text'
-                        placeholder='Type a Message'
+                        placeholder='Введите сообщение'
                         value={message}
                         onChange={(e) => {
                             setMessage(e.target.value);

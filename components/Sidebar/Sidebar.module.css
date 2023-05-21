@@ -67,6 +67,7 @@
 }
 .sidebarSearchInput > button{
     border: none;
+    font-weight: bold;
 }
 
 .sidebarChatList {
@@ -74,4 +75,15 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+}
+.user {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid lightgrey;
+    cursor: pointer;
+}
+
+.user:hover {
+    background-color: lightgrey;
 }
