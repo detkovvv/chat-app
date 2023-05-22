@@ -10,15 +10,18 @@ export const ChatContainer = () => {
     const [message, setMessage] = useState('');
     const API_SEND = API_URL + `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
 
-    const send = async (event, message) => {
+    const send = async (event) => {
         event.preventDefault();
-        // try {
-        //     const response = await axios.post(API_SEND, message);
-        //     return response.data;
-        // } catch (e) {
-        //     console.error(e.toJSON());
-        // }
-        setChatMessages(message);
+        await axios
+            .post(API_SEND, {
+                chatId: `${user}@c.us`,
+                message: `${message}`,
+            })
+            .then((response) => {
+                setChatMessages(response.data.message);
+                console.log(chatMessages);
+            });
+
         setMessage('');
     };
 
@@ -30,9 +33,9 @@ export const ChatContainer = () => {
                 </div>
             </div>
             <div className={styles.chatDisplayContainer}>
-                {chatMessages.map((message) => (
-                    <ChatMessage message={message.text} time={message.timeStamp} />
-                ))}
+                {/*{chatMessages.map(() => (*/}
+                <ChatMessage message={message} />
+                {/*))}*/}
             </div>
             <div className={styles.chatInput}>
                 <div className={styles.chatInputBtn}></div>

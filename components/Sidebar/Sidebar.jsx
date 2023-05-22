@@ -1,28 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Sidebar.module.css';
-import { idInstance, toLocalStorage } from '../../helpers/helpers.js';
+import { apiTokenInstance, idInstance, toLocalStorage } from '../../helpers/helpers.js';
 import axios from 'axios';
+import { API_URL } from '../../helpers/api.js';
 
 export const Sidebar = () => {
     const [user, setUser] = useState('');
     const [invalid, setInvalid] = useState(false);
-    const API_SEND = {};
+    const API_SEND = API_URL + `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
+    const API_DEL = API_URL + `/waInstance${idInstance}/deleteMessage/${apiTokenInstance}`;
+
+    const [id, setId] = useState('');
 
     const startChat = async (event) => {
         event.preventDefault();
-        try {
-            const { data } = await axios.get(API_AUTH);
-            if (!data) {
+
+        const checking = await axios
+            .post(API_SEND, {
+                chatId: `${user}@c.us`,
+                message: 'проверка связи',
+            })
+            .then((response) => {
+                console.log(response.data);
                 toLocalStorage('phone', user);
-            } else {
+                setInvalid(false);
+            })
+            .catch((error) => {
                 setInvalid(true);
-            }
-        } catch (e) {
-            if (e instanceof Error) {
-                setInvalid(true);
-            }
-        }
+                console.log(error.message);
+            });
+
+        setId(checking.data.idMessage);
+        console.log(id);
     };
+
+    //удаление тестового сообщения
+    // useEffect(async () => {
+    //     await axios
+    //         .post(API_DEL, {
+    //             chatId: `${user}@c.us`,
+    //             idMessage: { id },
+    //         })
+    //         .then((response) => {
+    //             console.log(response.data);
+    //             console.log(id);
+    //         })
+    //         .catch((error) => {
+    //             setInvalid(true);
+    //             console.log(error.message);
+    //         });
+    // }, [id]);
 
     return (
         <div className={styles.sidebar}>
@@ -43,7 +70,7 @@ export const Sidebar = () => {
                     </button>
                 </form>
             </div>
-            {invalid && <p className={styles.invalid}>пользователь не найден</p>}
+            {invalid && <p className={styles.invalid}>номер не найден</p>}
             <div className={styles.sidebarChatList}>
                 {user && <div className={styles.user}>{user}</div>}
             </div>
