@@ -3,23 +3,22 @@ import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
 import { API_URL } from '../../helpers/api.js';
 import axios from 'axios';
+import { apiTokenInstance, idInstance, user } from '../../helpers/helpers.js';
 
 export const ChatContainer = () => {
-    const user = localStorage.getItem('phone');
-    const idInstance = localStorage.getItem('idInstance');
-    const apiTokenInstance = localStorage.getItem('apiTokenInstance');
     const [chatMessages, setChatMessages] = useState([]);
     const [message, setMessage] = useState('');
     const API_SEND = API_URL + `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
 
-    const send = async (event) => {
+    const send = async (event, message) => {
         event.preventDefault();
-        try {
-            const response = await axios.post(API_SEND, message);
-            return response.data;
-        } catch (e) {
-            console.error(e.toJSON());
-        }
+        // try {
+        //     const response = await axios.post(API_SEND, message);
+        //     return response.data;
+        // } catch (e) {
+        //     console.error(e.toJSON());
+        // }
+        setChatMessages(message);
         setMessage('');
     };
 

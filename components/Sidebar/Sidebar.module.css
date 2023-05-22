@@ -19,26 +19,6 @@
     position: relative;
 }
 
-.sidebarHeaderImg {
-    width: 42px;
-    height: 42px;
-}
-
-.sidebarHeaderImg > img {
-    width: 42px;
-    height: 42px;
-    cursor: pointer;
-    border-radius: 100%;
-}
-
-.sidebarHeaderBtn {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 150px;
-    color: #51585c;
-}
-
 .sidebarSearch {
     height: 60px;
     display: flex;
@@ -47,7 +27,7 @@
     background-color: #f6f6f6;
 }
 
-.sidebarSearchInput {
+.sidebarForm {
     width: 90%;
     display: flex;
     align-items: center;
@@ -57,7 +37,7 @@
     border-radius: 10px;
 }
 
-.sidebarSearchInput > input {
+.sidebarForm > input {
     background-color: transparent;
     border: none;
     outline: none;
@@ -65,21 +45,12 @@
     margin-bottom: 2px;
     width: 80%;
 }
-.startChat{
-    border: none;
-    font-weight: bold;
-    transition: all 0.2s;
-}
-.startChat:hover{
-    border: 1px solid var(--green);
+
+.invalid{
+    color: red;
+    padding: 0 0 0 20px;
 }
 
-.sidebarChatList {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-}
 .user {
     display: flex;
     align-items: center;
@@ -91,3 +62,22 @@
 .user:hover {
     background-color: lightgrey;
 }
+
+.startChat {
+    border: none;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.startChat:hover {
+    border: 1px solid var(--green);
+}
+
+.sidebarChatList {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './AuthorizationPage.module.css';
 import axios from 'axios';
 import { API_URL } from '../../helpers/api.js';
+import { toLocalStorage } from '../../helpers/helpers.js';
 
 export const AuthorizationPage = ({ ...props }) => {
     const navigate = useNavigate();
@@ -10,7 +11,6 @@ export const AuthorizationPage = ({ ...props }) => {
     const [apiTokenInstance, setApiTokenInstance] = useState('');
     const [invalid, setInvalid] = useState(false);
     const API_AUTH = API_URL + `/waInstance${idInstance}/getStateInstance/${apiTokenInstance}`;
-    const memory = (key, value) => localStorage.setItem(key, value);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -19,8 +19,8 @@ export const AuthorizationPage = ({ ...props }) => {
             if (data.stateInstance === 'authorized') {
                 setInvalid(false);
                 navigate('chat', { replace: true });
-                memory('idInstance', idInstance);
-                memory('apiTokenInstance', apiTokenInstance);
+                toLocalStorage('idInstance', idInstance);
+                toLocalStorage('apiTokenInstance', apiTokenInstance);
             } else {
                 setInvalid(true);
             }
