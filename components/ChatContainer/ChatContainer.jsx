@@ -10,6 +10,10 @@ export const ChatContainer = () => {
     const [message, setMessage] = useState('');
     const API_SEND = API_URL + `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
 
+    const handleChange = (event) => {
+        setMessage(event.target.value);
+    };
+
     const send = async (event) => {
         event.preventDefault();
         await axios
@@ -29,7 +33,7 @@ export const ChatContainer = () => {
         <div className={styles.chatContainer}>
             <div className={styles.chatContainerHeader}>
                 <div className={styles.chatUserInfo}>
-                    <p>{user}</p>
+                    <p>Получатель: {user}</p>
                 </div>
             </div>
             <div className={styles.chatDisplayContainer}>
@@ -44,9 +48,7 @@ export const ChatContainer = () => {
                         type='text'
                         placeholder='Введите сообщение'
                         value={message}
-                        onChange={(e) => {
-                            setMessage(e.target.value);
-                        }}
+                        onChange={handleChange}
                     />
                     <button className={styles.chatInputSendBtn} type='submit'>
                         Отправить

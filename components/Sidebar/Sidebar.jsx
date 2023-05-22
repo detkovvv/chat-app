@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Sidebar.module.css';
 import { apiTokenInstance, idInstance, toLocalStorage } from '../../helpers/helpers.js';
 import axios from 'axios';
@@ -7,49 +7,35 @@ import { API_URL } from '../../helpers/api.js';
 export const Sidebar = () => {
     const [user, setUser] = useState('');
     const [invalid, setInvalid] = useState(false);
-    const API_SEND = API_URL + `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
-    const API_DEL = API_URL + `/waInstance${idInstance}/deleteMessage/${apiTokenInstance}`;
+    const API_CHECK = API_URL + `/waInstance${idInstance}/CheckWhatsapp/${apiTokenInstance}`;
 
-    const [id, setId] = useState('');
+    const handleChange = (event) => {
+        setUser(event.target.value);
+    };
 
     const startChat = async (event) => {
         event.preventDefault();
 
         const checking = await axios
-            .post(API_SEND, {
-                chatId: `${user}@c.us`,
-                message: 'проверка связи',
+            .post(API_CHECK, {
+                phoneNumber: `${user}`,
             })
             .then((response) => {
-                console.log(response.data);
-                toLocalStorage('phone', user);
-                setInvalid(false);
+                if (response.data.existsWhatsapp === true) {
+                    toLocalStorage('phone', user);
+                    setInvalid(false);
+                    setUser('');
+                } else {
+                    setInvalid(true);
+                    setUser('');
+                }
             })
             .catch((error) => {
                 setInvalid(true);
+                setUser('');
                 console.log(error.message);
             });
-
-        setId(checking.data.idMessage);
-        console.log(id);
     };
-
-    //удаление тестового сообщения
-    // useEffect(async () => {
-    //     await axios
-    //         .post(API_DEL, {
-    //             chatId: `${user}@c.us`,
-    //             idMessage: { id },
-    //         })
-    //         .then((response) => {
-    //             console.log(response.data);
-    //             console.log(id);
-    //         })
-    //         .catch((error) => {
-    //             setInvalid(true);
-    //             console.log(error.message);
-    //         });
-    // }, [id]);
 
     return (
         <div className={styles.sidebar}>
@@ -63,7 +49,7 @@ export const Sidebar = () => {
                         autoFocus='autofocus'
                         value={user}
                         required
-                        onChange={(e) => setUser(e.target.value)}
+                        onChange={handleChange}
                     />
                     <button type='submit' className={styles.startChat}>
                         >
