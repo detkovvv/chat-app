@@ -1,11 +1,11 @@
 .chatMessage {
     display: flex;
-    margin: 15px 30px 15px 30px;
+    margin: 15px 30px 2px 30px;
     flex-direction: column;
     position: relative;
     width: fit-content;
     max-width: 400px;
-    padding: 10px;
+    padding: 5px 10px;
     background-color: #dcf8c6;
     border-radius: 10px;
     height: fit-content;

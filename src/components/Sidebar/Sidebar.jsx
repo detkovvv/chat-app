@@ -33,7 +33,6 @@ export const Sidebar = () => {
             })
             .catch((error) => {
                 setInvalid(true);
-                setUser('');
                 console.log(error.message);
                 setValue('');
             });

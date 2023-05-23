@@ -4,5 +4,5 @@ export const user = localStorage.getItem('phone');
 export const idInstance = localStorage.getItem('idInstance');
 export const apiTokenInstance = localStorage.getItem('apiTokenInstance');
 
-export const time = new Date();
-export const currentTime = time.getHours().toString() + ':' + time.getMinutes().toString();
+export let time = new Date();
+export let currentTime = time.getHours().toString() + ':' + time.getMinutes().toString();

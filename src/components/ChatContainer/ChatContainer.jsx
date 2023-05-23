@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
-import { apiTokenInstance, idInstance, user } from '../../helpers/helpers.js';
+import { apiTokenInstance, currentTime, idInstance, user } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
 
 export const ChatContainer = () => {
@@ -9,7 +9,10 @@ export const ChatContainer = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const [message, setMessage] = useState('');
     const API_SEND = `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
-
+    const API_GET = `/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`;
+    // const API_CLEAR = `/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`;
+    const [sender, setSender] = useState('');
+    const chatBox = useRef(null);
     const handleChange = (event) => {
         setValue(event.target.value);
     };
@@ -22,11 +25,31 @@ export const ChatContainer = () => {
                 message: `${value}`,
             })
             .then(() => {
+                setSender('you');
                 setMessage(value);
-                setChatMessages();
-                setValue('');
+                setChatMessages([...chatMessages, value]);
             });
+        setValue('');
     };
+    setInterval(() => {
+        const res = async () => {
+            await instance.get(API_GET).then((response) => {
+                if (response.data != null) {
+                    console.log(receive.data);
+                    setSender('to me');
+                    setMessage(response.data.body.messageData.textMessageData.textMessage);
+                    setChatMessages([...chatMessages, message]);
+                }
+            });
+        };
+    }, 3000);
+
+    useEffect(() => {
+        chatBox.current.addEventListener('DOMNodeInserted', (event) => {
+            const { currentTarget: target } = event;
+            target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+        });
+    }, [chatMessages]);
 
     return (
         <div className={styles.chatContainer}>
@@ -35,10 +58,10 @@ export const ChatContainer = () => {
                     <p>Получатель: {user}</p>
                 </div>
             </div>
-            <div className={styles.chatDisplayContainer}>
-                {/*{chatMessages.map(() => (*/}
-                <ChatMessage message={message} />
-                {/*))}*/}
+            <div className={styles.chatDisplayContainer} ref={chatBox}>
+                {chatMessages.map((message) => (
+                    <ChatMessage message={message} sender={sender} />
+                ))}
             </div>
             <div className={styles.chatInput}>
                 <div className={styles.chatInputBtn}></div>
