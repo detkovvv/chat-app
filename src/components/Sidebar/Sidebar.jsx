@@ -54,7 +54,7 @@ export const Sidebar = () => {
                         onChange={handleChange}
                     />
                     <button type='submit' className={styles.startChat}>
-                        >
+                        {">"}
                     </button>
                 </form>
             </div>
