@@ -1,5 +1,5 @@
 * {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html,
@@ -8,13 +8,13 @@ body {
     padding: 0;
 }
 :root {
-    --black: #3B434E;
-    --gray-light: #EBEBEB;
-    --gray-dark: #6C7077;
-    --gray: #A4A4A4;
+    --black: #3b434e;
+    --gray-light: #ebebeb;
+    --gray-dark: #6c7077;
+    --gray: #a4a4a4;
     --white: white;
-    --red: #FC836D;
-    --red-light: #FEA291;
+    --red: #fc836d;
+    --red-light: #fea291;
     --green: #008069;
     --green-light: #00a884;
     --font-family: 'Noto Sans', sans-serif;

@@ -10,7 +10,7 @@ export const ChatContainer = () => {
     const [message, setMessage] = useState('');
     const [sender, setSender] = useState('');
     const [receiptId, setReceiptId] = useState('');
-
+    // TODO: getApiLink
     const API_SEND = `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
     const API_GET = `/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`;
     const API_CLEAR = `/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`;

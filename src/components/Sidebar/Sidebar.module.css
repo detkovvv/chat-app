@@ -46,7 +46,7 @@
     width: 80%;
 }
 
-.invalid{
+.invalid {
     color: red;
     padding: 0 0 0 20px;
 }
@@ -79,5 +79,3 @@
     flex-direction: column;
     overflow-y: scroll;
 }
-
-

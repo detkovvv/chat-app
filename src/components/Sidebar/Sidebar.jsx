@@ -16,7 +16,7 @@ export const Sidebar = () => {
     const startChat = async (event) => {
         event.preventDefault();
 
-        const checking = await instance
+        instance
             .post(API_CHECK, {
                 phoneNumber: `${value}`,
             })
@@ -54,7 +54,7 @@ export const Sidebar = () => {
                         onChange={handleChange}
                     />
                     <button type='submit' className={styles.startChat}>
-                        {">"}
+                        {'>'}
                     </button>
                 </form>
             </div>
