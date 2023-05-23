@@ -1,39 +1,41 @@
 import React, { useState } from 'react';
 import styles from './Sidebar.module.css';
 import { apiTokenInstance, idInstance, toLocalStorage } from '../../helpers/helpers.js';
-import axios from 'axios';
-import { API_URL } from '../../helpers/api.js';
+import { instance } from '../../helpers/axios/index.js';
 
 export const Sidebar = () => {
+    const [value, setValue] = useState('');
     const [user, setUser] = useState('');
     const [invalid, setInvalid] = useState(false);
-    const API_CHECK = API_URL + `/waInstance${idInstance}/CheckWhatsapp/${apiTokenInstance}`;
+    const API_CHECK = `/waInstance${idInstance}/CheckWhatsapp/${apiTokenInstance}`;
 
     const handleChange = (event) => {
-        setUser(event.target.value);
+        setValue(event.target.value);
     };
 
     const startChat = async (event) => {
         event.preventDefault();
 
-        const checking = await axios
+        const checking = await instance
             .post(API_CHECK, {
-                phoneNumber: `${user}`,
+                phoneNumber: `${value}`,
             })
             .then((response) => {
                 if (response.data.existsWhatsapp === true) {
-                    toLocalStorage('phone', user);
+                    toLocalStorage('phone', value);
                     setInvalid(false);
-                    setUser('');
+                    setUser(value);
+                    setValue('');
                 } else {
                     setInvalid(true);
-                    setUser('');
+                    setValue('');
                 }
             })
             .catch((error) => {
                 setInvalid(true);
                 setUser('');
                 console.log(error.message);
+                setValue('');
             });
     };
 
@@ -47,8 +49,9 @@ export const Sidebar = () => {
                         name='user'
                         placeholder='79996663311'
                         autoFocus='autofocus'
-                        value={user}
+                        value={value}
                         required
+                        size={10}
                         onChange={handleChange}
                     />
                     <button type='submit' className={styles.startChat}>

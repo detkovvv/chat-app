@@ -1,32 +1,31 @@
 import React, { useState } from 'react';
 import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
-import { API_URL } from '../../helpers/api.js';
-import axios from 'axios';
 import { apiTokenInstance, idInstance, user } from '../../helpers/helpers.js';
+import { instance } from '../../helpers/axios/index.js';
 
 export const ChatContainer = () => {
+    const [value, setValue] = useState('');
     const [chatMessages, setChatMessages] = useState([]);
     const [message, setMessage] = useState('');
-    const API_SEND = API_URL + `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
+    const API_SEND = `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
 
     const handleChange = (event) => {
-        setMessage(event.target.value);
+        setValue(event.target.value);
     };
 
     const send = async (event) => {
         event.preventDefault();
-        await axios
+        await instance
             .post(API_SEND, {
                 chatId: `${user}@c.us`,
-                message: `${message}`,
+                message: `${value}`,
             })
-            .then((response) => {
-                setChatMessages(response.data.message);
-                console.log(chatMessages);
+            .then(() => {
+                setMessage(value);
+                setChatMessages();
+                setValue('');
             });
-
-        setMessage('');
     };
 
     return (
@@ -47,7 +46,7 @@ export const ChatContainer = () => {
                     <input
                         type='text'
                         placeholder='Введите сообщение'
-                        value={message}
+                        value={value}
                         onChange={handleChange}
                     />
                     <button className={styles.chatInputSendBtn} type='submit'>

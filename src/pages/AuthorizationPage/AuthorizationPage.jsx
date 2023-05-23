@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AuthorizationPage.module.css';
-import axios from 'axios';
-import { API_URL } from '../../helpers/api.js';
 import { toLocalStorage } from '../../helpers/helpers.js';
+import { instance } from '../../helpers/axios/index.js';
 
 export const AuthorizationPage = ({ ...props }) => {
     const navigate = useNavigate();
     const [idInstance, setIdInstance] = useState('');
     const [apiTokenInstance, setApiTokenInstance] = useState('');
     const [invalid, setInvalid] = useState(false);
-    const API_AUTH = API_URL + `/waInstance${idInstance}/getStateInstance/${apiTokenInstance}`;
+    const API_AUTH = `/waInstance${idInstance}/getStateInstance/${apiTokenInstance}`;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { data } = await axios.get(API_AUTH);
+            const { data } = await instance.get(API_AUTH);
             if (data.stateInstance === 'authorized') {
                 setInvalid(false);
                 navigate('chat', { replace: true });
