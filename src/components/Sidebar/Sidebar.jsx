@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styles from './Sidebar.module.css';
-import { apiTokenInstance, idInstance, toLocalStorage } from '../../helpers/helpers.js';
+import { idInstance, toLocalStorage } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
+import { getApiLink } from '../../helpers/getApiLink.js';
 
 export const Sidebar = () => {
     const [value, setValue] = useState('');
     const [user, setUser] = useState('');
     const [invalid, setInvalid] = useState(false);
-    const API_CHECK = `/waInstance${idInstance}/CheckWhatsapp/${apiTokenInstance}`;
 
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -17,7 +17,7 @@ export const Sidebar = () => {
         event.preventDefault();
 
         instance
-            .post(API_CHECK, {
+            .post(getApiLink('CheckWhatsapp'), {
                 phoneNumber: `${value}`,
             })
             .then((response) => {

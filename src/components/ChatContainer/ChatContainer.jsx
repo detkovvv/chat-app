@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
-import { apiTokenInstance, idInstance, user } from '../../helpers/helpers.js';
+import { user } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
+import { getApiLink } from '../../helpers/getApiLink.js';
 
 export const ChatContainer = () => {
     const [value, setValue] = useState('');
@@ -10,10 +11,6 @@ export const ChatContainer = () => {
     const [message, setMessage] = useState('');
     const [sender, setSender] = useState('');
     const [receiptId, setReceiptId] = useState('');
-    // TODO: getApiLink
-    const API_SEND = `/waInstance${idInstance}/sendMessage/${apiTokenInstance}`;
-    const API_GET = `/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`;
-    const API_CLEAR = `/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`;
 
     const chatBox = useRef(null);
 
@@ -25,7 +22,7 @@ export const ChatContainer = () => {
         setSender('you');
         event.preventDefault();
         await instance
-            .post(API_SEND, {
+            .post(getApiLink('sendMessage'), {
                 chatId: `${user}@c.us`,
                 message: `${value}`,
             })
@@ -39,7 +36,7 @@ export const ChatContainer = () => {
     // setInterval(() => {
     //     setSender('to me');
     //     const receiveNotification = async () => {
-    //         await instance.get(API_GET).then((response) => {
+    //         await instance.get(getApiLink('receiveNotification')).then((response) => {
     //             if (response.data != null) {
     //                 console.log(response.data);
     //                 setReceiptId(response.data.receiptId);
@@ -52,7 +49,7 @@ export const ChatContainer = () => {
     //отправка запроса на удаление уведомления
     // setInterval(() => {
     //     const deleteNotification = async () => {
-    //         await instance.get(API_CLEAR).then((response) => console.log(response.data));
+    //         await instance.get(getApiLink('DeleteNotification', receiptId )).then((response) => console.log(response.data));
     //     };
     // }, 3001);
 
@@ -72,7 +69,7 @@ export const ChatContainer = () => {
             </div>
             <div className={styles.chatDisplayContainer} ref={chatBox}>
                 {chatMessages.map((message) => (
-                    <ChatMessage message={message} sender={sender} />
+                    <ChatMessage message={message} sender={sender} key={message.id} />
                 ))}
             </div>
             <div className={styles.chatInput}>

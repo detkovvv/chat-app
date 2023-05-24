@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import styles from './AuthorizationPage.module.css';
 import { toLocalStorage } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
+import { getApiLink } from '../../helpers/getApiLink.js';
 
 export const AuthorizationPage = ({ ...props }) => {
     const navigate = useNavigate();
     const [idInstance, setIdInstance] = useState('');
     const [apiTokenInstance, setApiTokenInstance] = useState('');
     const [invalid, setInvalid] = useState(false);
-    const API_AUTH = `/waInstance${idInstance}/getStateInstance/${apiTokenInstance}`;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { data } = await instance.get(API_AUTH);
+            const { data } = await instance.get(getApiLink('getStateInstance'));
             if (data.stateInstance === 'authorized') {
                 setInvalid(false);
                 navigate('chat', { replace: true });
