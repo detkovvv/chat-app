@@ -25,12 +25,14 @@ export const ChatContainer = ({ user }) => {
                 chatId: `${user}@c.us`,
                 message: `${value}`,
             })
-            .then(() => {
+            .then((response) => {
+                console.log(message);
                 setMessage(value);
                 setChatMessages([...chatMessages, value]);
             });
         setValue('');
     };
+
     //отправка запроса на получение уведомления о новом сообщении и вывод сообщения
     // setInterval(() => {
     //     setSender('to me');
@@ -68,7 +70,12 @@ export const ChatContainer = ({ user }) => {
             </div>
             <div className={styles.chatDisplayContainer} ref={chatBox}>
                 {chatMessages.map((message) => (
-                    <ChatMessage message={message} sender={sender} key={message.id} />
+                    <ChatMessage
+                        message={message}
+                        sender={sender}
+                        key={message.id}
+                        time={message.timestamp}
+                    />
                 ))}
             </div>
             <div className={styles.chatInput}>

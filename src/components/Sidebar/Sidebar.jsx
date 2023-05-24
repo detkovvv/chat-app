@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Sidebar.module.css';
-import { idInstance, toLocalStorage } from '../../helpers/helpers.js';
+import { idInstance } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 
@@ -25,7 +25,6 @@ export const Sidebar = ({ onChange }) => {
             })
             .then((response) => {
                 if (response.data.existsWhatsapp === true) {
-                    toLocalStorage('phone', value);
                     setInvalid(false);
                     setPhone(value);
                     setValue('');
