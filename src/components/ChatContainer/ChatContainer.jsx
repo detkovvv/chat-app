@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
-import { user } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 
-export const ChatContainer = () => {
+export const ChatContainer = ({ user }) => {
     const [value, setValue] = useState('');
     const [chatMessages, setChatMessages] = useState([]);
     const [message, setMessage] = useState('');
@@ -61,7 +60,7 @@ export const ChatContainer = () => {
     }, [chatMessages]);
 
     return (
-        <div className={styles.chatContainer}>
+        <div className={styles.chatContainer} user={user}>
             <div className={styles.chatContainerHeader}>
                 <div className={styles.chatUserInfo}>
                     <p>Получатель: {user}</p>

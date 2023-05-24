@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Sidebar.module.css';
 import { idInstance, toLocalStorage } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 
-export const Sidebar = () => {
+export const Sidebar = ({ onChange }) => {
     const [value, setValue] = useState('');
-    const [user, setUser] = useState('');
+    const [phone, setPhone] = useState('');
     const [invalid, setInvalid] = useState(false);
 
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+    useEffect(() => {
+        onChange(phone);
+    }, [phone]);
 
     const startChat = async (event) => {
         event.preventDefault();
@@ -24,7 +27,7 @@ export const Sidebar = () => {
                 if (response.data.existsWhatsapp === true) {
                     toLocalStorage('phone', value);
                     setInvalid(false);
-                    setUser(value);
+                    setPhone(value);
                     setValue('');
                 } else {
                     setInvalid(true);
@@ -60,7 +63,7 @@ export const Sidebar = () => {
             </div>
             {invalid && <p className={styles.invalid}>номер не найден</p>}
             <div className={styles.sidebarChatList}>
-                {user && <div className={styles.user}>{user}</div>}
+                {phone && <div className={styles.user}>{phone}</div>}
             </div>
         </div>
     );
