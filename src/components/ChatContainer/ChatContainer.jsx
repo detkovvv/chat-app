@@ -3,6 +3,7 @@ import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
+import { time } from '../../helpers/helpers.js';
 
 export const ChatContainer = ({ user }) => {
     const [value, setValue] = useState('');
@@ -25,34 +26,41 @@ export const ChatContainer = ({ user }) => {
                 chatId: `${user}@c.us`,
                 message: `${value}`,
             })
-            .then((response) => {
-                console.log(message);
+            .then(() => {
                 setMessage(value);
-                setChatMessages([...chatMessages, value]);
             });
+        setChatMessages([...chatMessages, value]);
         setValue('');
     };
 
-    //отправка запроса на получение уведомления о новом сообщении и вывод сообщения
-    // setInterval(() => {
-    //     setSender('to me');
-    //     const receiveNotification = async () => {
-    //         await instance.get(getApiLink('receiveNotification')).then((response) => {
-    //             if (response.data != null) {
-    //                 console.log(response.data);
-    //                 setReceiptId(response.data.receiptId);
-    //                 setMessage(response.data.body.messageData.textMessageData.textMessage);
-    //                 setChatMessages([...chatMessages, message]);
-    //             }
-    //         });
-    //     };
-    // }, 3000);
-    //отправка запроса на удаление уведомления
-    // setInterval(() => {
-    //     const deleteNotification = async () => {
-    //         await instance.get(getApiLink('DeleteNotification', receiptId )).then((response) => console.log(response.data));
-    //     };
-    // }, 3001);
+    const getMessage = async () => {
+        setSender('to me');
+        await instance
+            .get(getApiLink('ReceiveNotification'))
+            .then((response) => {
+                if (response.data != null) {
+                    if (response.data.body.senderData.sender === `${user}@c.us`) {
+                        setReceiptId(response.data.receiptId);
+                        setMessage(response.data.body.messageData.textMessageData.textMessage);
+                        setChatMessages([
+                            ...chatMessages,
+                            response.data.body.messageData.textMessageData.textMessage,
+                        ]);
+                    }
+                    instance
+                        .delete(getApiLink('deleteNotification', response.data.receiptId))
+                        .then((response) => console.log(response.data))
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+            })
+            .catch(() => {
+                console.log('нет входящих сообщений');
+            });
+    };
+
+    useEffect(() => {}, [receiptId]);
 
     useEffect(() => {
         chatBox.current.addEventListener('DOMNodeInserted', (event) => {
@@ -69,13 +77,8 @@ export const ChatContainer = ({ user }) => {
                 </div>
             </div>
             <div className={styles.chatDisplayContainer} ref={chatBox}>
-                {chatMessages.map((message) => (
-                    <ChatMessage
-                        message={message}
-                        sender={sender}
-                        key={message.id}
-                        time={message.timestamp}
-                    />
+                {chatMessages.map((message, index) => (
+                    <ChatMessage message={message} sender={sender} key={index} time={time} />
                 ))}
             </div>
             <div className={styles.chatInput}>
@@ -87,7 +90,7 @@ export const ChatContainer = ({ user }) => {
                         value={value}
                         onChange={handleChange}
                     />
-                    <button className={styles.chatInputSendBtn} type='submit'>
+                    <button className={styles.chatInputSendBtn} type='submit' onClick={getMessage}>
                         Отправить
                     </button>
                 </form>

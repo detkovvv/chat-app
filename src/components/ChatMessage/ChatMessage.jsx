@@ -16,7 +16,8 @@ export const ChatMessage = ({ message, sender, time }) => {
                 <p>{message}</p>
             </div>
             <div className={styles.chatMessageDate}>
-                <p>{new Date(time.toDate()).toLocaleString()}</p>
+                {/*{new Date(time.toDate()).toLocaleString()}*/}
+                <p>{message.timeStamp}</p>
             </div>
         </div>
     );
