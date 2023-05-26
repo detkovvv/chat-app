@@ -7,9 +7,6 @@ import { getApiLink } from '../../helpers/getApiLink.js';
 export const ChatContainer = ({ user, chatMessages }) => {
     const [value, setValue] = useState('');
     const [messages, setMessages] = useState(chatMessages);
-    // const [message, setMessage] = useState('');
-    // const [sender, setSender] = useState('');
-    // const [receiptId, setReceiptId] = useState('');
 
     const chatBox = useRef(null);
 
@@ -24,10 +21,17 @@ export const ChatContainer = ({ user, chatMessages }) => {
                 chatId: `${user}@c.us`,
                 message: `${value}`,
             })
-            .then(() => {
-                setMessage(value);
+            .then((response) => {
+                setMessages([
+                    ...messages,
+                    {
+                        type: 'outgoing',
+                        idMessage: response.data.idMessage,
+                        timestamp: 1685016338,
+                        textMessage: `${value}`,
+                    },
+                ]);
             });
-        setMessages([...messages, value]);
         setValue('');
         console.log(messages);
     };
@@ -38,9 +42,16 @@ export const ChatContainer = ({ user, chatMessages }) => {
             .then((response) => {
                 if (response.data != null) {
                     if (response.data.body.senderData.sender === `${user}@c.us`) {
-                        // setReceiptId(response.data.receiptId);
-                        // setMessage(response.data.body.messageData.textMessageData.textMessage);
-                        setMessages([...messages, response.data]);
+                        setMessages([
+                            ...messages,
+                            {
+                                type: 'incoming',
+                                idMessage: response.data.body.idMessage,
+                                timestamp: response.data.body.timestamp,
+                                textMessage:
+                                    response.data.body.messageData.textMessageData.textMessage,
+                            },
+                        ]);
                     }
                     instance
                         .delete(getApiLink('deleteNotification', response.data.receiptId))
@@ -89,10 +100,13 @@ export const ChatContainer = ({ user, chatMessages }) => {
                         value={value}
                         onChange={handleChange}
                     />
-                    <button className={styles.chatInputSendBtn} type='submit' onClick={getMessage}>
+                    <button className={styles.chatInputSendBtn} type='submit'>
                         Отправить
                     </button>
                 </form>
+                <button className={styles.chatInputSendBtn} type='submit' onClick={getMessage}>
+                    Получить
+                </button>
             </div>
         </div>
     );
