@@ -34,7 +34,7 @@
     height: 30px;
     background-color: #fff;
     border: 1px solid lightgrey;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .sidebarForm > input {
@@ -64,13 +64,16 @@
 }
 
 .startChat {
+    background-color: #128c7e;
+    color: white;
     border: none;
     font-weight: bold;
     transition: all 0.2s;
 }
 
 .startChat:hover {
-    border: 1px solid var(--green);
+    background-color: white;
+    color: #128c7e;
 }
 
 .sidebarChatList {

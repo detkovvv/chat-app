@@ -43,17 +43,7 @@
     position: relative;
 }
 
-.chatInputBtn {
-    margin-right: 13px;
-    margin-left: 13px;
-}
-
-.chatInput > form {
-    flex: 1;
-    display: flex;
-}
-
-.chatInput > form > input {
+.chatInput > input {
     height: 35px;
     border-radius: 15px;
     border: none;
@@ -69,4 +59,9 @@
     border-radius: 15px;
     color: white;
     box-sizing: content-box;
+    transition: all 0.2s;
+}
+.chatInputSendBtn:hover{
+    background-color: white;
+    color: #128c7e;
 }

@@ -6,7 +6,7 @@ import { getApiLink } from '../../helpers/getApiLink.js';
 
 export const ChatContainer = ({ user, chatMessages }) => {
     const [value, setValue] = useState('');
-    const [messages, setMessages] = useState(chatMessages);
+    const [messages, setMessages] = useState(chatMessages ? chatMessages : []);
 
     const chatBox = useRef(null);
 
@@ -14,7 +14,7 @@ export const ChatContainer = ({ user, chatMessages }) => {
         setValue(event.target.value);
     };
 
-    const send = async (event) => {
+    const sendMessage = async (event) => {
         event.preventDefault();
         await instance
             .post(getApiLink('sendMessage'), {
@@ -27,7 +27,7 @@ export const ChatContainer = ({ user, chatMessages }) => {
                     {
                         type: 'outgoing',
                         idMessage: response.data.idMessage,
-                        timestamp: 1685016338,
+                        timestamp: Date.now(),
                         textMessage: `${value}`,
                     },
                 ]);
@@ -92,19 +92,16 @@ export const ChatContainer = ({ user, chatMessages }) => {
                 ))}
             </div>
             <div className={styles.chatInput}>
-                <div className={styles.chatInputBtn}></div>
-                <form onSubmit={send}>
-                    <input
-                        type='text'
-                        placeholder='Введите сообщение'
-                        value={value}
-                        onChange={handleChange}
-                    />
-                    <button className={styles.chatInputSendBtn} type='submit'>
-                        Отправить
-                    </button>
-                </form>
-                <button className={styles.chatInputSendBtn} type='submit' onClick={getMessage}>
+                <input
+                    type='text'
+                    placeholder='Введите сообщение'
+                    value={value}
+                    onChange={handleChange}
+                />
+                <button className={styles.chatInputSendBtn} onClick={sendMessage}>
+                    Отправить
+                </button>
+                <button className={styles.chatInputSendBtn} onClick={getMessage}>
                     Получить
                 </button>
             </div>
