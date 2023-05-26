@@ -5,15 +5,30 @@ import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 
 // eslint-disable-next-line react/prop-types
-export const ChatContainer = ({ user, chatMessages }) => {
+export const ChatContainer = ({ user }) => {
     const [value, setValue] = useState('');
-    const [messages, setMessages] = useState(chatMessages ? chatMessages : []);
+    const [messages, setMessages] = useState([]);
 
     const chatBox = useRef(null);
 
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+    useEffect(() => {
+        instance
+            .post(getApiLink('getChatHistory'), {
+                chatId: `${user}@c.us`,
+                count: 10,
+            })
+            .then((response) => {
+                console.log(response.data);
+                setMessages(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        console.log(messages);
+    }, [user]);
 
     const sendMessage = async () => {
         const response = await instance.post(getApiLink('sendMessage'), {
@@ -72,7 +87,6 @@ export const ChatContainer = ({ user, chatMessages }) => {
             <div className={styles.chatDisplayContainer} ref={chatBox}>
                 {messages.map((message) => (
                     <ChatMessage
-                        {...chatMessages}
                         message={message.textMessage}
                         sender={message.type}
                         key={message.idMessage}

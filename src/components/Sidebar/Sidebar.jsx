@@ -4,6 +4,7 @@ import { idInstance } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 
+// eslint-disable-next-line react/prop-types
 export const Sidebar = ({ onChange }) => {
     const [value, setValue] = useState('');
     const [phone, setPhone] = useState('');
