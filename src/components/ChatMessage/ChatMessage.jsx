@@ -7,18 +7,19 @@ export const ChatMessage = ({ message, sender, time }) => {
         <div
             className={styles.chatMessage}
             style={{
-                alignSelf: sender === 'you' ? 'flex-end' : 'flex-start',
+                alignSelf: sender === 'outgoing' ? 'flex-end' : 'flex-start',
 
-                backgroundColor: sender === 'you' ? '#dcf8c6' : '#fff',
+                backgroundColor: sender === 'outgoing' ? '#dcf8c6' : '#fff',
             }}
         >
             <div className={styles.chatMessageText}>
                 <p>{message}</p>
             </div>
             <div className={styles.chatMessageDate}>
-                {/*{new Date(time.toDate()).toLocaleString()}*/}
-                <p>{message.timeStamp}</p>
+                <p>{time}</p>
             </div>
         </div>
     );
 };
+
+// {new Date(time.toDate()).toLocaleString()}

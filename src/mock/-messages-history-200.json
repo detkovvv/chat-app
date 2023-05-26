@@ -1,0 +1,355 @@
+[
+  {
+    "type": "outgoing",
+    "idMessage": "BAE54368048EAA1A",
+    "timestamp": 1685018059,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "asgasgd",
+    "extendedTextMessage": {
+      "text": "asgasgd",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE54F9870E0D429",
+    "timestamp": 1685017889,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "asdg",
+    "extendedTextMessage": {
+      "text": "asdg",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5233890EDE74C",
+    "timestamp": 1685017886,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "asdfsg",
+    "extendedTextMessage": {
+      "text": "asdfsg",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5C528B6EA1103",
+    "timestamp": 1685017248,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "ыфып",
+    "extendedTextMessage": {
+      "text": "ыфып",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5949D13CEDA96",
+    "timestamp": 1685016382,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "aaa",
+    "extendedTextMessage": {
+      "text": "aaa",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE58AF6E098C33E",
+    "timestamp": 1685016338,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "asfsg",
+    "extendedTextMessage": {
+      "text": "asfsg",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "incoming",
+    "idMessage": "3A671C9CE24A4E101390",
+    "timestamp": 1685013182,
+    "typeMessage": "textMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "Аансна",
+    "senderId": "79996349733@c.us",
+    "senderName": "Василий"
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE58079064FEF6B",
+    "timestamp": 1685013025,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "фыав",
+    "extendedTextMessage": {
+      "text": "фыав",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "incoming",
+    "idMessage": "3A062BBD4A3993A96ABF",
+    "timestamp": 1685013022,
+    "typeMessage": "textMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "Лох",
+    "senderId": "79996349733@c.us",
+    "senderName": "Василий"
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5F5F45245D0BE",
+    "timestamp": 1685012710,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "ыфп",
+    "extendedTextMessage": {
+      "text": "ыфп",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE512C99388F0C0",
+    "timestamp": 1685012703,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "фываывфп",
+    "extendedTextMessage": {
+      "text": "фываывфп",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5BB8AD81DF1AA",
+    "timestamp": 1685012511,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "sasags",
+    "extendedTextMessage": {
+      "text": "sasags",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "incoming",
+    "idMessage": "3AF73C3A98D07BA7EFA9",
+    "timestamp": 1685012500,
+    "typeMessage": "textMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "Ашашша",
+    "senderId": "79996349733@c.us",
+    "senderName": "Василий"
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5F6403F4A1D35",
+    "timestamp": 1685012439,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "asdgs",
+    "extendedTextMessage": {
+      "text": "asdgs",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE551FA56A60C97",
+    "timestamp": 1685012426,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "asdgsg",
+    "extendedTextMessage": {
+      "text": "asdgsg",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5B269015BC943",
+    "timestamp": 1685012345,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "asgsadg",
+    "extendedTextMessage": {
+      "text": "asgsadg",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5C71FF4025A7B",
+    "timestamp": 1685012166,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "awgwaga",
+    "extendedTextMessage": {
+      "text": "awgwaga",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE5B83A1864F1EE",
+    "timestamp": 1685012101,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "zsd",
+    "extendedTextMessage": {
+      "text": "zsd",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE59453C512EC64",
+    "timestamp": 1685012076,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "assdgs",
+    "extendedTextMessage": {
+      "text": "assdgs",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  },
+  {
+    "type": "outgoing",
+    "idMessage": "BAE54D9404FD18A2",
+    "timestamp": 1685011954,
+    "typeMessage": "extendedTextMessage",
+    "chatId": "79996349733@c.us",
+    "textMessage": "asdgsg",
+    "extendedTextMessage": {
+      "text": "asdgsg",
+      "description": "",
+      "title": "",
+      "previewType": "None",
+      "jpegThumbnail": "",
+      "forwardingScore": null,
+      "isForwarded": null
+    },
+    "statusMessage": "pending",
+    "sendByApi": true
+  }
+]

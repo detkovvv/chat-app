@@ -3,14 +3,13 @@ import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
-import { time } from '../../helpers/helpers.js';
 
-export const ChatContainer = ({ user }) => {
+export const ChatContainer = ({ user, chatMessages }) => {
     const [value, setValue] = useState('');
-    const [chatMessages, setChatMessages] = useState([]);
-    const [message, setMessage] = useState('');
-    const [sender, setSender] = useState('');
-    const [receiptId, setReceiptId] = useState('');
+    const [messages, setMessages] = useState(chatMessages);
+    // const [message, setMessage] = useState('');
+    // const [sender, setSender] = useState('');
+    // const [receiptId, setReceiptId] = useState('');
 
     const chatBox = useRef(null);
 
@@ -19,7 +18,6 @@ export const ChatContainer = ({ user }) => {
     };
 
     const send = async (event) => {
-        setSender('you');
         event.preventDefault();
         await instance
             .post(getApiLink('sendMessage'), {
@@ -29,23 +27,20 @@ export const ChatContainer = ({ user }) => {
             .then(() => {
                 setMessage(value);
             });
-        setChatMessages([...chatMessages, value]);
+        setMessages([...messages, value]);
         setValue('');
+        console.log(messages);
     };
 
     const getMessage = async () => {
-        setSender('to me');
         await instance
             .get(getApiLink('ReceiveNotification'))
             .then((response) => {
                 if (response.data != null) {
                     if (response.data.body.senderData.sender === `${user}@c.us`) {
-                        setReceiptId(response.data.receiptId);
-                        setMessage(response.data.body.messageData.textMessageData.textMessage);
-                        setChatMessages([
-                            ...chatMessages,
-                            response.data.body.messageData.textMessageData.textMessage,
-                        ]);
+                        // setReceiptId(response.data.receiptId);
+                        // setMessage(response.data.body.messageData.textMessageData.textMessage);
+                        setMessages([...messages, response.data]);
                     }
                     instance
                         .delete(getApiLink('deleteNotification', response.data.receiptId))
@@ -60,14 +55,12 @@ export const ChatContainer = ({ user }) => {
             });
     };
 
-    useEffect(() => {}, [receiptId]);
-
     useEffect(() => {
         chatBox.current.addEventListener('DOMNodeInserted', (event) => {
             const { currentTarget: target } = event;
             target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
         });
-    }, [chatMessages]);
+    }, [messages]);
 
     return (
         <div className={styles.chatContainer} user={user}>
@@ -77,8 +70,14 @@ export const ChatContainer = ({ user }) => {
                 </div>
             </div>
             <div className={styles.chatDisplayContainer} ref={chatBox}>
-                {chatMessages.map((message, index) => (
-                    <ChatMessage message={message} sender={sender} key={index} time={time} />
+                {messages.map((message) => (
+                    <ChatMessage
+                        {...chatMessages}
+                        message={message.textMessage}
+                        sender={message.type}
+                        key={message.idMessage}
+                        time={message.timestamp}
+                    />
                 ))}
             </div>
             <div className={styles.chatInput}>

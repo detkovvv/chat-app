@@ -18,9 +18,8 @@ export const Sidebar = ({ onChange }) => {
 
     const startChat = async (event) => {
         event.preventDefault();
-
         instance
-            .post(getApiLink('CheckWhatsapp'), {
+            .post(getApiLink('checkWhatsapp'), {
                 phoneNumber: `${value}`,
             })
             .then((response) => {
