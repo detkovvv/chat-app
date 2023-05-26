@@ -34,26 +34,24 @@ export const ChatContainer = ({ user, chatMessages }) => {
     };
 
     const getMessage = async () => {
-        const response = await instance.get(getApiLink('ReceiveNotification')).catch(() => {
+        const { data } = await instance.get(getApiLink('ReceiveNotification')).catch(() => {
             console.log('нет входящих сообщений');
         });
-        if (response.data != null) {
-            if (response.data.body.senderData.sender === `${user}@c.us`) {
+        if (data != null) {
+            if (data.body.senderData.sender === `${user}@c.us`) {
                 setMessages([
                     ...messages,
                     {
                         type: 'incoming',
-                        idMessage: response.data.body.idMessage,
-                        timestamp: response.data.body.timestamp,
-                        textMessage: response.data.body.messageData.textMessageData.textMessage,
+                        idMessage: data.body.idMessage,
+                        timestamp: data.body.timestamp,
+                        textMessage: data.body.messageData.textMessageData.textMessage,
                     },
                 ]);
             }
-            instance
-                .delete(getApiLink('deleteNotification', response.data.receiptId))
-                .catch((error) => {
-                    console.log(error);
-                });
+            instance.delete(getApiLink('deleteNotification', data.receiptId)).catch((error) => {
+                console.log(error);
+            });
         }
     };
 
