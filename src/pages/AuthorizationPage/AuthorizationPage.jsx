@@ -5,7 +5,7 @@ import { toLocalStorage } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 
-export const AuthorizationPage = ({ ...props }) => {
+export const AuthorizationPage = ({ setIsLoggedIn }) => {
     const navigate = useNavigate();
     const [idInstance, setIdInstance] = useState('');
     const [apiTokenInstance, setApiTokenInstance] = useState('');
@@ -16,8 +16,9 @@ export const AuthorizationPage = ({ ...props }) => {
         try {
             const { data } = await instance.get(getApiLink('getStateInstance'));
             if (data.stateInstance === 'authorized') {
+                setIsLoggedIn(true);
                 setInvalid(false);
-                navigate('chat', { replace: true });
+                navigate('/', { replace: true });
                 toLocalStorage('idInstance', idInstance);
                 toLocalStorage('apiTokenInstance', apiTokenInstance);
             } else {
@@ -31,7 +32,7 @@ export const AuthorizationPage = ({ ...props }) => {
     };
 
     return (
-        <div className={styles.wrapper} {...props}>
+        <div className={styles.wrapper}>
             <div className={styles.container}>
                 <h1>Авторизация</h1>
                 <form className={styles.form} onSubmit={handleSubmit}>
