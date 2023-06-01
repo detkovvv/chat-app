@@ -21,6 +21,13 @@ export const ChatContainer = ({ user }) => {
         }
     };
 
+    const source = new EventSource(
+        'https://api.green-api.com/waInstance1101824700/ReceiveNotification/64e545ac9eb647248b2e5210f305be41fb43d047e42c4d40ad',
+    );
+    source.addEventListener('bye', function (e) {
+        console.log(e.data);
+    });
+
     useEffect(() => {
         instance
             .post(getApiLink('getChatHistory', idInstance, apiTokenInstance), {
