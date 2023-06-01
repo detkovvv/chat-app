@@ -14,9 +14,10 @@ export const AuthorizationPage = ({ setIsLoggedIn }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { data } = await instance.get(getApiLink('getStateInstance'));
+            const { data } = await instance.get(
+                getApiLink('getStateInstance', idInstance, apiTokenInstance),
+            );
             if (data.stateInstance === 'authorized') {
-                setIsLoggedIn(true);
                 setInvalid(false);
                 navigate('/', { replace: true });
                 toLocalStorage('idInstance', idInstance);
@@ -29,6 +30,7 @@ export const AuthorizationPage = ({ setIsLoggedIn }) => {
                 setInvalid(true);
             }
         }
+        setIsLoggedIn(true);
     };
 
     return (

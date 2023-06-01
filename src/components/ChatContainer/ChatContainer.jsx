@@ -3,6 +3,7 @@ import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
+import { apiTokenInstance, idInstance } from '../../helpers/helpers.js';
 
 // eslint-disable-next-line react/prop-types
 export const ChatContainer = ({ user }) => {
@@ -14,9 +15,15 @@ export const ChatContainer = ({ user }) => {
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+    const handleKey = (event) => {
+        if (event.code === 'Enter') {
+            sendMessage();
+        }
+    };
+
     useEffect(() => {
         instance
-            .post(getApiLink('getChatHistory'), {
+            .post(getApiLink('getChatHistory', idInstance, apiTokenInstance), {
                 chatId: `${user}@c.us`,
                 count: 10,
             })
@@ -31,10 +38,13 @@ export const ChatContainer = ({ user }) => {
     }, [user]);
 
     const sendMessage = async () => {
-        const response = await instance.post(getApiLink('sendMessage'), {
-            chatId: `${user}@c.us`,
-            message: `${value}`,
-        });
+        const response = await instance.post(
+            getApiLink('sendMessage', idInstance, apiTokenInstance),
+            {
+                chatId: `${user}@c.us`,
+                message: `${value}`,
+            },
+        );
         setMessages([
             ...messages,
             {
@@ -49,9 +59,11 @@ export const ChatContainer = ({ user }) => {
     };
 
     const getMessage = async () => {
-        const { data } = await instance.get(getApiLink('ReceiveNotification')).catch(() => {
-            console.log('нет входящих сообщений');
-        });
+        const { data } = await instance
+            .get(getApiLink('ReceiveNotification', idInstance, apiTokenInstance))
+            .catch(() => {
+                console.log('нет входящих сообщений');
+            });
         if (data != null) {
             if (data.body.senderData.sender === `${user}@c.us`) {
                 setMessages([
@@ -64,9 +76,13 @@ export const ChatContainer = ({ user }) => {
                     },
                 ]);
             }
-            instance.delete(getApiLink('deleteNotification', data.receiptId)).catch((error) => {
-                console.log(error);
-            });
+            instance
+                .delete(
+                    getApiLink('deleteNotification', idInstance, apiTokenInstance, data.receiptId),
+                )
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     };
 
@@ -100,6 +116,7 @@ export const ChatContainer = ({ user }) => {
                     placeholder='Введите сообщение'
                     value={value}
                     onChange={handleChange}
+                    onKeyDown={handleKey}
                 />
                 <button className={styles.chatInputSendBtn} onClick={sendMessage}>
                     Отправить

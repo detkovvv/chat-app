@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Sidebar.module.css';
-import { idInstance } from '../../helpers/helpers.js';
+import { apiTokenInstance, idInstance } from '../../helpers/helpers.js';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 
@@ -17,10 +17,10 @@ export const Sidebar = ({ onChange }) => {
         onChange(phone);
     }, [phone]);
 
-    const startChat = async (event) => {
+    const searchContact = async (event) => {
         event.preventDefault();
         instance
-            .post(getApiLink('checkWhatsapp'), {
+            .post(getApiLink('checkWhatsapp', idInstance, apiTokenInstance), {
                 phoneNumber: `${value}`,
             })
             .then((response) => {
@@ -44,7 +44,7 @@ export const Sidebar = ({ onChange }) => {
         <div className={styles.sidebar}>
             <div className={styles.sidebarHeader}>id пользователя: {idInstance}</div>
             <div className={styles.sidebarSearch}>
-                <form className={styles.sidebarForm} onSubmit={startChat}>
+                <form className={styles.sidebarForm} onSubmit={searchContact}>
                     <input
                         type='phone'
                         name='user'
