@@ -4,6 +4,7 @@ import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
 import { instance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 import { apiTokenInstance, idInstance } from '../../helpers/helpers.js';
+import { useGetMessage } from '../../hooks/useGetMessage.js';
 
 // eslint-disable-next-line react/prop-types
 export const ChatContainer = ({ user }) => {
@@ -15,18 +16,11 @@ export const ChatContainer = ({ user }) => {
     const handleChange = (event) => {
         setValue(event.target.value);
     };
-    const handleKey = (event) => {
+    const handleKey = async (event) => {
         if (event.code === 'Enter') {
-            sendMessage();
+            await sendMessage();
         }
     };
-
-    const source = new EventSource(
-        'https://api.green-api.com/waInstance1101824700/ReceiveNotification/64e545ac9eb647248b2e5210f305be41fb43d047e42c4d40ad',
-    );
-    source.addEventListener('bye', function (e) {
-        console.log(e.data);
-    });
 
     useEffect(() => {
         instance
@@ -43,6 +37,8 @@ export const ChatContainer = ({ user }) => {
             });
         console.log(messages);
     }, [user]);
+
+    useGetMessage(user, setMessages, messages);
 
     const sendMessage = async () => {
         const response = await instance.post(
@@ -65,34 +61,6 @@ export const ChatContainer = ({ user }) => {
         console.log(messages);
     };
 
-    const getMessage = async () => {
-        const { data } = await instance
-            .get(getApiLink('ReceiveNotification', idInstance, apiTokenInstance))
-            .catch(() => {
-                console.log('нет входящих сообщений');
-            });
-        if (data != null) {
-            if (data.body.senderData.sender === `${user}@c.us`) {
-                setMessages([
-                    ...messages,
-                    {
-                        type: 'incoming',
-                        idMessage: data.body.idMessage,
-                        timestamp: data.body.timestamp,
-                        textMessage: data.body.messageData.textMessageData.textMessage,
-                    },
-                ]);
-            }
-            instance
-                .delete(
-                    getApiLink('deleteNotification', idInstance, apiTokenInstance, data.receiptId),
-                )
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    };
-
     useEffect(() => {
         chatBox.current.addEventListener('DOMNodeInserted', (event) => {
             const { currentTarget: target } = event;
@@ -101,7 +69,7 @@ export const ChatContainer = ({ user }) => {
     }, [messages]);
 
     return (
-        <div className={styles.chatContainer} user={user}>
+        <div className={styles.chatContainer}>
             <div className={styles.chatContainerHeader}>
                 <div className={styles.chatUserInfo}>
                     <p>Получатель: {user}</p>
@@ -127,9 +95,6 @@ export const ChatContainer = ({ user }) => {
                 />
                 <button className={styles.chatInputSendBtn} onClick={sendMessage}>
                     Отправить
-                </button>
-                <button className={styles.chatInputSendBtn} onClick={getMessage}>
-                    Получить
                 </button>
             </div>
         </div>
