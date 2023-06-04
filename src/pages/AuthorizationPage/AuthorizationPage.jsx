@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AuthorizationPage.module.css';
-import { toLocalStorage } from '../../helpers/helpers.js';
-import { instance } from '../../helpers/axios/index.js';
-import { getApiLink } from '../../helpers/getApiLink.js';
+import { toLocalStorage } from '../../helpers/helpers';
+import { instance } from '../../helpers/axios/index';
+import { getApiLink } from '../../helpers/getApiLink';
 
 export const AuthorizationPage = ({ setIsLoggedIn }) => {
     const navigate = useNavigate();

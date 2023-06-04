@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Sidebar.module.css';
-import { apiTokenInstance, idInstance } from '../../helpers/helpers.js';
-import { instance } from '../../helpers/axios/index.js';
-import { getApiLink } from '../../helpers/getApiLink.js';
+import { apiTokenInstance, idInstance } from '../../helpers/helpers';
+import { instance } from '../../helpers/axios';
+import { getApiLink } from '../../helpers/getApiLink';
 
-// eslint-disable-next-line react/prop-types
+import styles from './Sidebar.module.css';
+
 export const Sidebar = ({ onChange }) => {
     const [value, setValue] = useState('');
     const [phone, setPhone] = useState('');

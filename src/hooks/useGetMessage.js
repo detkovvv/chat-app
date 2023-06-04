@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from 'react';
-import { instance } from '../helpers/axios/index.js';
-import { getApiLink } from '../helpers/getApiLink.js';
-import { apiTokenInstance, idInstance } from '../helpers/helpers.js';
+import { instance } from '../helpers/axios/index';
+import { getApiLink } from '../helpers/getApiLink';
+import { apiTokenInstance, idInstance } from '../helpers/helpers';
 
 export const useGetMessage = (user, setMessages, messages) => {
-    const getMessage = useCallback(async () => {
-        await instance
+    const getMessage = useCallback(() => {
+        instance
             .get(getApiLink('ReceiveNotification', idInstance, apiTokenInstance))
             .then(({ data }) => {
                 if (data) {
@@ -31,9 +31,10 @@ export const useGetMessage = (user, setMessages, messages) => {
                 }
             });
     }, [setMessages, apiTokenInstance, idInstance]);
+
     useEffect(() => {
-        const timerId = setInterval(async () => {
-            await getMessage();
+        const timerId = setInterval(() => {
+            getMessage();
         }, 1000);
         return () => clearInterval(timerId);
     }, [getMessage]);

@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './ChatContainer.module.css';
-import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
-import { instance } from '../../helpers/axios/index.js';
-import { getApiLink } from '../../helpers/getApiLink.js';
-import { apiTokenInstance, idInstance } from '../../helpers/helpers.js';
-import { useGetMessage } from '../../hooks/useGetMessage.js';
+import { ChatMessage } from '../ChatMessage/ChatMessage';
+import { instance } from '../../helpers/axios/index';
+import { getApiLink } from '../../helpers/getApiLink';
+import { apiTokenInstance, idInstance } from '../../helpers/helpers';
+import { useGetMessage } from '../../hooks/useGetMessage';
 
-// eslint-disable-next-line react/prop-types
 export const ChatContainer = ({ user }) => {
     const [value, setValue] = useState('');
     const [messages, setMessages] = useState([]);
