@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from 'react';
-import { instance } from '../helpers/axios/index.js';
+import { axiosInstance } from '../helpers/axios/index.js';
 import { getApiLink } from '../helpers/getApiLink.js';
-import { apiTokenInstance, idInstance } from '../helpers/helpers.js';
+import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage.js';
 
 export const useGetMessage = (user, setMessages, messages) => {
     const getMessage = useCallback(async () => {
-        await instance
-            .get(getApiLink('ReceiveNotification', idInstance, apiTokenInstance))
+        await axiosInstance
+            .get(getApiLink('ReceiveNotification', idLocalStorage, apiLocalStorage))
             .then(({ data }) => {
                 if (data) {
                     if (data.body.senderData.sender === `${user}@c.us`) {
@@ -25,12 +25,17 @@ export const useGetMessage = (user, setMessages, messages) => {
             })
             .then((receiptId) => {
                 if (receiptId) {
-                    instance.delete(
-                        getApiLink('deleteNotification', idInstance, apiTokenInstance, receiptId),
+                    axiosInstance.delete(
+                        getApiLink(
+                            'deleteNotification',
+                            idLocalStorage,
+                            apiLocalStorage,
+                            receiptId,
+                        ),
                     );
                 }
             });
-    }, [setMessages, apiTokenInstance, idInstance]);
+    }, [setMessages, apiLocalStorage, idLocalStorage]);
     useEffect(() => {
         const timerId = setInterval(async () => {
             await getMessage();

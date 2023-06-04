@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage.jsx';
-import { instance } from '../../helpers/axios/index.js';
+import { axiosInstance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
-import { apiTokenInstance, idInstance } from '../../helpers/helpers.js';
+import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage.js';
 import { useGetMessage } from '../../hooks/useGetMessage.js';
 
 // eslint-disable-next-line react/prop-types
@@ -16,15 +16,15 @@ export const ChatContainer = ({ user }) => {
     const handleChange = (event) => {
         setValue(event.target.value);
     };
-    const handleKey = async (event) => {
+    const handleKey = (event) => {
         if (event.code === 'Enter') {
-            await sendMessage();
+            sendMessage();
         }
     };
 
     useEffect(() => {
-        instance
-            .post(getApiLink('getChatHistory', idInstance, apiTokenInstance), {
+        axiosInstance
+            .post(getApiLink('getChatHistory', idLocalStorage, apiLocalStorage), {
                 chatId: `${user}@c.us`,
                 count: 10,
             })
@@ -35,14 +35,13 @@ export const ChatContainer = ({ user }) => {
             .catch((error) => {
                 console.log(error);
             });
-        console.log(messages);
     }, [user]);
 
     useGetMessage(user, setMessages, messages);
 
     const sendMessage = async () => {
-        const response = await instance.post(
-            getApiLink('sendMessage', idInstance, apiTokenInstance),
+        const response = await axiosInstance.post(
+            getApiLink('sendMessage', idLocalStorage, apiLocalStorage),
             {
                 chatId: `${user}@c.us`,
                 message: `${value}`,
@@ -58,7 +57,6 @@ export const ChatContainer = ({ user }) => {
             },
         ]);
         setValue('');
-        console.log(messages);
     };
 
     useEffect(() => {

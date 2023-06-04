@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Sidebar.module.css';
-import { apiTokenInstance, idInstance } from '../../helpers/helpers.js';
-import { instance } from '../../helpers/axios/index.js';
+import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage.js';
+import { axiosInstance } from '../../helpers/axios/index.js';
 import { getApiLink } from '../../helpers/getApiLink.js';
 
 // eslint-disable-next-line react/prop-types
@@ -19,8 +19,8 @@ export const Sidebar = ({ onChange }) => {
 
     const searchContact = async (event) => {
         event.preventDefault();
-        instance
-            .post(getApiLink('checkWhatsapp', idInstance, apiTokenInstance), {
+        axiosInstance
+            .post(getApiLink('checkWhatsapp', idLocalStorage, apiLocalStorage), {
                 phoneNumber: `${value}`,
             })
             .then((response) => {
@@ -42,7 +42,7 @@ export const Sidebar = ({ onChange }) => {
 
     return (
         <div className={styles.sidebar}>
-            <div className={styles.sidebarHeader}>id пользователя: {idInstance}</div>
+            <div className={styles.sidebarHeader}>id пользователя: {idLocalStorage}</div>
             <div className={styles.sidebarSearch}>
                 <form className={styles.sidebarForm} onSubmit={searchContact}>
                     <input
