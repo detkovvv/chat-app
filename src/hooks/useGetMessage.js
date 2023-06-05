@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from 'react';
-import { axiosInstance } from '../helpers/axios/index.js';
-import { getApiLink } from '../helpers/getApiLink.js';
-import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage.js';
+
+import { axiosInstance } from '../helpers/axios/index';
+import { getApiLink } from '../helpers/getApiLink';
+import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
 
 export const useGetMessage = (user, setMessages, messages) => {
     const getMessage = useCallback(async () => {
@@ -37,8 +38,8 @@ export const useGetMessage = (user, setMessages, messages) => {
             });
     }, [setMessages, apiLocalStorage, idLocalStorage]);
     useEffect(() => {
-        const timerId = setInterval(async () => {
-            await getMessage();
+        const timerId = setInterval(() => {
+            getMessage();
         }, 1000);
         return () => clearInterval(timerId);
     }, [getMessage]);

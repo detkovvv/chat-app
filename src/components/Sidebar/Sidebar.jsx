@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Sidebar.module.css';
-import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage.js';
-import { axiosInstance } from '../../helpers/axios/index.js';
-import { getApiLink } from '../../helpers/getApiLink.js';
+import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
+import { axiosInstance } from '../../helpers/axios/index';
+import { getApiLink } from '../../helpers/getApiLink';
 
-// eslint-disable-next-line react/prop-types
+
 export const Sidebar = ({ onChange }) => {
     const [value, setValue] = useState('');
     const [phone, setPhone] = useState('');
