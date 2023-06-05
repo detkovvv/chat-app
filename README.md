@@ -6,7 +6,7 @@
 Демо доступно по адресу https://detkovvv.github.io/chat-app/.
 
 <h2 align="center">Инструкция для входа в приложение</h2>
-Для входа в приложение потребуется <b>IdInstance</b> и <b>ApiTokenInstance</b> - их можно получить <a href="https://green-api.com/" target="_blank">"https://green-api.com/"</a>.<br/>
-Ваш аккаунт должен быть авторизован, всю инструкцию можно посмотреть на сайте <a href="https://green-api.com/" target="_blank">"https://green-api.com/"</a>.
+Для входа в приложение потребуется <b>IdInstance</b> и <b>ApiTokenInstance</b> - их можно получить <a href="https://green-api.com/" target="_blank">"https://green-api.com/"</a><br/>
+Ваш аккаунт должен быть авторизован, всю инструкцию можно посмотреть на сайте <a href="https://green-api.com/" target="_blank">"https://green-api.com/"</a>
 
 В личном кабинете нужно обязательно поставить галочки в Уведомлении <b>"Получать уведомления о входящих сообщениях и файлах"</b>, <b>"Получать уведомления о сообщениях, отправленных с телефона"</b>.

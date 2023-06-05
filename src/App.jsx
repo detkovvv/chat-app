@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage.jsx';
-import { ChatPage } from './pages/ChatPage/ChatPage.jsx';
+import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage';
+import { ChatPage } from './pages/ChatPage/ChatPage';
 import './global.css';
-import { UnknownPage } from './pages/UnknownPage/UnknownPage.jsx';
+import { UnknownPage } from './pages/UnknownPage/UnknownPage';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallBack } from './components/ErrorFallBack/ErrorFallBack.jsx';
+import { ErrorFallBack } from './components/ErrorFallBack/ErrorFallBack';
+import { useAuthorization } from './hooks/useAithorization';
 
 const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { isLoggedIn, setIsLoggedIn } = useAuthorization();
     const [state, setState] = useState('');
 
     return (
@@ -24,10 +25,7 @@ const App = () => {
                             />
                         }
                     ></Route>
-                    <Route
-                        path='/'
-                        element={<ChatPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
-                    ></Route>
+                    <Route path='/' element={<ChatPage isLoggedIn={isLoggedIn} />}></Route>
                     <Route path='/chat/:phoneNumber' element={<ChatPage />} />
                     <Route path='*' element={<UnknownPage />} />
                 </Routes>

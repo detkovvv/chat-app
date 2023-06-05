@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './ChatPage.module.css';
-import { Sidebar } from '../../components/Sidebar/Sidebar.jsx';
-import { ChatContainer } from '../../components/ChatContainer/ChatContainer.jsx';
+import { Sidebar } from '../../components/Sidebar/Sidebar';
+import { ChatContainer } from '../../components/ChatContainer/ChatContainer';
 import { Navigate } from 'react-router-dom';
 
 export const ChatPage = ({ isLoggedIn }) => {

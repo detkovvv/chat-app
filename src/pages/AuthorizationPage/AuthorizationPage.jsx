@@ -1,38 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styles from './AuthorizationPage.module.css';
-import { toLocalStorage } from '../../helpers/localStorage';
-import { axiosInstance } from '../../helpers/axios/index';
-import { getApiLink } from '../../helpers/getApiLink';
+import { useAuthorization } from '../../hooks/useAithorization';
 
-
-export const AuthorizationPage = ({ setIsLoggedIn }) => {
-    const navigate = useNavigate();
-    const [idInstance, setIdInstance] = useState('');
-    const [apiTokenInstance, setApiTokenInstance] = useState('');
-    const [invalid, setInvalid] = useState(false);
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const { data } = await axiosInstance.get(
-                getApiLink('getStateInstance', idInstance, apiTokenInstance),
-            );
-            if (data.stateInstance === 'authorized') {
-                setInvalid(false);
-                navigate('/', { replace: true });
-                toLocalStorage('idInstance', idInstance);
-                toLocalStorage('apiTokenInstance', apiTokenInstance);
-            } else {
-                setInvalid(true);
-            }
-        } catch (e) {
-            if (e instanceof Error) {
-                setInvalid(true);
-            }
-        }
-        setIsLoggedIn(true);
-    };
+export const AuthorizationPage = () => {
+    const { form, handleSubmit, invalid, handleChange, idInstance, apiTokenInstance } =
+        useAuthorization();
 
     return (
         <div className={styles.wrapper}>
@@ -43,14 +15,14 @@ export const AuthorizationPage = ({ setIsLoggedIn }) => {
                         name='idInstance'
                         placeholder='idInstance'
                         required
-                        onChange={(e) => setIdInstance(e.target.value)}
+                        onChange={handleChange}
                         value={idInstance}
                     />
                     <input
                         name='apiTokenInstance'
                         placeholder='apiTokenInstance'
                         required
-                        onChange={(e) => setApiTokenInstance(e.target.value)}
+                        onChange={handleChange}
                         value={apiTokenInstance}
                     />
                     <button type='submit'>Войти</button>
