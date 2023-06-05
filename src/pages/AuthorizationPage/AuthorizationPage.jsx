@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AuthorizationPage.module.css';
-import { toLocalStorage } from '../../helpers/helpers';
-import { instance } from '../../helpers/axios/index';
+import { toLocalStorage } from '../../helpers/localStorage';
+import { axiosInstance } from '../../helpers/axios/index';
 import { getApiLink } from '../../helpers/getApiLink';
+
 
 export const AuthorizationPage = ({ setIsLoggedIn }) => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ export const AuthorizationPage = ({ setIsLoggedIn }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { data } = await instance.get(
+            const { data } = await axiosInstance.get(
                 getApiLink('getStateInstance', idInstance, apiTokenInstance),
             );
             if (data.stateInstance === 'authorized') {

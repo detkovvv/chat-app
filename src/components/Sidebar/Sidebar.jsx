@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { apiTokenInstance, idInstance } from '../../helpers/helpers';
-import { instance } from '../../helpers/axios';
+import styles from './Sidebar.module.css';
+import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
+import { axiosInstance } from '../../helpers/axios/index';
 import { getApiLink } from '../../helpers/getApiLink';
 
-import styles from './Sidebar.module.css';
 
 export const Sidebar = ({ onChange }) => {
     const [value, setValue] = useState('');
@@ -19,8 +19,8 @@ export const Sidebar = ({ onChange }) => {
 
     const searchContact = async (event) => {
         event.preventDefault();
-        instance
-            .post(getApiLink('checkWhatsapp', idInstance, apiTokenInstance), {
+        axiosInstance
+            .post(getApiLink('checkWhatsapp', idLocalStorage, apiLocalStorage), {
                 phoneNumber: `${value}`,
             })
             .then((response) => {
@@ -42,7 +42,7 @@ export const Sidebar = ({ onChange }) => {
 
     return (
         <div className={styles.sidebar}>
-            <div className={styles.sidebarHeader}>id пользователя: {idInstance}</div>
+            <div className={styles.sidebarHeader}>id пользователя: {idLocalStorage}</div>
             <div className={styles.sidebarSearch}>
                 <form className={styles.sidebarForm} onSubmit={searchContact}>
                     <input
