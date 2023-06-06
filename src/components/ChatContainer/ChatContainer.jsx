@@ -28,12 +28,9 @@ export const ChatContainer = ({ user }) => {
                 count: 10,
             })
             .then((response) => {
-                console.log(response.data);
-                setMessages(response.data);
+                setMessages(response.data.reverse());
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch((error) => console.log(error));
     }, [user]);
 
     useGetMessage(user, setMessages, messages);

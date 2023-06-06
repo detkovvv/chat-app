@@ -5,8 +5,11 @@ import { getApiLink } from '../helpers/getApiLink';
 import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
 
 export const useGetMessage = (user, setMessages, messages) => {
-    const getMessage = useCallback(async () => {
-        await axiosInstance
+    console.log('idLocalStorage', idLocalStorage)
+    console.log('apiLocalStorage', apiLocalStorage)
+
+    const getMessage = useCallback(() => {
+        axiosInstance
             .get(getApiLink('ReceiveNotification', idLocalStorage, apiLocalStorage))
             .then(({ data }) => {
                 if (data) {
@@ -37,10 +40,11 @@ export const useGetMessage = (user, setMessages, messages) => {
                 }
             });
     }, [setMessages, apiLocalStorage, idLocalStorage]);
+
     useEffect(() => {
         const timerId = setInterval(() => {
             getMessage();
-        }, 1000);
+        }, 100_000);
         return () => clearInterval(timerId);
     }, [getMessage]);
 };
