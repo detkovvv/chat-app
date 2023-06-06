@@ -3,12 +3,16 @@ import styles from './Sidebar.module.css';
 import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
 import { axiosInstance } from '../../helpers/axios/index';
 import { getApiLink } from '../../helpers/getApiLink';
-
+import { ChatMessage } from '../ChatMessage/ChatMessage';
+import { Contact } from '../Contact/Contact';
 
 export const Sidebar = ({ onChange }) => {
     const [value, setValue] = useState('');
     const [phone, setPhone] = useState('');
     const [invalid, setInvalid] = useState(false);
+    const [contacts, setContacts] = useState([]);
+
+    // поиск по contacts, по enter
 
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -16,6 +20,15 @@ export const Sidebar = ({ onChange }) => {
     useEffect(() => {
         onChange(phone);
     }, [phone]);
+
+    useEffect(() => {
+        axiosInstance
+            .post(getApiLink('getContacts', idLocalStorage, apiLocalStorage))
+            .then((response) => {
+                setContacts(response.data);
+            })
+            .catch((error) => console.log(error));
+    }, []);
 
     const searchContact = async (event) => {
         event.preventDefault();
@@ -62,7 +75,9 @@ export const Sidebar = ({ onChange }) => {
             </div>
             {invalid && <p className={styles.invalid}>номер не найден</p>}
             <div className={styles.sidebarChatList}>
-                {phone && <div className={styles.user}>{phone}</div>}
+                {contacts.map((contact) => (
+                    <Contact name={contact.name} id={contact.id} key={contact.id} />
+                ))}
             </div>
         </div>
     );
