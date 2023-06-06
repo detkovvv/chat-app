@@ -2,21 +2,20 @@ import { axiosInstance } from '../helpers/axios';
 import { getApiLink } from '../helpers/getApiLink';
 import { toLocalStorage } from '../helpers/localStorage';
 import { useNavigate } from 'react-router-dom';
+import { useInputValue } from './useInput';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 
 export const useAuthorization = () => {
     // const navigate = useNavigate();
 
+    const [idInstance, setIdInstance] = useInputValue();
+    const [apiTokenInstance, setApiTokenInstance] = useInputValue();
+
     const [invalid, setInvalid] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const form = useForm({
-        initialValue: { idInstance: '', apiTokenInstance: '' },
-    });
 
     const handleSubmit = async (event, value) => {
         event.preventDefault();
-        const { idInstance, apiTokenInstance } = value;
 
         try {
             const { data } = await axiosInstance.get(
@@ -37,5 +36,5 @@ export const useAuthorization = () => {
         }
         setIsLoggedIn(true);
     };
-    return [isLoggedIn, invalid, handleSubmit];
+    return { isLoggedIn, invalid, handleSubmit, setIdInstance, setApiTokenInstance };
 };

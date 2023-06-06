@@ -3,8 +3,14 @@ import styles from './AuthorizationPage.module.css';
 import { useAuthorization } from '../../hooks/useAithorization';
 
 export const AuthorizationPage = () => {
-    const { form, handleSubmit, invalid, handleChange, idInstance, apiTokenInstance } =
-        useAuthorization();
+    const {
+        handleSubmit,
+        invalid,
+        idInstance,
+        apiTokenInstance,
+        setIdInstance,
+        setApiTokenInstance,
+    } = useAuthorization();
 
     return (
         <div className={styles.wrapper}>
@@ -15,14 +21,14 @@ export const AuthorizationPage = () => {
                         name='idInstance'
                         placeholder='idInstance'
                         required
-                        onChange={handleChange}
+                        onChange={setIdInstance}
                         value={idInstance}
                     />
                     <input
                         name='apiTokenInstance'
                         placeholder='apiTokenInstance'
                         required
-                        onChange={handleChange}
+                        onChange={setApiTokenInstance}
                         value={apiTokenInstance}
                     />
                     <button type='submit'>Войти</button>

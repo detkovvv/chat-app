@@ -15,7 +15,7 @@ export const ChatContainer = ({ user }) => {
     const handleChange = (event) => {
         setValue(event.target.value);
     };
-    const handleKey = (event) => {
+    const handlePressKey = (event) => {
         if (event.code === 'Enter') {
             sendMessage();
         }
@@ -85,7 +85,7 @@ export const ChatContainer = ({ user }) => {
                     placeholder='Введите сообщение'
                     value={value}
                     onChange={handleChange}
-                    onKeyDown={handleKey}
+                    onKeyDown={handlePressKey}
                 />
                 <button className={styles.chatInputSendBtn} onClick={sendMessage}>
                     Отправить
