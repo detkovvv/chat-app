@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './Sidebar.module.css';
 import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
 import { axiosInstance } from '../../helpers/axios/index';
@@ -12,6 +12,11 @@ export const Sidebar = ({ onChange }) => {
     const [invalid, setInvalid] = useState(false);
     const [contacts, setContacts] = useState([]);
 
+    const currentContacts = useMemo(() => {
+        if (contacts.length === 0) return [];
+        return contacts.filter((item) => item.name.include(value));
+    }, [contacts, value]);
+    console.log(currentContacts);
     // поиск по contacts, по enter
 
     const handleChange = (event) => {
@@ -75,7 +80,7 @@ export const Sidebar = ({ onChange }) => {
             </div>
             {invalid && <p className={styles.invalid}>номер не найден</p>}
             <div className={styles.sidebarChatList}>
-                {contacts.map((contact) => (
+                {currentContacts.map((contact) => (
                     <Contact name={contact.name} id={contact.id} key={contact.id} />
                 ))}
             </div>

@@ -6,7 +6,7 @@ import { useInputValue } from './useInput';
 import { useState } from 'react';
 
 export const useAuthorization = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [idInstance, setIdInstance] = useInputValue();
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
@@ -23,9 +23,9 @@ export const useAuthorization = () => {
             );
             if (data.stateInstance === 'authorized') {
                 setInvalid(false);
-                // navigate('/');
                 toLocalStorage('idInstance', idInstance);
                 toLocalStorage('apiTokenInstance', apiTokenInstance);
+                navigate('/');
             } else {
                 setInvalid(true);
             }
