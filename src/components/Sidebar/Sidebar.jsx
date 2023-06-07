@@ -3,28 +3,21 @@ import styles from './Sidebar.module.css';
 import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
 import { axiosInstance } from '../../helpers/axios/index';
 import { getApiLink } from '../../helpers/getApiLink';
-import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { Contact } from '../Contact/Contact';
+import { useInputValue } from '../../hooks/useInput';
 
-export const Sidebar = ({ onChange }) => {
-    const [value, setValue] = useState('');
+export const Sidebar = () => {
+    const [value, setValue] = useInputValue('');
     const [phone, setPhone] = useState('');
     const [invalid, setInvalid] = useState(false);
     const [contacts, setContacts] = useState([]);
 
     const currentContacts = useMemo(() => {
         if (contacts.length === 0) return [];
-        return contacts.filter((item) => item.name.include(value));
+        return contacts.filter((item) => item.name.toUpperCase().includes(value.toUpperCase()));
     }, [contacts, value]);
-    console.log(currentContacts);
-    // поиск по contacts, по enter
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
-    useEffect(() => {
-        onChange(phone);
-    }, [phone]);
+    // поиск по contacts, по enter
 
     useEffect(() => {
         axiosInstance
@@ -45,6 +38,9 @@ export const Sidebar = ({ onChange }) => {
                 if (response.data.existsWhatsapp === true) {
                     setInvalid(false);
                     setPhone(value);
+                    if (!contacts.toUpperCase().includes(value.toUpperCase())) {
+                        setContacts([...contacts, value]);
+                    }
                     setValue('');
                 } else {
                     setInvalid(true);
@@ -71,7 +67,7 @@ export const Sidebar = ({ onChange }) => {
                         value={value}
                         required
                         size={10}
-                        onChange={handleChange}
+                        onChange={setValue}
                     />
                     <button type='submit' className={styles.startChat}>
                         {'>'}

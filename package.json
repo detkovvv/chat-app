@@ -1,6 +1,7 @@
 {
   "name": "chat-app",
   "author": "Vasiliy Detkov",
+  "homepage": "https://detkovvv.github.io/chat-app/",
   "private": true,
   "version": "0.1.0",
   "type": "module",

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage';
 import { ChatPage } from './pages/ChatPage/ChatPage';
@@ -6,13 +6,13 @@ import './global.css';
 import { UnknownPage } from './pages/UnknownPage/UnknownPage';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallBack } from './components/ErrorFallBack/ErrorFallBack';
-import {apiLocalStorage, idLocalStorage} from "./helpers/localStorage";
+import { apiLocalStorage, idLocalStorage } from './helpers/localStorage';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     useEffect(() => {
-      setIsLoggedIn(apiLocalStorage && idLocalStorage)
+        setIsLoggedIn(!!apiLocalStorage && !!idLocalStorage);
     }, [apiLocalStorage, idLocalStorage]);
 
     return (

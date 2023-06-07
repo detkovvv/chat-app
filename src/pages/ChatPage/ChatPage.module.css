@@ -19,7 +19,12 @@
     z-index: -1;
     content: '';
 }
-
+.chatContainer {
+    min-width: 348px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 .chatPageContainer {
     width: 100%;
     height: 100%;
@@ -27,6 +32,28 @@
 
     z-index: 100;
     display: flex;
+}
+.chatContainerHeader {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 5px 0px 5px 10px;
+    background-color: #ededed;
+    align-items: center;
+    justify-content: space-between;
+}
+.chatDisplayContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    background-color: #ece5dd;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @media only screen and (min-width: 1367px) {

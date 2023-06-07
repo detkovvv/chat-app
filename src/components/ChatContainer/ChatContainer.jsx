@@ -5,16 +5,14 @@ import { getApiLink } from '../../helpers/getApiLink';
 import { useGetMessage } from '../../hooks/useGetMessage';
 import { axiosInstance } from '../../helpers/axios';
 import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
+import { useInputValue } from '../../hooks/useInput';
 
 export const ChatContainer = ({ user }) => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useInputValue('');
     const [messages, setMessages] = useState([]);
 
     const chatBox = useRef(null);
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
     const handlePressKey = (event) => {
         if (event.code === 'Enter') {
             sendMessage();
@@ -84,7 +82,7 @@ export const ChatContainer = ({ user }) => {
                     type='text'
                     placeholder='Введите сообщение'
                     value={value}
-                    onChange={handleChange}
+                    onChange={setValue}
                     onKeyDown={handlePressKey}
                 />
                 <button className={styles.chatInputSendBtn} onClick={sendMessage}>
