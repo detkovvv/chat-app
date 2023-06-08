@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styles from './Sidebar.module.css';
-import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
+import { idLocalStorage } from '../../helpers/localStorage';
 import { axiosInstance } from '../../helpers/axios/index';
-import { getApiLink } from '../../helpers/getApiLink';
 import { Contact } from '../Contact/Contact';
 import { useInputValue } from '../../hooks/useInput';
 import { useNavigate } from 'react-router-dom';
+import {getApiLink} from "../../helpers/api/getApiLink";
 
 export const Sidebar = () => {
     const [value, setValue] = useInputValue('');
@@ -21,7 +21,7 @@ export const Sidebar = () => {
 
     useEffect(() => {
         axiosInstance
-            .post(getApiLink('getContacts', idLocalStorage, apiLocalStorage))
+            .post(getApiLink('getContacts'))
             .then((response) => {
                 setContacts(response.data);
             })
@@ -31,7 +31,7 @@ export const Sidebar = () => {
     const searchContact = async (event) => {
         event.preventDefault();
         axiosInstance
-            .post(getApiLink('checkWhatsapp', idLocalStorage, apiLocalStorage), {
+            .post(getApiLink('checkWhatsapp'), {
                 phoneNumber: `${value}`,
             })
             .then((response) => {
