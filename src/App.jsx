@@ -32,7 +32,7 @@ const App = () => {
                     <Route
                         path='/chat/:phoneNumber'
                         element={<ChatPage isLoggedIn={isLoggedIn} />}
-                    />
+                    ></Route>
                     <Route path='*' element={<UnknownPage />} />
                 </Routes>
             </ErrorBoundary>

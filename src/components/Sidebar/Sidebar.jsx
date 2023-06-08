@@ -41,7 +41,7 @@ export const Sidebar = () => {
                     if (!contacts.toUpperCase().includes(value.toUpperCase())) {
                         setContacts([...contacts, value]);
                     }
-                    navigate('/chat/' + `${value}`);
+                    navigate('/chat/' + value + '@c.us');
                     setValue('');
                 } else {
                     setInvalid(true);

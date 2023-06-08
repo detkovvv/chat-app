@@ -19,7 +19,7 @@ export const ChatPage = ({ isLoggedIn }) => {
                     <div className={styles.chatContainer}>
                         <div className={styles.chatContainerHeader}></div>
                         <div className={styles.chatDisplayContainer}>
-                            <img src='src/assets/whatsApp.png' />
+                            <img src='src/assets/whatsApp.png' alt='#' />
                         </div>
                     </div>
                 )}
