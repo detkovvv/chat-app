@@ -1,3 +1,5 @@
+import React from 'react';
+
 function ErrorFallBack({ error, resetErrorBoundary }) {
     return (
         <div role='alert'>

@@ -35,7 +35,7 @@ export const Sidebar = () => {
                 phoneNumber: `${value}`,
             })
             .then((response) => {
-                if (response.data.existsWhatsapp === true) {
+                if (response.data.existsWhatsapp) {
                     setInvalid(false);
                     // setNewContact(value);
 
