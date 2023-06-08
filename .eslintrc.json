@@ -54,6 +54,11 @@
     "rules": {
         "import/extensions": ["error", "never", { "svg": "always", "css": "always", "json": "always" }],
         "import/default": 0,
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "react/self-closing-comp": ["error", {
+            "component": true,
+            "html": true
+        }],
+        "react/jsx-sort-props": "error"
     }
 }
