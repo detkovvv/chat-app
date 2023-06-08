@@ -27,12 +27,7 @@ export const useGetMessage = (user, setMessages, messages) => {
             .then((receiptId) => {
                 if (receiptId) {
                     axiosInstance.delete(
-                        getApiLink(
-                            'deleteNotification',
-                            idLocalStorage,
-                            apiLocalStorage,
-                            receiptId,
-                        ),
+                        getApiLink('deleteNotification', receiptId),
                     );
                 }
             });

@@ -17,9 +17,9 @@ export const ChatPage = ({ isLoggedIn }) => {
                     <ChatContainer user={phoneNumber} />
                 ) : (
                     <div className={styles.chatContainer}>
-                        <div className={styles.chatContainerHeader}></div>
+                        <div className={styles.chatContainerHeader} />
                         <div className={styles.chatDisplayContainer}>
-                            <img src='src/assets/whatsApp.png' alt='#' />
+                            <img alt='#' src='src/assets/whatsApp.png' />
                         </div>
                     </div>
                 )}
