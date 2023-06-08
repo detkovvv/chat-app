@@ -5,12 +5,13 @@ import { axiosInstance } from '../../helpers/axios/index';
 import { getApiLink } from '../../helpers/getApiLink';
 import { Contact } from '../Contact/Contact';
 import { useInputValue } from '../../hooks/useInput';
+import { useNavigate } from 'react-router-dom';
 
 export const Sidebar = () => {
     const [value, setValue] = useInputValue('');
-    const [phone, setPhone] = useState('');
     const [invalid, setInvalid] = useState(false);
     const [contacts, setContacts] = useState([]);
+    const navigate = useNavigate();
 
     const currentContacts = useMemo(() => {
         if (contacts.length === 0) return [];
@@ -37,10 +38,10 @@ export const Sidebar = () => {
             .then((response) => {
                 if (response.data.existsWhatsapp === true) {
                     setInvalid(false);
-                    setPhone(value);
                     if (!contacts.toUpperCase().includes(value.toUpperCase())) {
                         setContacts([...contacts, value]);
                     }
+                    navigate('/chat/' + `${value}`);
                     setValue('');
                 } else {
                     setInvalid(true);

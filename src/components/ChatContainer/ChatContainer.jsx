@@ -22,7 +22,7 @@ export const ChatContainer = ({ user }) => {
     useEffect(() => {
         axiosInstance
             .post(getApiLink('getChatHistory', idLocalStorage, apiLocalStorage), {
-                chatId: `${user}@c.us`,
+                chatId: `${user}`,
                 count: 10,
             })
             .then((response) => {
@@ -37,7 +37,7 @@ export const ChatContainer = ({ user }) => {
         const response = await axiosInstance.post(
             getApiLink('sendMessage', idLocalStorage, apiLocalStorage),
             {
-                chatId: `${user}@c.us`,
+                chatId: `${user}`,
                 message: `${value}`,
             },
         );

@@ -5,15 +5,12 @@ import { getApiLink } from '../helpers/getApiLink';
 import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
 
 export const useGetMessage = (user, setMessages, messages) => {
-    console.log('idLocalStorage', idLocalStorage)
-    console.log('apiLocalStorage', apiLocalStorage)
-
     const getMessage = useCallback(() => {
         axiosInstance
             .get(getApiLink('ReceiveNotification', idLocalStorage, apiLocalStorage))
             .then(({ data }) => {
                 if (data) {
-                    if (data.body.senderData.sender === `${user}@c.us`) {
+                    if (data.body.senderData.sender === `${user}`) {
                         setMessages([
                             ...messages,
                             {
