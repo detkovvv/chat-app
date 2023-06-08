@@ -69,6 +69,7 @@
     border: none;
     font-weight: bold;
     transition: all 0.2s;
+    font-size: 12px;
 }
 
 .startChat:hover {

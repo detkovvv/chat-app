@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Sidebar = () => {
     const [value, setValue] = useInputValue('');
+    const [newContact, setNewContact] = useState('');
     const [invalid, setInvalid] = useState(false);
     const [contacts, setContacts] = useState([]);
     const navigate = useNavigate();
@@ -17,8 +18,6 @@ export const Sidebar = () => {
         if (contacts.length === 0) return [];
         return contacts.filter((item) => item.name.toUpperCase().includes(value.toUpperCase()));
     }, [contacts, value]);
-
-    // поиск по contacts, по enter
 
     useEffect(() => {
         axiosInstance
@@ -38,9 +37,9 @@ export const Sidebar = () => {
             .then((response) => {
                 if (response.data.existsWhatsapp === true) {
                     setInvalid(false);
-                    if (!contacts.toUpperCase().includes(value.toUpperCase())) {
-                        setContacts([...contacts, value]);
-                    }
+                    // setNewContact(value);
+
+                    // setContacts([...contacts, newContact]);
                     navigate('/chat/' + value + '@c.us');
                     setValue('');
                 } else {
@@ -71,7 +70,7 @@ export const Sidebar = () => {
                         onChange={setValue}
                     />
                     <button type='submit' className={styles.startChat}>
-                        {'>'}
+                        добавить
                     </button>
                 </form>
             </div>
