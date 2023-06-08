@@ -37,11 +37,13 @@ export const Sidebar = () => {
             .then((response) => {
                 if (response.data.existsWhatsapp) {
                     setInvalid(false);
-                    // setNewContact(value);
+                    setNewContact(value);
+                    console.log(newContact);
 
-                    // setContacts([...contacts, newContact]);
-                    navigate('/chat/' + value + '@c.us');
                     setValue('');
+                    setContacts([...contacts, newContact]);
+                    console.log(contacts);
+                    navigate('/chat/' + newContact + '@c.us');
                 } else {
                     setInvalid(true);
                     setValue('');
