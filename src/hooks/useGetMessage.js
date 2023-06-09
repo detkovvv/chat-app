@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
 
+import {getApiLink} from "../helpers/api/getApiLink";
 import { axiosInstance } from '../helpers/axios/index';
-import { getApiLink } from '../helpers/getApiLink';
 import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
 
 export const useGetMessage = (user, setMessages, messages) => {
     const getMessage = useCallback(() => {
         axiosInstance
-            .get(getApiLink('ReceiveNotification', idLocalStorage, apiLocalStorage))
+            .get(getApiLink('ReceiveNotification'))
             .then(({ data }) => {
                 if (data) {
                     if (data.body.senderData.sender === `${user}`) {
@@ -27,12 +27,7 @@ export const useGetMessage = (user, setMessages, messages) => {
             .then((receiptId) => {
                 if (receiptId) {
                     axiosInstance.delete(
-                        getApiLink(
-                            'deleteNotification',
-                            idLocalStorage,
-                            apiLocalStorage,
-                            receiptId,
-                        ),
+                        getApiLink('deleteNotification', receiptId),
                     );
                 }
             });

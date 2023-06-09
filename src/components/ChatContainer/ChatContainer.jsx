@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './ChatContainer.module.css';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
-import { getApiLink } from '../../helpers/getApiLink';
 import { useGetMessage } from '../../hooks/useGetMessage';
 import { axiosInstance } from '../../helpers/axios';
-import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
 import { useInputValue } from '../../hooks/useInput';
+import {getApiLink} from "../../helpers/api/getApiLink";
 
 export const ChatContainer = ({ user }) => {
     const [value, setValue] = useInputValue('');
@@ -21,7 +20,7 @@ export const ChatContainer = ({ user }) => {
 
     useEffect(() => {
         axiosInstance
-            .post(getApiLink('getChatHistory', idLocalStorage, apiLocalStorage), {
+            .post(getApiLink('getChatHistory'), {
                 chatId: `${user}`,
                 count: 10,
             })
@@ -35,7 +34,7 @@ export const ChatContainer = ({ user }) => {
 
     const sendMessage = async () => {
         const response = await axiosInstance.post(
-            getApiLink('sendMessage', idLocalStorage, apiLocalStorage),
+            getApiLink('sendMessage'),
             {
                 chatId: `${user}`,
                 message: `${value}`,

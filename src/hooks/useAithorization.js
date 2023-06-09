@@ -1,9 +1,9 @@
 import { axiosInstance } from '../helpers/axios';
-import { getApiLink } from '../helpers/getApiLink';
 import { toLocalStorage } from '../helpers/localStorage';
 import { useNavigate } from 'react-router-dom';
 import { useInputValue } from './useInput';
 import { useState } from 'react';
+import {getAuthLink} from "../helpers/api/getApiLink";
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
@@ -14,12 +14,12 @@ export const useAuthorization = () => {
     const [invalid, setInvalid] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const handleSubmit = async (event, value) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
             const { data } = await axiosInstance.get(
-                getApiLink('getStateInstance', idInstance, apiTokenInstance),
+              getAuthLink(idInstance, apiTokenInstance),
             );
             if (data.stateInstance === 'authorized') {
                 setInvalid(false);
