@@ -15,8 +15,13 @@
     background-color: #ededed;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     position: relative;
+}
+.sidebarHeader > img{
+    width: 20%;
+    height: 100%;
+    margin-right: 10px;
+    object-fit: cover;
 }
 
 .sidebarSearch {

@@ -1,4 +1,4 @@
-import styles from '../Sidebar/Sidebar.module.css';
+import styles from './Contact.module.css';
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 

@@ -5,7 +5,7 @@ import { axiosInstance } from '../../helpers/axios/index';
 import { Contact } from '../Contact/Contact';
 import { useInputValue } from '../../hooks/useInput';
 import { useNavigate } from 'react-router-dom';
-import {getApiLink} from "../../helpers/api/getApiLink";
+import { getApiLink } from '../../helpers/api/getApiLink';
 
 export const Sidebar = () => {
     const [value, setValue] = useInputValue('');
@@ -58,7 +58,10 @@ export const Sidebar = () => {
 
     return (
         <div className={styles.sidebar}>
-            <div className={styles.sidebarHeader}>id пользователя: {idLocalStorage}</div>
+            <div className={styles.sidebarHeader}>
+                <img src='src/assets/avatar.jpg' alt='#' />
+                id пользователя: {idLocalStorage}
+            </div>
             <div className={styles.sidebarSearch}>
                 <form className={styles.sidebarForm} onSubmit={searchContact}>
                     <input
