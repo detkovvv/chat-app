@@ -4,7 +4,7 @@ import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { useGetMessage } from '../../hooks/useGetMessage';
 import { axiosInstance } from '../../helpers/axios';
 import { useInputValue } from '../../hooks/useInput';
-import {getApiLink} from "../../helpers/api/getApiLink";
+import { getApiLink } from '../../helpers/api/getApiLink';
 
 export const ChatContainer = ({ user }) => {
     const [value, setValue] = useInputValue('');
@@ -33,13 +33,10 @@ export const ChatContainer = ({ user }) => {
     useGetMessage(user, setMessages, messages);
 
     const sendMessage = async () => {
-        const response = await axiosInstance.post(
-            getApiLink('sendMessage'),
-            {
-                chatId: `${user}`,
-                message: `${value}`,
-            },
-        );
+        const response = await axiosInstance.post(getApiLink('sendMessage'), {
+            chatId: `${user}`,
+            message: `${value}`,
+        });
         setMessages([
             ...messages,
             {
@@ -53,10 +50,7 @@ export const ChatContainer = ({ user }) => {
     };
 
     useEffect(() => {
-        chatBox.current.addEventListener('DOMNodeInserted', (event) => {
-            const { currentTarget: target } = event;
-            target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
-        });
+        chatBox.current.scroll({ top: chatBox.current.scrollHeight, behavior: 'smooth' });
     }, [messages]);
 
     return (
