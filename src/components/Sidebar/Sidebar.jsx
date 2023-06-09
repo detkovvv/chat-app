@@ -62,16 +62,16 @@ export const Sidebar = () => {
             <div className={styles.sidebarSearch}>
                 <form className={styles.sidebarForm} onSubmit={searchContact}>
                     <input
-                        type='phone'
-                        name='user'
-                        placeholder='79996663311'
                         autoFocus='autofocus'
-                        value={value}
+                        name='user'
+                        onChange={setValue}
+                        placeholder='79996663311'
                         required
                         size={10}
-                        onChange={setValue}
+                        type='phone'
+                        value={value}
                     />
-                    <button type='submit' className={styles.startChat}>
+                    <button className={styles.startChat} type='submit'>
                         добавить
                     </button>
                 </form>
@@ -79,7 +79,7 @@ export const Sidebar = () => {
             {invalid && <p className={styles.invalid}>номер не найден</p>}
             <div className={styles.sidebarChatList}>
                 {currentContacts.map((contact) => (
-                    <Contact name={contact.name} id={contact.id} key={contact.id} />
+                    <Contact id={contact.id} key={contact.id} name={contact.name} />
                 ))}
             </div>
         </div>

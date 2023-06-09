@@ -69,20 +69,20 @@ export const ChatContainer = ({ user }) => {
             <div className={styles.chatDisplayContainer} ref={chatBox}>
                 {messages.map((message) => (
                     <ChatMessage
+                        key={message.idMessage}
                         message={message.textMessage}
                         sender={message.type}
-                        key={message.idMessage}
                         time={message.timestamp}
                     />
                 ))}
             </div>
             <div className={styles.chatInput}>
                 <input
-                    type='text'
-                    placeholder='Введите сообщение'
-                    value={value}
                     onChange={setValue}
                     onKeyDown={handlePressKey}
+                    placeholder='Введите сообщение'
+                    type='text'
+                    value={value}
                 />
                 <button className={styles.chatInputSendBtn} onClick={sendMessage}>
                     Отправить

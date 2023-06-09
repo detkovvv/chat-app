@@ -20,20 +20,20 @@ const App = () => {
             <ErrorBoundary FallbackComponent={ErrorFallBack} onReset={() => {}}>
                 <Routes>
                     <Route
-                        path='/login'
                         element={
                             <AuthorizationPage
                                 isLoggedIn={isLoggedIn}
                                 setIsLoggedIn={setIsLoggedIn}
                             />
                         }
-                    ></Route>
-                    <Route path='/' element={<ChatPage isLoggedIn={isLoggedIn} />}></Route>
+                        path='/login'
+                     />
+                    <Route element={<ChatPage isLoggedIn={isLoggedIn} />} path='/' />
                     <Route
-                        path='/chat/:phoneNumber'
                         element={<ChatPage isLoggedIn={isLoggedIn} />}
-                    ></Route>
-                    <Route path='*' element={<UnknownPage />} />
+                        path='/chat/:phoneNumber'
+                     />
+                    <Route element={<UnknownPage />} path='*' />
                 </Routes>
             </ErrorBoundary>
         </BrowserRouter>

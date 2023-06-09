@@ -19,16 +19,16 @@ export const AuthorizationPage = () => {
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <input
                         name='idInstance'
+                        onChange={setIdInstance}
                         placeholder='idInstance'
                         required
-                        onChange={setIdInstance}
                         value={idInstance}
                     />
                     <input
                         name='apiTokenInstance'
+                        onChange={setApiTokenInstance}
                         placeholder='apiTokenInstance'
                         required
-                        onChange={setApiTokenInstance}
                         value={apiTokenInstance}
                     />
                     <button type='submit'>Войти</button>
