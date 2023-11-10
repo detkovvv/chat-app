@@ -1,10 +1,14 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styles from './UnknownPage.module.css';
 
 export const UnknownPage = ({ resetErrorBoundary }) => {
     return (
-        <div>
+        <div className={styles.container}>
             <h1>Page not found</h1>
-            <button onClick={resetErrorBoundary}>back</button>
+            <NavLink className={styles.button} onClick={resetErrorBoundary} to='/'>
+                back
+            </NavLink>
         </div>
     );
 };

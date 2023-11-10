@@ -12,12 +12,6 @@ export const ChatContainer = ({ user }) => {
 
     const chatBox = useRef(null);
 
-    const handlePressKey = (event) => {
-        if (event.code === 'Enter') {
-            sendMessage();
-        }
-    };
-
     useEffect(() => {
         axiosInstance
             .post(getApiLink('getChatHistory'), {
@@ -25,7 +19,7 @@ export const ChatContainer = ({ user }) => {
                 count: 10,
             })
             .then((response) => {
-                setMessages(response.data.reverse());
+                setMessages(response.data);
             })
             .catch((error) => console.log(error));
     }, [user]);
@@ -47,6 +41,12 @@ export const ChatContainer = ({ user }) => {
             },
         ]);
         setValue('');
+    };
+
+    const handlePressKey = async (event) => {
+        if (event.code === 'Enter') {
+            await sendMessage();
+        }
     };
 
     useEffect(() => {

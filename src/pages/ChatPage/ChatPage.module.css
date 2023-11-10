@@ -12,7 +12,7 @@
 
 .chatPage::before {
     width: 100vw;
-    height: 222px;
+    height: 50vh;
     background-color: #43c0a5;
     position: absolute;
     top: 0;
@@ -37,9 +37,8 @@
     display: flex;
     align-items: center;
     height: 50px;
-    padding: 5px 0px 5px 10px;
+    padding: 5px 0 5px 10px;
     background-color: #ededed;
-    align-items: center;
     justify-content: space-between;
 }
 .chatDisplayContainer {

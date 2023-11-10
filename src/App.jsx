@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage';
 import { ChatPage } from './pages/ChatPage/ChatPage';
-import './global.css';
 import { UnknownPage } from './pages/UnknownPage/UnknownPage';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallBack } from './components/ErrorFallBack/ErrorFallBack';
 import { apiLocalStorage, idLocalStorage } from './helpers/localStorage';
+import { Layout } from './components/Layout/Layout';
+import './global.css';
 
-const App = () => {
+export function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     useEffect(() => {
@@ -17,27 +18,32 @@ const App = () => {
 
     return (
         <BrowserRouter>
-            <ErrorBoundary FallbackComponent={ErrorFallBack} onReset={() => {}}>
+            <ErrorBoundary
+                FallbackComponent={ErrorFallBack}
+                onReset={() => {
+                    console.log('render error');
+                }}
+            >
                 <Routes>
-                    <Route
-                        element={
-                            <AuthorizationPage
-                                isLoggedIn={isLoggedIn}
-                                setIsLoggedIn={setIsLoggedIn}
-                            />
-                        }
-                        path='/login'
-                     />
-                    <Route element={<ChatPage isLoggedIn={isLoggedIn} />} path='/' />
-                    <Route
-                        element={<ChatPage isLoggedIn={isLoggedIn} />}
-                        path='/chat/:phoneNumber'
-                     />
-                    <Route element={<UnknownPage />} path='*' />
+                    <Route element={<Layout />} path='/'>
+                        <Route
+                            element={
+                                <AuthorizationPage
+                                    isLoggedIn={isLoggedIn}
+                                    setIsLoggedIn={setIsLoggedIn}
+                                />
+                            }
+                            path='login'
+                        />
+                        <Route element={<ChatPage isLoggedIn={isLoggedIn} />} index />
+                        <Route
+                            element={<ChatPage isLoggedIn={isLoggedIn} />}
+                            path='chat/:phoneNumber'
+                        />
+                        <Route element={<UnknownPage />} path='*' />
+                    </Route>
                 </Routes>
             </ErrorBoundary>
         </BrowserRouter>
     );
-};
-
-export default App;
+}

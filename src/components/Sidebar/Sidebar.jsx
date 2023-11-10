@@ -59,8 +59,8 @@ export const Sidebar = () => {
     return (
         <div className={styles.sidebar}>
             <div className={styles.sidebarHeader}>
-                <img src='src/assets/avatar.jpg' alt='#' />
-                id пользователя: {idLocalStorage}
+                <img alt='avatar' src='src/assets/avatar.jpg' />
+                Вы вошли как: {idLocalStorage}
             </div>
             <div className={styles.sidebarSearch}>
                 <form className={styles.sidebarForm} onSubmit={searchContact}>
@@ -68,7 +68,7 @@ export const Sidebar = () => {
                         autoFocus='autofocus'
                         name='user'
                         onChange={setValue}
-                        placeholder='79996663311'
+                        placeholder='Введите имя или номер телефона'
                         required
                         size={10}
                         type='phone'

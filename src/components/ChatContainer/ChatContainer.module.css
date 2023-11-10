@@ -9,9 +9,8 @@
     display: flex;
     align-items: center;
     height: 50px;
-    padding: 5px 0px 5px 10px;
+    padding: 5px 0 5px 10px;
     background-color: #ededed;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -37,7 +36,7 @@
 
 .chatInput {
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     padding: 12px;
     background-color: #f0f0f0;
     position: relative;

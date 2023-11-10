@@ -1,0 +1,21 @@
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d7dbd6;
+    z-index: 100;
+    position: relative;
+}
+
+.wrapper:after {
+    width: 100vw;
+    height: 50vh;
+    background-color: #43c0a5;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    content: '';
+}
