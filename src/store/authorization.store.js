@@ -29,4 +29,8 @@ const authReducer = (state = defaultState, action) => {
     }
 };
 
+export const setAuthorization = (value) => {
+    authReducer(value);
+};
+
 export const authStore = createStore(authReducer, composeWithDevTools(applyMiddleware(thunk)));

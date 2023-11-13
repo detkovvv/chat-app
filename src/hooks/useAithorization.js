@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 //TODO: не переходит с первого раза на страницу чата, если в localStorage пусто
 
 export const useAuthorization = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const isLoggedIn = useSelector((store) => store.authorized);
     const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ export const useAuthorization = () => {
 
     const [invalid, setInvalid] = useState(false);
     const setIsLoggedIn = () => {
-        dispatch({ type: 'LOG_IN' }, { payload: true });
+        dispatch({ type: 'LOG_IN', payload: { idInstance, apiTokenInstance } });
     };
 
     const handleSubmit = async (event) => {
@@ -32,7 +32,7 @@ export const useAuthorization = () => {
                     toLocalStorage('idInstance', idInstance);
                     toLocalStorage('apiTokenInstance', apiTokenInstance);
                     setIsLoggedIn(true);
-                    // navigate('/');
+                    navigate('/');
                 } else {
                     setInvalid(true);
                 }
