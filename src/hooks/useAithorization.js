@@ -17,23 +17,27 @@ export const useAuthorization = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        try {
-            const { data } = await axiosInstance.get(getAuthLink(idInstance, apiTokenInstance));
-            if (data.stateInstance === 'authorized') {
-                setInvalid(false);
-                toLocalStorage('idInstance', idInstance);
-                toLocalStorage('apiTokenInstance', apiTokenInstance);
-            } else {
-                setInvalid(true);
-            }
-        } catch (e) {
-            if (e instanceof Error) {
-                setInvalid(true);
-            }
-        }
-        setIsLoggedIn(true);
-        navigate('/');
+        const response = await axiosInstance
+            .get(getAuthLink(idInstance, apiTokenInstance))
+            .then((response) => {
+                if (response.data.stateInstance === 'authorized') {
+                    setInvalid(false);
+                    toLocalStorage('idInstance', idInstance);
+                    toLocalStorage('apiTokenInstance', apiTokenInstance);
+                    setIsLoggedIn(true);
+                    navigate('/');
+                } else {
+                    setInvalid(true);
+                }
+            })
+            .catch((e) => {
+                if (e instanceof Error) {
+                    setInvalid(true);
+                }
+            });
         console.log(isLoggedIn);
     };
     return { isLoggedIn, invalid, handleSubmit, setIdInstance, setApiTokenInstance };
 };
+
+//TODO: не переходит с первого раза на страницу чата, если в localStorage пусто

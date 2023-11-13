@@ -4,7 +4,7 @@ import { Sidebar } from '../../components/Sidebar/Sidebar';
 import { ChatContainer } from '../../components/ChatContainer/ChatContainer';
 import { Navigate, useParams } from 'react-router-dom';
 
-export const ChatPage = ({ isLoggedIn }) => {
+export const ChatPage = ({ isLoggedIn, setIsLoggedIn }) => {
     const { phoneNumber } = useParams();
 
     if (!isLoggedIn) return <Navigate to='/login' />;
@@ -12,10 +12,11 @@ export const ChatPage = ({ isLoggedIn }) => {
     return (
         <div className={styles.chatPage}>
             <div className={styles.chatPageContainer}>
-                <Sidebar />
+                <Sidebar setIsLoggedIn={setIsLoggedIn} />
                 {phoneNumber ? (
                     <ChatContainer user={phoneNumber} />
                 ) : (
+                  //TODO: вынести в отдельный компонент
                     <div className={styles.chatContainer}>
                         <div className={styles.chatContainerHeader} />
                         <div className={styles.chatDisplayContainer}>
@@ -27,3 +28,4 @@ export const ChatPage = ({ isLoggedIn }) => {
         </div>
     );
 };
+

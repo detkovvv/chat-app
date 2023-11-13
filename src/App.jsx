@@ -8,9 +8,10 @@ import { ErrorFallBack } from './components/ErrorFallBack/ErrorFallBack';
 import { apiLocalStorage, idLocalStorage } from './helpers/localStorage';
 import { Layout } from './components/Layout/Layout';
 import './global.css';
+import { useAuthorization } from './hooks/useAithorization';
 
 export function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const { isLoggedIn, setIsLoggedIn } = useAuthorization();
 
     useEffect(() => {
         setIsLoggedIn(!!apiLocalStorage && !!idLocalStorage);
@@ -35,9 +36,16 @@ export function App() {
                             }
                             path='login'
                         />
-                        <Route element={<ChatPage isLoggedIn={isLoggedIn} />} index />
                         <Route
-                            element={<ChatPage isLoggedIn={isLoggedIn} />}
+                            element={
+                                <ChatPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                            }
+                            index
+                        />
+                        <Route
+                            element={
+                                <ChatPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                            }
                             path='chat/:phoneNumber'
                         />
                         <Route element={<UnknownPage />} path='*' />

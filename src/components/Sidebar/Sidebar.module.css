@@ -10,7 +10,7 @@
 }
 
 .sidebarHeader {
-    height: 50px;
+    /*height: 50px;*/
     padding: 5px 0 5px 10px;
     background-color: #ededed;
     display: flex;
@@ -22,6 +22,17 @@
     height: 100%;
     margin-right: 10px;
     object-fit: cover;
+}
+
+.userName {
+    flex-grow: 1;
+}
+.logoutIcon{
+    padding: 0 10px;
+}
+
+.logoutIcon:hover{
+    color: var(--gray-dark);
 }
 
 .sidebarSearch {

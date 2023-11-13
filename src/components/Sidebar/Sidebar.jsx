@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import styles from './Sidebar.module.css';
-import { idLocalStorage } from '../../helpers/localStorage';
+import { useNavigate } from 'react-router-dom';
+import { idLocalStorage, toLocalStorage } from '../../helpers/localStorage';
 import { axiosInstance } from '../../helpers/axios/index';
 import { Contact } from '../Contact/Contact';
 import { useInputValue } from '../../hooks/useInput';
-import { useNavigate } from 'react-router-dom';
 import { getApiLink } from '../../helpers/api/getApiLink';
+import { IconLogout } from '@tabler/icons-react';
+import styles from './Sidebar.module.css';
 
-export const Sidebar = () => {
+export const Sidebar = ({ setIsLoggedIn }) => {
     const [value, setValue] = useInputValue('');
     const [newContact, setNewContact] = useState('');
     const [invalid, setInvalid] = useState(false);
@@ -56,11 +57,22 @@ export const Sidebar = () => {
             });
     };
 
+    const handleLogOut = () => {
+        let isLogOut = confirm('Вы действительно хотите выйти?');
+        if (isLogOut) {
+            toLocalStorage('idInstance', '');
+            toLocalStorage('apiTokenInstance', '');
+            setIsLoggedIn(false);
+            navigate('/login');
+        }
+    };
+
     return (
         <div className={styles.sidebar}>
             <div className={styles.sidebarHeader}>
                 <img alt='avatar' src='src/assets/avatar.jpg' />
-                Вы вошли как: {idLocalStorage}
+                <p className={styles.userName}>Вы вошли как: {idLocalStorage}</p>
+                <IconLogout className={styles.logoutIcon} onClick={handleLogOut} />
             </div>
             <div className={styles.sidebarSearch}>
                 <form className={styles.sidebarForm} onSubmit={searchContact}>
@@ -88,3 +100,7 @@ export const Sidebar = () => {
         </div>
     );
 };
+
+
+
+//TODO: вынести sidebarHeader в отдельный компонент
