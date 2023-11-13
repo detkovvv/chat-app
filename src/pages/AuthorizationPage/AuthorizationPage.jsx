@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './AuthorizationPage.module.css';
 import { useAuthorization } from '../../hooks/useAithorization';
+import { useSelector } from 'react-redux';
 
 export const AuthorizationPage = () => {
+    const store = useSelector((store) => store);
+    console.log(store);
     const {
         handleSubmit,
         invalid,

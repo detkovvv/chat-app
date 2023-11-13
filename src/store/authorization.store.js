@@ -1,5 +1,7 @@
 //TODO: нужен менеджер состояний (Redux)
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const defaultState = {
     idInstance: '',
@@ -8,6 +10,8 @@ const defaultState = {
 };
 
 const authReducer = (state = defaultState, action) => {
+    console.log(action.payload);
+
     switch (action.type) {
         case 'LOG_IN':
             return {
@@ -18,14 +22,11 @@ const authReducer = (state = defaultState, action) => {
             };
         case 'LOG_OUT':
             return {
-                ...state,
-                authorized: false,
-                idInstance: '',
-                apiTokenInstance: '',
+                ...defaultState,
             };
         default:
             return state;
     }
 };
 
-export const store = createStore(authReducer);
+export const authStore = createStore(authReducer, composeWithDevTools(applyMiddleware(thunk)));
