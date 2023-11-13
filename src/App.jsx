@@ -9,14 +9,23 @@ import { apiLocalStorage, idLocalStorage } from './helpers/localStorage';
 import { Layout } from './components/Layout/Layout';
 import './global.css';
 import { useAuthorization } from './hooks/useAithorization';
+import { authStore } from './store/authorization.store';
+import { Provider } from 'react-redux';
 
-export function App() {
-    const { isLoggedIn, setIsLoggedIn } = useAuthorization();
+const useInitAuth = () => {
+    const { setIsLoggedIn } = useAuthorization();
 
     useEffect(() => {
         setIsLoggedIn(!!apiLocalStorage && !!idLocalStorage);
-    }, [apiLocalStorage, idLocalStorage]);
+    }, []);
+};
 
+const WithAuth = ({ children }) => {
+    useInitAuth();
+    return children;
+};
+
+export function App() {
     return (
         <BrowserRouter>
             <ErrorBoundary
@@ -25,32 +34,42 @@ export function App() {
                     console.log('render error');
                 }}
             >
-                <Routes>
-                    <Route element={<Layout />} path='/'>
-                        <Route
-                            element={
-                                <AuthorizationPage
-                                    isLoggedIn={isLoggedIn}
-                                    setIsLoggedIn={setIsLoggedIn}
+                <Provider store={authStore}>
+                    <WithAuth>
+                        <Routes>
+                            <Route element={<Layout />} path='/'>
+                                <Route
+                                    element={
+                                        <AuthorizationPage
+                                        // isLoggedIn={isLoggedIn}
+                                        // setIsLoggedIn={setIsLoggedIn}
+                                        />
+                                    }
+                                    path='login'
                                 />
-                            }
-                            path='login'
-                        />
-                        <Route
-                            element={
-                                <ChatPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-                            }
-                            index
-                        />
-                        <Route
-                            element={
-                                <ChatPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-                            }
-                            path='chat/:phoneNumber'
-                        />
-                        <Route element={<UnknownPage />} path='*' />
-                    </Route>
-                </Routes>
+                                <Route
+                                    element={
+                                        <ChatPage
+                                        // isLoggedIn={isLoggedIn}
+                                        // setIsLoggedIn={setIsLoggedIn}
+                                        />
+                                    }
+                                    index
+                                />
+                                <Route
+                                    element={
+                                        <ChatPage
+                                        // isLoggedIn={isLoggedIn}
+                                        // setIsLoggedIn={setIsLoggedIn}
+                                        />
+                                    }
+                                    path='chat/:phoneNumber'
+                                />
+                                <Route element={<UnknownPage />} path='*' />
+                            </Route>
+                        </Routes>
+                    </WithAuth>
+                </Provider>
             </ErrorBoundary>
         </BrowserRouter>
     );

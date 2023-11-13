@@ -4,15 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import { useInputValue } from './useInput';
 import { useState } from 'react';
 import { getAuthLink } from '../helpers/api/getApiLink';
+import { useDispatch, useSelector } from 'react-redux';
+
+//TODO: не переходит с первого раза на страницу чата, если в localStorage пусто
 
 export const useAuthorization = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    const isLoggedIn = useSelector((store) => store.authorized);
+    const dispatch = useDispatch();
 
     const [idInstance, setIdInstance] = useInputValue();
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
 
     const [invalid, setInvalid] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const setIsLoggedIn = () => {
+        dispatch({ type: 'LOG_IN' }, { payload: true });
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -25,7 +32,7 @@ export const useAuthorization = () => {
                     toLocalStorage('idInstance', idInstance);
                     toLocalStorage('apiTokenInstance', apiTokenInstance);
                     setIsLoggedIn(true);
-                    navigate('/');
+                    // navigate('/');
                 } else {
                     setInvalid(true);
                 }
@@ -37,7 +44,5 @@ export const useAuthorization = () => {
             });
         console.log(isLoggedIn);
     };
-    return { isLoggedIn, invalid, handleSubmit, setIdInstance, setApiTokenInstance };
+    return { isLoggedIn, setIsLoggedIn, invalid, handleSubmit, setIdInstance, setApiTokenInstance };
 };
-
-//TODO: не переходит с первого раза на страницу чата, если в localStorage пусто
