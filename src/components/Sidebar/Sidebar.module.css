@@ -9,32 +9,6 @@
     background-color: #fafafa;
 }
 
-.sidebarHeader {
-    /*height: 50px;*/
-    padding: 5px 0 5px 10px;
-    background-color: #ededed;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-.sidebarHeader > img{
-    width: 20%;
-    height: 100%;
-    margin-right: 10px;
-    object-fit: cover;
-}
-
-.userName {
-    flex-grow: 1;
-}
-.logoutIcon{
-    padding: 0 10px;
-}
-
-.logoutIcon:hover{
-    color: var(--gray-dark);
-}
-
 .sidebarSearch {
     height: 60px;
     display: flex;
@@ -79,7 +53,7 @@
     background-color: lightgrey;
 }
 
-.startChat {
+.addContact {
     background-color: #128c7e;
     color: white;
     border: none;
@@ -88,7 +62,7 @@
     font-size: 12px;
 }
 
-.startChat:hover {
+.addContact:hover {
     background-color: white;
     color: #128c7e;
 }

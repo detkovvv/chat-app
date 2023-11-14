@@ -8,6 +8,7 @@ import { useAuthorization } from '../../hooks/useAithorization';
 export const ChatPage = () => {
     const { isLoggedIn } = useAuthorization();
     const { phoneNumber } = useParams();
+    console.log(isLoggedIn);
 
     if (!isLoggedIn) return <Navigate to='/login' />;
 
@@ -18,7 +19,7 @@ export const ChatPage = () => {
                 {phoneNumber ? (
                     <ChatContainer user={phoneNumber} />
                 ) : (
-                    //TODO: вынести в отдельный компонент
+                    //TODO: вынести в отдельный компонент?
                     <div className={styles.chatContainer}>
                         <div className={styles.chatContainerHeader} />
                         <div className={styles.chatDisplayContainer}>

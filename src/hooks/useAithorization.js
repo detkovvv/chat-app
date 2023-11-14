@@ -6,8 +6,6 @@ import { useState } from 'react';
 import { getAuthLink } from '../helpers/api/getApiLink';
 import { useDispatch, useSelector } from 'react-redux';
 
-//TODO: при обновлении страницы заново пересылает на авторизацию, исправить
-
 export const useAuthorization = () => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector((store) => store.authorized);
@@ -15,12 +13,17 @@ export const useAuthorization = () => {
 
     const [idInstance, setIdInstance] = useInputValue();
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
-
     const [invalid, setInvalid] = useState(false);
+
     const setIsLoggedIn = (idInstance, apiTokenInstance) => {
         dispatch({
             type: 'LOG_IN',
             payload: { idInstanceStore: idInstance, apiTokenInstanceStore: apiTokenInstance },
+        });
+    };
+    const setIsLoggedOut = () => {
+        dispatch({
+            type: 'LOG_OUT',
         });
     };
 
@@ -45,7 +48,14 @@ export const useAuthorization = () => {
                     setInvalid(true);
                 }
             });
-        console.log(isLoggedIn);
     };
-    return { isLoggedIn, setIsLoggedIn, invalid, handleSubmit, setIdInstance, setApiTokenInstance };
+    return {
+        isLoggedIn,
+        setIsLoggedIn,
+        setIsLoggedOut,
+        invalid,
+        handleSubmit,
+        setIdInstance,
+        setApiTokenInstance,
+    };
 };

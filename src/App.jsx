@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage';
 import { ChatPage } from './pages/ChatPage/ChatPage';
 import { UnknownPage } from './pages/UnknownPage/UnknownPage';
@@ -7,20 +7,19 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallBack } from './components/ErrorFallBack/ErrorFallBack';
 import { apiLocalStorage, idLocalStorage } from './helpers/localStorage';
 import { Layout } from './components/Layout/Layout';
-import './global.css';
 import { useAuthorization } from './hooks/useAithorization';
 import { authStore } from './store/authorizationStore';
 import { Provider } from 'react-redux';
+import './global.css';
+
+//TODO: при обновлении страницы store приходит к дефолтным значениям, необходимо его связать с localStorage,
+//      т.к. вынос логики navigate на верхний уровень отменяет работу остального роутинга
 
 const useInitAuth = () => {
-    const navigate = useNavigate();
     const { setIsLoggedIn } = useAuthorization();
 
     useEffect(() => {
-        if (!!apiLocalStorage && !!idLocalStorage) {
-            setIsLoggedIn(idLocalStorage, apiLocalStorage);
-            navigate('/');
-        }
+        setIsLoggedIn(!!apiLocalStorage && !!idLocalStorage);
     }, []);
 };
 
