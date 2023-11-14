@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage';
 import { ChatPage } from './pages/ChatPage/ChatPage';
 import { UnknownPage } from './pages/UnknownPage/UnknownPage';
@@ -9,14 +9,18 @@ import { apiLocalStorage, idLocalStorage } from './helpers/localStorage';
 import { Layout } from './components/Layout/Layout';
 import './global.css';
 import { useAuthorization } from './hooks/useAithorization';
-import { authStore } from './store/authorization.store';
+import { authStore } from './store/authorizationStore';
 import { Provider } from 'react-redux';
 
 const useInitAuth = () => {
+    const navigate = useNavigate();
     const { setIsLoggedIn } = useAuthorization();
 
     useEffect(() => {
-        setIsLoggedIn(!!apiLocalStorage && !!idLocalStorage);
+        if (!!apiLocalStorage && !!idLocalStorage) {
+            setIsLoggedIn(idLocalStorage, apiLocalStorage);
+            navigate('/');
+        }
     }, []);
 };
 

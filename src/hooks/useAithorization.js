@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { getAuthLink } from '../helpers/api/getApiLink';
 import { useDispatch, useSelector } from 'react-redux';
 
-//TODO: не переходит с первого раза на страницу чата, если в localStorage пусто
+//TODO: при обновлении страницы заново пересылает на авторизацию, исправить
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
@@ -17,8 +17,11 @@ export const useAuthorization = () => {
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
 
     const [invalid, setInvalid] = useState(false);
-    const setIsLoggedIn = () => {
-        dispatch({ type: 'LOG_IN', payload: { idInstance, apiTokenInstance } });
+    const setIsLoggedIn = (idInstance, apiTokenInstance) => {
+        dispatch({
+            type: 'LOG_IN',
+            payload: { idInstanceStore: idInstance, apiTokenInstanceStore: apiTokenInstance },
+        });
     };
 
     const handleSubmit = async (event) => {
@@ -31,7 +34,7 @@ export const useAuthorization = () => {
                     setInvalid(false);
                     toLocalStorage('idInstance', idInstance);
                     toLocalStorage('apiTokenInstance', apiTokenInstance);
-                    setIsLoggedIn(true);
+                    setIsLoggedIn(idInstance, apiTokenInstance);
                     navigate('/');
                 } else {
                     setInvalid(true);

@@ -4,21 +4,20 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const defaultState = {
-    idInstance: '',
-    apiTokenInstance: '',
+    idInstanceStore: '',
+    apiTokenInstanceStore: '',
     authorized: false,
 };
 
 const authReducer = (state = defaultState, action) => {
     console.log(action.payload);
-
     switch (action.type) {
         case 'LOG_IN':
             return {
                 ...state,
                 authorized: true,
-                idInstance: action.payload.idInstance,
-                apiTokenInstance: action.payload.apiTokenInstance,
+                idInstanceStore: action.payload.idInstanceStore,
+                apiTokenInstanceStore: action.payload.apiTokenInstanceStore,
             };
         case 'LOG_OUT':
             return {

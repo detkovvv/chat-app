@@ -6,7 +6,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { useAuthorization } from '../../hooks/useAithorization';
 
 export const ChatPage = () => {
-    const { isLoggedIn, setIsLoggedIn } = useAuthorization();
+    const { isLoggedIn } = useAuthorization();
     const { phoneNumber } = useParams();
 
     if (!isLoggedIn) return <Navigate to='/login' />;
@@ -14,7 +14,7 @@ export const ChatPage = () => {
     return (
         <div className={styles.chatPage}>
             <div className={styles.chatPageContainer}>
-                <Sidebar setIsLoggedIn={setIsLoggedIn} />
+                <Sidebar />
                 {phoneNumber ? (
                     <ChatContainer user={phoneNumber} />
                 ) : (

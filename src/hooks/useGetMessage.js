@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from 'react';
-
-import {getApiLink} from "../helpers/api/getApiLink";
+import { getApiLink } from '../helpers/api/getApiLink';
 import { axiosInstance } from '../helpers/axios/index';
 import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
 
@@ -26,9 +25,7 @@ export const useGetMessage = (user, setMessages, messages) => {
             })
             .then((receiptId) => {
                 if (receiptId) {
-                    axiosInstance.delete(
-                        getApiLink('deleteNotification', receiptId),
-                    );
+                    axiosInstance.delete(getApiLink('deleteNotification', receiptId));
                 }
             });
     }, [setMessages, apiLocalStorage, idLocalStorage]);

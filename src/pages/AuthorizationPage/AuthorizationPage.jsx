@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 export const AuthorizationPage = () => {
     const store = useSelector((store) => store);
-    console.log(store);
     const {
         handleSubmit,
         invalid,
