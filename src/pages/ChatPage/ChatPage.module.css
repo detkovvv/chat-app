@@ -19,20 +19,22 @@
     z-index: -1;
     content: '';
 }
+
 .chatContainer {
     min-width: 348px;
     flex: 1;
     display: flex;
     flex-direction: column;
 }
+
 .chatPageContainer {
     width: 100%;
     height: 100%;
     max-width: 1366px;
-
     z-index: 100;
     display: flex;
 }
+
 .chatContainerHeader {
     display: flex;
     align-items: center;
@@ -41,6 +43,7 @@
     background-color: #ededed;
     justify-content: space-between;
 }
+
 .chatDisplayContainer {
     flex: 1;
     display: flex;
@@ -49,7 +52,7 @@
     background-color: #ece5dd;
 }
 
-img{
+img {
     width: 100%;
     height: 100%;
     object-fit: cover;

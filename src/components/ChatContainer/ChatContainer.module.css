@@ -63,7 +63,8 @@
     font-size: 12px;
     padding: 5px 15px;
 }
-.chatInputSendBtn:hover{
+
+.chatInputSendBtn:hover {
     background-color: #128c7e;
     color: white;
 }

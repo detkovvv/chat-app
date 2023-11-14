@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './ChatPage.module.css';
 import { ChatContainer } from '../../components/ChatContainer/ChatContainer';
@@ -32,7 +32,6 @@ const WithAuth = ({ children }) => {
 };
 
 export const ChatPage = () => {
-    const { isLoggedIn } = useAuthorization();
     const { phoneNumber } = useParams();
 
     return (
@@ -43,7 +42,7 @@ export const ChatPage = () => {
                     {phoneNumber ? (
                         <ChatContainer user={phoneNumber} />
                     ) : (
-                        //TODO: вынести в отдельный компонент?
+                        // TODO: вынести в отдельный компонент?
                         <div className={styles.chatContainer}>
                             <div className={styles.chatContainerHeader} />
                             <div className={styles.chatDisplayContainer}>

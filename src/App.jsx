@@ -1,13 +1,15 @@
 import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { ErrorFallBack } from './components/ErrorFallBack/ErrorFallBack';
+import { Layout } from './components/Layout/Layout';
 import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage';
 import { ChatPage } from './pages/ChatPage/ChatPage';
 import { UnknownPage } from './pages/UnknownPage/UnknownPage';
-import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallBack } from './components/ErrorFallBack/ErrorFallBack';
-import { Layout } from './components/Layout/Layout';
 import { authStore } from './store/authorizationStore';
-import { Provider } from 'react-redux';
+
 import './global.css';
 
 export function App() {

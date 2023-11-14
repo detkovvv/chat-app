@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { axiosInstance } from '../../helpers/axios/index';
-import { Contact } from '../Contact/Contact';
-import { useInputValue } from '../../hooks/useInput';
-import { getApiLink } from '../../helpers/api/getApiLink';
-import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
+
 import styles from './Sidebar.module.css';
+import { getApiLink } from '../../helpers/api/getApiLink';
+import { axiosInstance } from '../../helpers/axios/index';
+import { useInputValue } from '../../hooks/useInput';
+import { Contact } from '../Contact/Contact';
+import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
 
 export const Sidebar = () => {
     const [value, handleChange] = useInputValue('');

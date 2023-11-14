@@ -13,8 +13,8 @@ const useMock = import.meta.env.VITE_USE_MOCKS || true;
 
 export const mock = new MockAdapter(axios, { delayResponse: 3000 });
 
-mock.onGet(new RegExp(`getStateInstance`)).reply(200, getAuthorized);
-mock.onDelete(new RegExp(`deleteNotification`)).reply(200, deleteNotification);
+mock.onGet(new RegExp('getStateInstance')).reply(200, getAuthorized);
+mock.onDelete(new RegExp('deleteNotification')).reply(200, deleteNotification);
 mock.onGet(getApiLink('ReceiveNotification')).reply(200, getNotification);
 mock.onPost(getApiLink('checkWhatsapp')).reply(200, postCheckWhatsapp);
 mock.onPost(getApiLink('getContacts')).reply(200, postContacts);

@@ -1,9 +1,10 @@
-import React from 'react';
-import { idLocalStorage, toLocalStorage } from '../../helpers/localStorage';
 import { IconLogout } from '@tabler/icons-react';
-import { useAuthorization } from '../../hooks/useAithorization';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import styles from './SidebarHeader.module.css';
+import { idLocalStorage, toLocalStorage } from '../../helpers/localStorage';
+import { useAuthorization } from '../../hooks/useAithorization';
 
 export const SidebarHeader = () => {
     const { setIsLoggedOut } = useAuthorization();

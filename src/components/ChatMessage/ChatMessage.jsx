@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './ChatMessage.module.css';
 
 export const ChatMessage = ({ message, sender, time }) => {

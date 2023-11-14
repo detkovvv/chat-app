@@ -1,4 +1,3 @@
-
 .container {
     z-index: 1;
     background-color: #f5f6f8;
@@ -59,5 +58,5 @@
 
 .button:hover {
     color: var(--green-light);
-    border: 1px solid var(--green-light);;
+    border: 1px solid var(--green-light);
 }

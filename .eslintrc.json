@@ -64,7 +64,15 @@
     "import/order": [
       "error",
       {
-        "groups": ["external", "internal", ["parent", "sibling", "index"]],
+        "groups": [
+          "external",
+          "internal",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
+        ],
         "distinctGroup": false,
         "pathGroups": [
           {
@@ -106,6 +114,45 @@
       {
         "component": true,
         "html": true
+      }
+    ],
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "beforeSelfClosing": "always"
+      }
+    ],
+    "no-restricted-exports": [
+      "error",
+      {
+        "restrictDefaultExports": {
+          "direct": true
+        }
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "camelcase": "error",
+    "spaced-comment": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "no-duplicate-imports": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": true,
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "_",
+        "argsIgnorePattern": "_",
+        "ignoreRestSiblings": true
       }
     ],
     "react/jsx-sort-props": "error"

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+
 import styles from './ChatContainer.module.css';
-import { ChatMessage } from '../ChatMessage/ChatMessage';
-import { useGetMessage } from '../../hooks/useGetMessage';
-import { axiosInstance } from '../../helpers/axios';
-import { useInputValue } from '../../hooks/useInput';
 import { getApiLink } from '../../helpers/api/getApiLink';
+import { axiosInstance } from '../../helpers/axios';
+import { useGetMessage } from '../../hooks/useGetMessage';
+import { useInputValue } from '../../hooks/useInput';
+import { ChatMessage } from '../ChatMessage/ChatMessage';
 
 export const ChatContainer = ({ user }) => {
     const [value, setValue] = useInputValue('');

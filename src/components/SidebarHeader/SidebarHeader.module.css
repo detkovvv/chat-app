@@ -6,7 +6,7 @@
     align-items: center;
     position: relative;
 }
-.sidebarHeader > img{
+.sidebarHeader > img {
     width: 20%;
     height: 100%;
     margin-right: 10px;
@@ -16,10 +16,10 @@
 .userName {
     flex-grow: 1;
 }
-.logoutIcon{
+.logoutIcon {
     padding: 0 10px;
 }
 
-.logoutIcon:hover{
+.logoutIcon:hover {
     color: var(--gray-dark);
 }

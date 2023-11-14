@@ -1,6 +1,7 @@
-import styles from './Contact.module.css';
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import styles from './Contact.module.css';
 
 export const Contact: FC<{ name: string; id: string }> = ({ name, id }) => {
     const navigate = useNavigate();

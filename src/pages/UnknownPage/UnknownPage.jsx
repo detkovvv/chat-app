@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+
 import styles from './UnknownPage.module.css';
 
 export const UnknownPage = ({ resetErrorBoundary }) => {
