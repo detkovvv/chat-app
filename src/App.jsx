@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage';
 import { ChatPage } from './pages/ChatPage/ChatPage';
@@ -9,9 +9,6 @@ import { Layout } from './components/Layout/Layout';
 import { authStore } from './store/authorizationStore';
 import { Provider } from 'react-redux';
 import './global.css';
-
-//TODO: при обновлении страницы store приходит к дефолтным значениям, необходимо его связать с localStorage,
-//      т.к. вынос логики navigate на верхний уровень отменяет работу остального роутинга
 
 export function App() {
     return (
