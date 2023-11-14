@@ -53,14 +53,17 @@
 }
 
 .chatInputSendBtn {
-    background-color: #128c7e;
-    height: 35px;
     border-radius: 15px;
+    height: 35px;
+    background-color: var(--green-hover);
     color: white;
-    box-sizing: content-box;
+    border: none;
+    font-weight: bold;
     transition: all 0.2s;
+    font-size: 12px;
+    padding: 5px 15px;
 }
 .chatInputSendBtn:hover{
-    background-color: white;
-    color: #128c7e;
+    background-color: #128c7e;
+    color: white;
 }

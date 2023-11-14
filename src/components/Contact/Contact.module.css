@@ -4,11 +4,13 @@
     padding: 10px;
     border-bottom: 1px solid lightgrey;
     cursor: pointer;
-    box-shadow: 6px -2px var(--green-light);
+    box-shadow: 6px -2px 5px var(--green-hover);
     margin: 2px;
     border-radius: 5px;
 }
 
 .user:hover {
-    background-color: lightgrey;
+    background-color: var(--green-hover);
+    color: var(--white);
+    box-shadow: 6px -2px 5px var(--green);
 }

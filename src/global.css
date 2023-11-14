@@ -17,5 +17,8 @@ body {
     --red-light: #fea291;
     --green: #008069;
     --green-light: #00a884;
+    --green-hover: #43c0a5;
+    --grey-layout: #d7dbd6;
     --font-family: 'Noto Sans', sans-serif;
+
 }

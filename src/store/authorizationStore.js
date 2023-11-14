@@ -1,4 +1,3 @@
-//TODO: нужен менеджер состояний (Redux)
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -9,6 +8,7 @@ const defaultState = {
         apiTokenInstanceStore: '',
         authorized: false,
     },
+    contactList: [],
 };
 
 const authReducer = (state = defaultState, action) => {

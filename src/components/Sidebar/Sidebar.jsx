@@ -61,6 +61,7 @@ export const Sidebar = () => {
                 <form className={styles.sidebarForm} onSubmit={searchContact}>
                     <input
                         autoFocus='autofocus'
+                        className={styles.input}
                         name='user'
                         onChange={handleChange}
                         placeholder='Введите имя или номер телефона'

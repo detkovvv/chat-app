@@ -25,6 +25,7 @@ export const AuthorizationPage = () => {
             <h1>Авторизация</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <input
+                    className={styles.input}
                     name='idInstance'
                     onChange={setIdInstance}
                     placeholder='idInstance'
@@ -32,6 +33,7 @@ export const AuthorizationPage = () => {
                     value={idInstance}
                 />
                 <input
+                    className={styles.input}
                     name='apiTokenInstance'
                     onChange={setApiTokenInstance}
                     onKeyDown={handlePressKey}
@@ -39,7 +41,9 @@ export const AuthorizationPage = () => {
                     required
                     value={apiTokenInstance}
                 />
-                <button type='submit'>Войти</button>
+                <button className={styles.button} type='submit'>
+                    Войти
+                </button>
             </form>
             {invalid && <p style={{ color: 'red' }}>Ошибка авторизации</p>}
         </div>

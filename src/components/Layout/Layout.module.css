@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #d7dbd6;
+    background-color: var(--grey-layout);
     z-index: 100;
     position: relative;
 }
@@ -13,7 +13,7 @@
 .wrapper:after {
     width: 100vw;
     height: 50vh;
-    background-color: #43c0a5;
+    background-color: var(--green-hover);
     position: absolute;
     top: 0;
     z-index: -1;
