@@ -1,10 +1,11 @@
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { useInputValue } from './useInput';
+import { getAuthLink } from '../helpers/api/getApiLink';
 import { axiosInstance } from '../helpers/axios';
 import { toLocalStorage } from '../helpers/localStorage';
-import { useNavigate } from 'react-router-dom';
-import { useInputValue } from './useInput';
-import { useState } from 'react';
-import { getAuthLink } from '../helpers/api/getApiLink';
-import { useDispatch, useSelector } from 'react-redux';
 
 export const useAuthorization = () => {
     const navigate = useNavigate();

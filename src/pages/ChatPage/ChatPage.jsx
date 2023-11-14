@@ -1,10 +1,11 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Sidebar } from '../../components/Sidebar/Sidebar';
-import { ChatContainer } from '../../components/ChatContainer/ChatContainer';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useAuthorization } from '../../hooks/useAithorization';
-import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
+
 import styles from './ChatPage.module.css';
+import { ChatContainer } from '../../components/ChatContainer/ChatContainer';
+import { Sidebar } from '../../components/Sidebar/Sidebar';
+import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
+import { useAuthorization } from '../../hooks/useAithorization';
 
 const useInitAuth = () => {
     const [isChecked, setIsChecked] = useState(false);
@@ -33,9 +34,6 @@ const WithAuth = ({ children }) => {
 export const ChatPage = () => {
     const { isLoggedIn } = useAuthorization();
     const { phoneNumber } = useParams();
-    console.log(isLoggedIn);
-
-    if (!isLoggedIn) return <Navigate to='/login' />;
 
     return (
         <WithAuth>
