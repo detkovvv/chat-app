@@ -4,9 +4,11 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const defaultState = {
-    idInstanceStore: '',
-    apiTokenInstanceStore: '',
-    authorized: false,
+    authInfo: {
+        idInstanceStore: '',
+        apiTokenInstanceStore: '',
+        authorized: false,
+    },
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -14,9 +16,11 @@ const authReducer = (state = defaultState, action) => {
         case 'LOG_IN':
             return {
                 ...state,
-                authorized: true,
-                idInstanceStore: action.payload.idInstanceStore,
-                apiTokenInstanceStore: action.payload.apiTokenInstanceStore,
+                authInfo: {
+                    authorized: true,
+                    idInstanceStore: action.payload.idInstanceStore,
+                    apiTokenInstanceStore: action.payload.apiTokenInstanceStore,
+                },
             };
         case 'LOG_OUT':
             return {

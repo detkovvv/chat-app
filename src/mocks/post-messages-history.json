@@ -1,82 +1,6 @@
 [
   {
     "type": "outgoing",
-    "idMessage": "BAE54368048EAA1A",
-    "timestamp": 1685018059,
-    "typeMessage": "extendedTextMessage",
-    "chatId": "79996349733@c.us",
-    "textMessage": "asgasgd",
-    "extendedTextMessage": {
-      "text": "asgasgd",
-      "description": "",
-      "title": "",
-      "previewType": "None",
-      "jpegThumbnail": "",
-      "forwardingScore": null,
-      "isForwarded": null
-    },
-    "statusMessage": "pending",
-    "sendByApi": true
-  },
-  {
-    "type": "outgoing",
-    "idMessage": "BAE54F9870E0D429",
-    "timestamp": 1685017889,
-    "typeMessage": "extendedTextMessage",
-    "chatId": "79996349733@c.us",
-    "textMessage": "asdg",
-    "extendedTextMessage": {
-      "text": "asdg",
-      "description": "",
-      "title": "",
-      "previewType": "None",
-      "jpegThumbnail": "",
-      "forwardingScore": null,
-      "isForwarded": null
-    },
-    "statusMessage": "pending",
-    "sendByApi": true
-  },
-  {
-    "type": "outgoing",
-    "idMessage": "BAE5233890EDE74C",
-    "timestamp": 1685017886,
-    "typeMessage": "extendedTextMessage",
-    "chatId": "79996349733@c.us",
-    "textMessage": "asdfsg",
-    "extendedTextMessage": {
-      "text": "asdfsg",
-      "description": "",
-      "title": "",
-      "previewType": "None",
-      "jpegThumbnail": "",
-      "forwardingScore": null,
-      "isForwarded": null
-    },
-    "statusMessage": "pending",
-    "sendByApi": true
-  },
-  {
-    "type": "outgoing",
-    "idMessage": "BAE5C528B6EA1103",
-    "timestamp": 1685017248,
-    "typeMessage": "extendedTextMessage",
-    "chatId": "79996349733@c.us",
-    "textMessage": "ыфып",
-    "extendedTextMessage": {
-      "text": "ыфып",
-      "description": "",
-      "title": "",
-      "previewType": "None",
-      "jpegThumbnail": "",
-      "forwardingScore": null,
-      "isForwarded": null
-    },
-    "statusMessage": "pending",
-    "sendByApi": true
-  },
-  {
-    "type": "outgoing",
     "idMessage": "BAE5949D13CEDA96",
     "timestamp": 1685016382,
     "typeMessage": "extendedTextMessage",
@@ -172,7 +96,7 @@
     "sendByApi": true
   },
   {
-    "type": "outgoing",
+    "type": "incoming",
     "idMessage": "BAE512C99388F0C0",
     "timestamp": 1685012703,
     "typeMessage": "extendedTextMessage",
@@ -239,7 +163,7 @@
     "sendByApi": true
   },
   {
-    "type": "outgoing",
+    "type": "incoming",
     "idMessage": "BAE551FA56A60C97",
     "timestamp": 1685012426,
     "typeMessage": "extendedTextMessage",
@@ -277,7 +201,7 @@
     "sendByApi": true
   },
   {
-    "type": "outgoing",
+    "type": "incoming",
     "idMessage": "BAE5C71FF4025A7B",
     "timestamp": 1685012166,
     "typeMessage": "extendedTextMessage",
@@ -296,7 +220,7 @@
     "sendByApi": true
   },
   {
-    "type": "outgoing",
+    "type": "incoming",
     "idMessage": "BAE5B83A1864F1EE",
     "timestamp": 1685012101,
     "typeMessage": "extendedTextMessage",
@@ -334,7 +258,7 @@
     "sendByApi": true
   },
   {
-    "type": "outgoing",
+    "type": "incoming",
     "idMessage": "BAE54D9404FD18A2",
     "timestamp": 1685011954,
     "typeMessage": "extendedTextMessage",

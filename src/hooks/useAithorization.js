@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
-    const isLoggedIn = useSelector((store) => store.authorized);
+    const isLoggedIn = useSelector((store) => store.authInfo.authorized);
     const dispatch = useDispatch();
 
     const [idInstance, setIdInstance] = useInputValue();

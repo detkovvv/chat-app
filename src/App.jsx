@@ -18,9 +18,7 @@ import './global.css';
 const useInitAuth = () => {
     const { setIsLoggedIn } = useAuthorization();
 
-    useEffect(() => {
-        setIsLoggedIn(!!apiLocalStorage && !!idLocalStorage);
-    }, []);
+    if (!!apiLocalStorage && !!idLocalStorage) setIsLoggedIn(idLocalStorage, apiLocalStorage);
 };
 
 const WithAuth = ({ children }) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './ChatMessage.module.css';
 
 export const ChatMessage = ({ message, sender, time }) => {
+    console.log(time);
     return (
         <div
             className={styles.chatMessage}
