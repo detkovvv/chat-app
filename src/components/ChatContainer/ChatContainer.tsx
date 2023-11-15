@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 
 import styles from './ChatContainer.module.css';
 import { getApiLink } from '../../helpers/api/getApiLink';
@@ -7,7 +7,7 @@ import { useGetMessage } from '../../hooks/useGetMessage';
 import { useInputValue } from '../../hooks/useInput';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 
-export const ChatContainer = ({ user }) => {
+export const ChatContainer: FC<{ user: string }> = ({ user }) => {
     const [value, setValue] = useInputValue('');
     const [messages, setMessages] = useState([]);
 

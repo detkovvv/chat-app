@@ -8,7 +8,6 @@ const defaultState = {
         apiTokenInstanceStore: '',
         authorized: false,
     },
-    contactList: [],
 };
 
 const authReducer = (state = defaultState, action) => {

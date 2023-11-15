@@ -22,7 +22,9 @@ export const SidebarHeader = () => {
 
     return (
         <div className={styles.sidebarHeader}>
-            <img alt='avatar' src='src/assets/avatar.jpg' />
+            <div className={styles.avatar}>
+                <img alt='avatar' className={styles.img} src='src/assets/avatar.jpg' />
+            </div>
             <p className={styles.userName}>Вы вошли как: {idLocalStorage}</p>
             <IconLogout className={styles.logoutIcon} onClick={handleLogOut} />
         </div>

@@ -17,8 +17,6 @@ const useInitAuth = () => {
             setIsLoggedIn(idLocalStorage, apiLocalStorage);
         }
         setIsChecked(true);
-        console.log(isChecked);
-        console.log(isLoggedIn);
     }, []);
 
     useEffect(() => {
@@ -42,7 +40,6 @@ export const ChatPage = () => {
                     {phoneNumber ? (
                         <ChatContainer user={phoneNumber} />
                     ) : (
-                        // TODO: вынести в отдельный компонент?
                         <div className={styles.chatContainer}>
                             <div className={styles.chatContainerHeader} />
                             <div className={styles.chatDisplayContainer}>

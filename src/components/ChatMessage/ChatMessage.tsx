@@ -1,8 +1,12 @@
-import React from 'react';
+import { type FC } from 'react';
 
 import styles from './ChatMessage.module.css';
 
-export const ChatMessage = ({ message, sender, time }) => {
+export const ChatMessage: FC<{ message: string; sender: string; time: number }> = ({
+    message,
+    sender,
+    time,
+}) => {
     console.log(time);
     return (
         <div

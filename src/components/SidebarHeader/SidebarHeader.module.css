@@ -6,11 +6,15 @@
     align-items: center;
     position: relative;
 }
-.sidebarHeader > img {
-    width: 20%;
+.avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.img {
+    width: 100%;
     height: 100%;
-    margin-right: 10px;
-    object-fit: cover;
+    border-radius: 50%;
 }
 
 .userName {

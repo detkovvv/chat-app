@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './Sidebar.module.css';
 import { getApiLink } from '../../helpers/api/getApiLink';
-import { axiosInstance } from '../../helpers/axios/index';
+import { axiosInstance } from '../../helpers/axios';
 import { useInputValue } from '../../hooks/useInput';
 import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
