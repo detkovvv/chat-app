@@ -43,7 +43,9 @@ export const ChatPage = () => {
                         <div className={styles.chatContainer}>
                             <div className={styles.chatContainerHeader} />
                             <div className={styles.chatDisplayContainer}>
-                                <img alt='#' src='src/assets/whatsApp.png' />
+                                <div className={styles.info}>
+                                    <p>Выберите, кому хотели бы написать</p>
+                                </div>
                             </div>
                         </div>
                     )}

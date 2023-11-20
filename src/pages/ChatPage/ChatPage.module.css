@@ -48,14 +48,19 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow-y: scroll;
     background-color: #ece5dd;
 }
 
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.info{
+    background-color: var(--grey-layout);
+    border-radius: 50px;
+    padding: 0 10px;
+}
+.info p{
+    font-size: 12px;
 }
 
 @media only screen and (min-width: 1367px) {

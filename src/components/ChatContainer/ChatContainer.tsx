@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FC } from 'react';
+import { useEffect, useRef, useState, type FC, useLayoutEffect } from 'react';
 
 import styles from './ChatContainer.module.css';
 import { getApiLink } from '../../helpers/api/getApiLink';
@@ -50,7 +50,7 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
         }
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         chatBox.current.scroll({ top: chatBox.current.scrollHeight, behavior: 'smooth' });
     }, [messages]);
 

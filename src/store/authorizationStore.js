@@ -8,6 +8,8 @@ const defaultState = {
         apiTokenInstanceStore: '',
         authorized: false,
     },
+    contactsList: [],
+    chatStore: [],
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -30,6 +32,33 @@ const authReducer = (state = defaultState, action) => {
     }
 };
 
+const contactsReducer = (state = defaultState, action) => {
+    switch (action.type) {
+        case 'GET_CONTACTS':
+            return {
+                ...state,
+                contactsList: [...action.payload],
+            };
+        default:
+            return state;
+    }
+};
+const chatReducer = (state = defaultState, action) => {
+    switch (action.type) {
+        case 'GET_CHAT_HISTORY':
+            return {
+                ...state,
+                chatStore: [...action.payload],
+            };
+        case 'ADD_MESSAGE':
+            return {
+                ...state,
+                chatStore: [...action.payload],
+            };
+        default:
+            return state;
+    }
+};
 export const setAuthorization = (value) => {
     authReducer(value);
 };
