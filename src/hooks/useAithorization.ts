@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ export const useAuthorization = () => {
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
     const [invalid, setInvalid] = useState(false);
 
-    const setIsLoggedIn = (idInstance, apiTokenInstance) => {
+    const setIsLoggedIn = (idInstance: string, apiTokenInstance: string) => {
         dispatch({
             type: 'LOG_IN',
             payload: { idInstanceStore: idInstance, apiTokenInstanceStore: apiTokenInstance },
@@ -28,7 +28,7 @@ export const useAuthorization = () => {
         });
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const response = await axiosInstance
@@ -51,7 +51,9 @@ export const useAuthorization = () => {
             });
     };
     return {
-        isLoggedIn,
+        isLoggedIn: isLoggedIn as boolean,
+        idInstance,
+        apiTokenInstance,
         setIsLoggedIn,
         setIsLoggedOut,
         invalid,

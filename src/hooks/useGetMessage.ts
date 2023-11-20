@@ -4,7 +4,7 @@ import { getApiLink } from '../helpers/api/getApiLink';
 import { axiosInstance } from '../helpers/axios/index';
 import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
 
-interface IMessages {
+export interface IMessages {
     type: string;
     idMessage: string;
     timestamp: string;

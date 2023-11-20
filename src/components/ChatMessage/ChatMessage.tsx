@@ -2,7 +2,7 @@ import { type FC } from 'react';
 
 import styles from './ChatMessage.module.css';
 
-export const ChatMessage: FC<{ message: string; sender: string; time: number }> = ({
+export const ChatMessage: FC<{ message: string; sender: string; time: string }> = ({
     message,
     sender,
     time,

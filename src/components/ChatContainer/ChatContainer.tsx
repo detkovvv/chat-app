@@ -1,17 +1,24 @@
-import { useEffect, useRef, useState, type FC, useLayoutEffect } from 'react';
+import {
+    useEffect,
+    useRef,
+    useState,
+    type FC,
+    useLayoutEffect,
+    type KeyboardEventHandler,
+} from 'react';
 
 import styles from './ChatContainer.module.css';
 import { getApiLink } from '../../helpers/api/getApiLink';
 import { axiosInstance } from '../../helpers/axios';
-import { useGetMessage } from '../../hooks/useGetMessage';
+import { type IMessages, useGetMessage } from '../../hooks/useGetMessage';
 import { useInputValue } from '../../hooks/useInput';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 
 export const ChatContainer: FC<{ user: string }> = ({ user }) => {
     const [value, setValue] = useInputValue();
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<IMessages[]>([]);
 
-    const chatBox = useRef(null);
+    const chatBox = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         axiosInstance
@@ -37,23 +44,24 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
             {
                 type: 'outgoing',
                 idMessage: response.data.idMessage,
-                timestamp: Date.now(),
+                timestamp: Date.now().toString(),
                 textMessage: `${value}`,
             },
         ]);
         setValue('');
     };
 
-    const handlePressKey = async (event: any) => {
+    const handlePressKey: KeyboardEventHandler<HTMLInputElement> = async (event) => {
         if (event.code === 'Enter') {
             await sendMessage();
         }
     };
 
     useLayoutEffect(() => {
-        chatBox.current
-            ? chatBox.current.scroll({ top: chatBox.current.scrollHeight, behavior: 'smooth' })
-            : null;
+        if (chatBox.current) {
+            const element = chatBox.current as HTMLDivElement;
+            element.scroll({ top: element.scrollHeight, behavior: 'smooth' });
+        }
     }, [messages]);
 
     return (

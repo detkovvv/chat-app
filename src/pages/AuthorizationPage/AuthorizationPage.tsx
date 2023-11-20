@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { type FC, type KeyboardEventHandler } from 'react';
 
 import styles from './AuthorizationPage.module.css';
 import { useAuthorization } from '../../hooks/useAithorization';
@@ -13,7 +13,7 @@ export const AuthorizationPage: FC = () => {
         setApiTokenInstance,
     } = useAuthorization();
 
-    const handlePressKey = async (event) => {
+    const handlePressKey: KeyboardEventHandler<HTMLInputElement> = async (event) => {
         if (event.code === 'Enter') {
             await handleSubmit;
         }

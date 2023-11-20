@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { type FormEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Sidebar.module.css';
@@ -8,11 +8,25 @@ import { useInputValue } from '../../hooks/useInput';
 import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
 
+export interface IContact {
+    id: string;
+    name: string;
+    type: string;
+}
+
+const createNewContact = (value: string) => {
+    return {
+        id: crypto.randomUUID(),
+        name: value,
+        type: 'user',
+    };
+};
+
 export const Sidebar = () => {
     const [value, handleChange] = useInputValue();
     const [newContact, setNewContact] = useState('');
     const [invalid, setInvalid] = useState(false);
-    const [contacts, setContacts] = useState([]);
+    const [contacts, setContacts] = useState<IContact[]>([]);
     const navigate = useNavigate();
 
     const currentContacts = useMemo(() => {
@@ -29,7 +43,7 @@ export const Sidebar = () => {
             .catch((error) => console.log(error));
     }, [invalid]);
 
-    const searchContact = async (event) => {
+    const searchContact = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         axiosInstance
             .post(getApiLink('checkWhatsapp'), {
@@ -40,7 +54,7 @@ export const Sidebar = () => {
                     setInvalid(false);
                     setNewContact(value);
                     handleChange('');
-                    setContacts([...contacts, newContact]);
+                    setContacts([...contacts, createNewContact(newContact)]);
                     navigate('/chat/' + newContact + '@c.us');
                 } else {
                     setInvalid(true);
@@ -61,7 +75,7 @@ export const Sidebar = () => {
             <div className={styles.sidebarSearch}>
                 <form className={styles.sidebarForm} onSubmit={searchContact}>
                     <input
-                        autoFocus='autofocus'
+                        autoFocus={true}
                         className={styles.input}
                         name='user'
                         onChange={handleChange}
