@@ -44,14 +44,16 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
         setValue('');
     };
 
-    const handlePressKey = async (event) => {
+    const handlePressKey = async (event: any) => {
         if (event.code === 'Enter') {
             await sendMessage();
         }
     };
 
     useLayoutEffect(() => {
-        chatBox.current.scroll({ top: chatBox.current.scrollHeight, behavior: 'smooth' });
+        chatBox.current
+            ? chatBox.current.scroll({ top: chatBox.current.scrollHeight, behavior: 'smooth' })
+            : null;
     }, [messages]);
 
     return (

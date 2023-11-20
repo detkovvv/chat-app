@@ -5,5 +5,5 @@ export const useInputValue = () => {
 
     const handleChange = useCallback((event: any) => setValue(event.target.value), []);
 
-    return [value, handleChange];
+    return [value, handleChange] as const;
 };

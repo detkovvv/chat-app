@@ -24,7 +24,7 @@ const useInitAuth = () => {
     }, [isChecked, isLoggedIn]);
 };
 
-const WithAuth = ({ children }) => {
+const WithAuth: FC<{ children: JSX.Element }> = ({ children }) => {
     useInitAuth();
     return children;
 };

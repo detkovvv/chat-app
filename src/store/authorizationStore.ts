@@ -12,7 +12,7 @@ const defaultState = {
     chatStore: [],
 };
 
-const authReducer = (state = defaultState, action) => {
+const authReducer = (state = defaultState, action: any) => {
     switch (action.type) {
         case 'LOG_IN':
             return {
@@ -32,7 +32,7 @@ const authReducer = (state = defaultState, action) => {
     }
 };
 
-const contactsReducer = (state = defaultState, action) => {
+const contactsReducer = (state = defaultState, action: any) => {
     switch (action.type) {
         case 'GET_CONTACTS':
             return {
@@ -43,7 +43,7 @@ const contactsReducer = (state = defaultState, action) => {
             return state;
     }
 };
-const chatReducer = (state = defaultState, action) => {
+const chatReducer = (state = defaultState, action: any) => {
     switch (action.type) {
         case 'GET_CHAT_HISTORY':
             return {
@@ -59,8 +59,8 @@ const chatReducer = (state = defaultState, action) => {
             return state;
     }
 };
-export const setAuthorization = (value) => {
-    authReducer(value);
-};
+// export const setAuthorization = (value) => {
+//     authReducer(value);
+// };
 
 export const authStore = createStore(authReducer, composeWithDevTools(applyMiddleware(thunk)));
