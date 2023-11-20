@@ -14,6 +14,8 @@ import { type IMessages, useGetMessage } from '../../hooks/useGetMessage';
 import { useInputValue } from '../../hooks/useInput';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 
+// TODO: переписать запросы через работу со store
+
 export const ChatContainer: FC<{ user: string }> = ({ user }) => {
     const [value, setValue] = useInputValue();
     const [messages, setMessages] = useState<IMessages[]>([]);

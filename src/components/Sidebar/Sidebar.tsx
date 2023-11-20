@@ -22,6 +22,8 @@ const createNewContact = (value: string) => {
     };
 };
 
+// TODO: переписать запросы через работу со store
+
 export const Sidebar = () => {
     const [value, handleChange] = useInputValue();
     const [newContact, setNewContact] = useState('');

@@ -2,6 +2,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
+// TODO: сделать типизацию для store
+
 const defaultState = {
     authInfo: {
         idInstanceStore: '',
@@ -59,8 +61,5 @@ const chatReducer = (state = defaultState, action: any) => {
             return state;
     }
 };
-// export const setAuthorization = (value) => {
-//     authReducer(value);
-// };
 
 export const authStore = createStore(authReducer, composeWithDevTools(applyMiddleware(thunk)));
