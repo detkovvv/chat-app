@@ -1,9 +1,9 @@
-import React from 'react';
+import { type FC } from 'react';
 
 import styles from './AuthorizationPage.module.css';
 import { useAuthorization } from '../../hooks/useAithorization';
 
-export const AuthorizationPage = () => {
+export const AuthorizationPage: FC = () => {
     const {
         handleSubmit,
         invalid,

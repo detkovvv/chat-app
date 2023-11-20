@@ -19,6 +19,7 @@
 
 .userName {
     flex-grow: 1;
+    padding-left: 10px;
 }
 .logoutIcon {
     padding: 0 10px;

@@ -9,7 +9,7 @@ import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
 
 export const Sidebar = () => {
-    const [value, handleChange] = useInputValue('');
+    const [value, handleChange] = useInputValue();
     const [newContact, setNewContact] = useState('');
     const [invalid, setInvalid] = useState(false);
     const [contacts, setContacts] = useState([]);

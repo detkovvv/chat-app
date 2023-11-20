@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { type FC, useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './ChatPage.module.css';
@@ -29,7 +29,7 @@ const WithAuth = ({ children }) => {
     return children;
 };
 
-export const ChatPage = () => {
+export const ChatPage: FC = () => {
     const { phoneNumber } = useParams();
 
     return (

@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './SidebarHeader.module.css';
 import { idLocalStorage, toLocalStorage } from '../../helpers/localStorage';
-import { useAuthorization } from '../../hooks/useAithorization';
+import { useAuthorization } from '../../hooks/useAithorization.js';
 
 export const SidebarHeader = () => {
     const { setIsLoggedOut } = useAuthorization();
     const navigate = useNavigate();
 
     const handleLogOut = () => {
-        let isLogOut = confirm('Вы действительно хотите выйти?');
+        const isLogOut: boolean = confirm('Вы действительно хотите выйти?');
         if (isLogOut) {
             toLocalStorage('idInstance', '');
             toLocalStorage('apiTokenInstance', '');

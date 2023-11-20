@@ -8,7 +8,7 @@ import { useInputValue } from '../../hooks/useInput';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 
 export const ChatContainer: FC<{ user: string }> = ({ user }) => {
-    const [value, setValue] = useInputValue('');
+    const [value, setValue] = useInputValue();
     const [messages, setMessages] = useState([]);
 
     const chatBox = useRef(null);

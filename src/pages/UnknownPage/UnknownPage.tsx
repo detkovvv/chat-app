@@ -1,9 +1,9 @@
-import React from 'react';
+import { type FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import styles from './UnknownPage.module.css';
 
-export const UnknownPage = ({ resetErrorBoundary }) => {
+export const UnknownPage: FC = ({ resetErrorBoundary }) => {
     return (
         <div className={styles.container}>
             <h1>Page not found</h1>

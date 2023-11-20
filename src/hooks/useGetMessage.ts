@@ -4,7 +4,14 @@ import { getApiLink } from '../helpers/api/getApiLink';
 import { axiosInstance } from '../helpers/axios/index';
 import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
 
-export const useGetMessage = (user, setMessages, messages) => {
+interface IMessages {
+    type: string;
+    idMessage: string;
+    timestamp: string;
+    textMessage: string;
+}
+
+export const useGetMessage = (user: string, setMessages: any, messages: IMessages[]) => {
     const getMessage = useCallback(() => {
         axiosInstance
             .get(getApiLink('ReceiveNotification'))
