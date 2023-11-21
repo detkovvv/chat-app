@@ -9,7 +9,7 @@ import { toLocalStorage } from '../helpers/localStorage';
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
-    const isLoggedIn = useSelector((store) => store.authInfo.authorized);
+    const isLoggedIn = useSelector((store) => store.auth.authInfo.authorized);
     const dispatch = useDispatch();
 
     const [idInstance, setIdInstance] = useInputValue();

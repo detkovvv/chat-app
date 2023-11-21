@@ -8,7 +8,7 @@ import { Layout } from './components/Layout/Layout';
 import { AuthorizationPage } from './pages/AuthorizationPage/AuthorizationPage';
 import { ChatPage } from './pages/ChatPage/ChatPage';
 import { UnknownPage } from './pages/UnknownPage/UnknownPage';
-import { authStore } from './store/authorizationStore';
+import { store } from './store/index.js';
 
 import './global.css';
 
@@ -21,7 +21,7 @@ export function App() {
                     console.log('render error');
                 }}
             >
-                <Provider store={authStore}>
+                <Provider store={store}>
                     <Routes>
                         <Route element={<Layout />} path='/'>
                             <Route element={<AuthorizationPage />} path='login' />
