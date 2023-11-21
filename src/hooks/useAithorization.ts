@@ -6,6 +6,7 @@ import { useInputValue } from './useInput';
 import { getAuthLink } from '../helpers/api/getApiLink';
 import { axiosInstance } from '../helpers/axios';
 import { toLocalStorage } from '../helpers/localStorage';
+import { loginAction, logoutAction } from '../store/authReducer.js';
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
@@ -17,15 +18,12 @@ export const useAuthorization = () => {
     const [invalid, setInvalid] = useState(false);
 
     const setIsLoggedIn = (idInstance: string, apiTokenInstance: string) => {
-        dispatch({
-            type: 'LOG_IN',
-            payload: { idInstanceStore: idInstance, apiTokenInstanceStore: apiTokenInstance },
-        });
+        dispatch(
+            loginAction({ idInstanceStore: idInstance, apiTokenInstanceStore: apiTokenInstance }),
+        );
     };
     const setIsLoggedOut = () => {
-        dispatch({
-            type: 'LOG_OUT',
-        });
+        dispatch(logoutAction({}));
     };
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {

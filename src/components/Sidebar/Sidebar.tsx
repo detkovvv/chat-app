@@ -1,4 +1,5 @@
 import React, { type FormEvent, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Sidebar.module.css';
@@ -25,10 +26,11 @@ const createNewContact = (value: string) => {
 // TODO: переписать запросы через работу со store
 
 export const Sidebar = () => {
+    const dispatch = useDispatch();
+    const contacts = useSelector((store) => store.contacts.contactList);
     const [value, handleChange] = useInputValue();
     const [newContact, setNewContact] = useState('');
     const [invalid, setInvalid] = useState(false);
-    const [contacts, setContacts] = useState<IContact[]>([]);
     const navigate = useNavigate();
 
     const currentContacts = useMemo(() => {
@@ -94,9 +96,13 @@ export const Sidebar = () => {
             </div>
             {invalid && <p className={styles.invalid}>номер не найден</p>}
             <div className={styles.sidebarChatList}>
-                {currentContacts.map((contact) => (
-                    <Contact id={contact.id} key={contact.id} name={contact.name} />
-                ))}
+                {currentContacts ? (
+                    currentContacts.map((contact) => (
+                        <Contact id={contact.id} key={contact.id} name={contact.name} />
+                    ))
+                ) : (
+                    <div className={styles.clearContactList}>Список контактов пуст</div>
+                )}
             </div>
         </div>
     );

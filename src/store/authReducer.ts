@@ -16,6 +16,9 @@ const defaultState = {
     },
 };
 
+const LOG_IN = 'LOG_IN';
+const LOG_OUT = 'LOG_OUT';
+
 export const authReducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'LOG_IN':
@@ -35,3 +38,5 @@ export const authReducer = (state = defaultState, action) => {
             return state;
     }
 };
+export const loginAction = (payload) => ({ type: LOG_IN, payload });
+export const logoutAction = (payload) => ({ type: LOG_OUT, payload });
