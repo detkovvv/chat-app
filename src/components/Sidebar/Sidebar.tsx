@@ -26,8 +26,9 @@ const createNewContact = (value: string) => {
 // TODO: переписать запросы через работу со store
 
 export const Sidebar = () => {
-    const dispatch = useDispatch();
-    const contacts = useSelector((store) => store.contacts.contactList);
+    // const dispatch = useDispatch();
+    // const contacts = useSelector((store) => store.contacts.contactList);
+    const [contacts, setContacts] = useState([]);
     const [value, handleChange] = useInputValue();
     const [newContact, setNewContact] = useState('');
     const [invalid, setInvalid] = useState(false);
