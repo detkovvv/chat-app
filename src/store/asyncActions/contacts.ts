@@ -10,12 +10,30 @@ export const fetchContacts = () => {
             .catch((error) => console.log(error));
     };
 };
-
-export const fetchContact = () => {
+//TODO: доделать fetchAddContact
+export const fetchAddContact = (value, setInvalid, handler, ) => {
     return (dispatch) => {
         axiosInstance
-            .post(getApiLink('getContacts'))
-            .then((response) => dispatch(addContactAction(response.data)))
-            .catch((error) => console.log(error));
+            .post(getApiLink('checkWhatsapp'), {
+                phoneNumber: `${value}`,
+            })
+            .then((response) => {
+                if (response.data.existsWhatsapp) {
+                    setInvalid(false);
+                    setNewContact(value);
+                    handleChange('');
+                    setContacts([...contacts, createNewContact(newContact)]);
+                    navigate('/chat/' + newContact + '@c.us');
+                } else {
+                    setInvalid(true);
+                    handleChange('');
+                }
+            })
+            .catch((error) => {
+                console.log(value);
+                setInvalid(true);
+                console.log(error.message);
+                handleChange('');
+            });
     };
 };

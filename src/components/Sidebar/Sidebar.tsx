@@ -6,6 +6,7 @@ import styles from './Sidebar.module.css';
 import { getApiLink } from '../../helpers/api/getApiLink';
 import { axiosInstance } from '../../helpers/axios';
 import { useInputValue } from '../../hooks/useInput';
+import { fetchContacts } from '../../store/asyncActions/contacts.js';
 import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
 
@@ -26,29 +27,26 @@ const createNewContact = (value: string) => {
 // TODO: переписать запросы через работу со store
 
 export const Sidebar = () => {
-    // const dispatch = useDispatch();
-    // const contacts = useSelector((store) => store.contacts.contactList);
-    const [contacts, setContacts] = useState([]);
+    const dispatch = useDispatch();
+    const contacts = useSelector((store) => store.contacts.contactList);
+    console.log(contacts);
+    // const [contacts, setContacts] = useState([]);
     const [value, handleChange] = useInputValue();
     const [newContact, setNewContact] = useState('');
     const [invalid, setInvalid] = useState(false);
     const navigate = useNavigate();
 
     const currentContacts = useMemo(() => {
-        if (contacts.length === 0) return [];
+        if (!contacts) return [];
         return contacts.filter((item) => item.name.toUpperCase().includes(value.toUpperCase()));
     }, [contacts, value]);
 
     useEffect(() => {
-        axiosInstance
-            .post(getApiLink('getContacts'))
-            .then((response) => {
-                setContacts(response.data);
-            })
-            .catch((error) => console.log(error));
-    }, [invalid]);
+        dispatch(fetchContacts());
+        console.log(contacts);
+    }, []);
 
-    const searchContact = async (event: FormEvent<HTMLFormElement>) => {
+    const addNewContact = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         axiosInstance
             .post(getApiLink('checkWhatsapp'), {
@@ -78,7 +76,7 @@ export const Sidebar = () => {
         <div className={styles.sidebar}>
             <SidebarHeader />
             <div className={styles.sidebarSearch}>
-                <form className={styles.sidebarForm} onSubmit={searchContact}>
+                <form className={styles.sidebarForm} onSubmit={addNewContact}>
                     <input
                         autoFocus={true}
                         className={styles.input}

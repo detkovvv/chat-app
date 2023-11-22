@@ -14,18 +14,6 @@ export const fetchChatHistory = (person) => {
     };
 };
 
-export const fetchMessage = (person) => {
-    return (dispatch) => {
-        axiosInstance
-            .post(getApiLink('getChatHistory'), {
-                chatId: `${person}`,
-                count: 10,
-            })
-            .then((response) => dispatch(getChatHistoryAction(response.data)))
-            .catch((error) => console.log(error));
-    };
-};
-
 export const sendMessage = (person, value) => {
     return (dispatch) => {
         axiosInstance
