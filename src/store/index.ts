@@ -13,3 +13,7 @@ const rootReducer = combineReducers({
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+
+export type DispatchType = typeof store.dispatch;
+export const CustomDispatch = store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

@@ -4,8 +4,8 @@ import { getApiLink } from '../../helpers/api/getApiLink.js';
 import { axiosInstance } from '../../helpers/axios/index.js';
 import { addContactAction, getContactsAction } from '../contactsReducer.js';
 
-export const fetchContacts = (dispatch: Dispatch) => {
-    return () => {
+export const fetchContacts = () => {
+    return (dispatch: Dispatch) => {
         axiosInstance
             .post(getApiLink('getContacts'))
             .then((response) => dispatch(getContactsAction(response.data)))
@@ -13,7 +13,7 @@ export const fetchContacts = (dispatch: Dispatch) => {
     };
 };
 // TODO: доделать fetchAddContact
-export const fetchAddContact = (value, setInvalid, handler) => {
+export const fetchAddNewContact = (value, setInvalid, handler) => {
     return (dispatch) => {
         axiosInstance
             .post(getApiLink('checkWhatsapp'), {

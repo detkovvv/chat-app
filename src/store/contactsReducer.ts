@@ -1,12 +1,11 @@
 import { type IContact } from '../components/Sidebar/Sidebar.js';
 
-export interface IcontactsList {
-    contactList: IContact[];
-}
-
 const defaultState = {
-    contactsList: [],
+    contactsList: [] as IContact[],
 };
+
+export type IcontactsList = typeof defaultState;
+
 const GET_CONTACTS = 'GET_CONTACTS';
 const ADD_CONTACT = 'ADD_CONTACT';
 

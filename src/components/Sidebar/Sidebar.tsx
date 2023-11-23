@@ -7,6 +7,7 @@ import { getApiLink } from '../../helpers/api/getApiLink';
 import { axiosInstance } from '../../helpers/axios';
 import { useInputValue } from '../../hooks/useInput';
 import { fetchContacts } from '../../store/asyncActions/contacts.js';
+import { CustomDispatch } from '../../store/index.js';
 import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
 
@@ -28,7 +29,9 @@ const createNewContact = (value: string) => {
 
 export const Sidebar = () => {
     const dispatch = useDispatch();
-    const contacts = useSelector((store) => store.contacts.contactList);
+    const contacts = useSelector((store) => store.contacts.contactsList);
+    const store = useSelector((store) => store);
+    console.log(store);
 
     // const [contacts, setContacts] = useState([]);
     const [value, handleChange] = useInputValue();
@@ -42,8 +45,7 @@ export const Sidebar = () => {
     }, [contacts, value]);
 
     useEffect(() => {
-        console.log(contacts);
-        dispatch(fetchContacts());
+        CustomDispatch(fetchContacts());
         console.log(contacts);
     }, []);
 
@@ -58,7 +60,7 @@ export const Sidebar = () => {
                     setInvalid(false);
                     setNewContact(value);
                     handleChange('');
-                    // setContacts([...contacts, createNewContact(newContact)]);
+                    setContacts([...contacts, createNewContact(newContact)]);
                     navigate('/chat/' + newContact + '@c.us');
                 } else {
                     setInvalid(true);
