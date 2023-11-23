@@ -29,7 +29,7 @@ const createNewContact = (value: string) => {
 export const Sidebar = () => {
     const dispatch = useDispatch();
     const contacts = useSelector((store) => store.contacts.contactList);
-    console.log(contacts);
+
     // const [contacts, setContacts] = useState([]);
     const [value, handleChange] = useInputValue();
     const [newContact, setNewContact] = useState('');
@@ -42,6 +42,7 @@ export const Sidebar = () => {
     }, [contacts, value]);
 
     useEffect(() => {
+        console.log(contacts);
         dispatch(fetchContacts());
         console.log(contacts);
     }, []);
@@ -57,7 +58,7 @@ export const Sidebar = () => {
                     setInvalid(false);
                     setNewContact(value);
                     handleChange('');
-                    setContacts([...contacts, createNewContact(newContact)]);
+                    // setContacts([...contacts, createNewContact(newContact)]);
                     navigate('/chat/' + newContact + '@c.us');
                 } else {
                     setInvalid(true);

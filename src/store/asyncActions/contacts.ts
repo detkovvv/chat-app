@@ -1,17 +1,19 @@
+import { type Dispatch } from 'redux';
+
 import { getApiLink } from '../../helpers/api/getApiLink.js';
 import { axiosInstance } from '../../helpers/axios/index.js';
 import { addContactAction, getContactsAction } from '../contactsReducer.js';
 
-export const fetchContacts = () => {
-    return (dispatch) => {
+export const fetchContacts = (dispatch: Dispatch) => {
+    return () => {
         axiosInstance
             .post(getApiLink('getContacts'))
             .then((response) => dispatch(getContactsAction(response.data)))
             .catch((error) => console.log(error));
     };
 };
-//TODO: доделать fetchAddContact
-export const fetchAddContact = (value, setInvalid, handler, ) => {
+// TODO: доделать fetchAddContact
+export const fetchAddContact = (value, setInvalid, handler) => {
     return (dispatch) => {
         axiosInstance
             .post(getApiLink('checkWhatsapp'), {
