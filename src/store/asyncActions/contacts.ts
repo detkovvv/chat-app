@@ -32,9 +32,10 @@ export const fetchAddNewContact = (value, callback) => {
                     dispatch(addContactAction(callback(value)));
                 } else dispatch(receivedErrorAction('пользователь не зарегистрирован'));
             })
-            .then(() => dispatch(setIsLoadingAction(false)))
             .catch((error) => {
+                dispatch(receivedErrorAction(error.message));
                 console.log(error.message);
-            });
+            })
+            .finally(() => dispatch(setIsLoadingAction(false)));
     };
 };

@@ -48,8 +48,8 @@ export const Sidebar = () => {
 
     const addNewContact = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        fetchAddNewContact(value, createNewContact);
-        await handleChange('');
+        await fetchAddNewContact(value, createNewContact);
+        handleChange('');
     };
 
     return (
