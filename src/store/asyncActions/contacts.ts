@@ -2,40 +2,39 @@ import { type Dispatch } from 'redux';
 
 import { getApiLink } from '../../helpers/api/getApiLink.js';
 import { axiosInstance } from '../../helpers/axios/index.js';
-import { addContactAction, getContactsAction } from '../contactsReducer.js';
+import {
+    addContactAction,
+    getContactsAction,
+    receivedErrorAction,
+    setIsLoadingAction,
+} from '../contactsReducer.js';
 
 export const fetchContacts = () => {
     return (dispatch: Dispatch) => {
+        dispatch(setIsLoadingAction(true));
         axiosInstance
             .post(getApiLink('getContacts'))
             .then((response) => dispatch(getContactsAction(response.data)))
-            .catch((error) => console.log(error));
+            .then(() => dispatch(setIsLoadingAction(false)))
+            .catch((error) => dispatch(receivedErrorAction(error)));
     };
 };
-// TODO: доделать fetchAddContact
-export const fetchAddNewContact = (value, setInvalid, handler) => {
-    return (dispatch) => {
+
+export const fetchAddNewContact = (value, callback) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setIsLoadingAction(true));
         axiosInstance
             .post(getApiLink('checkWhatsapp'), {
                 phoneNumber: `${value}`,
             })
             .then((response) => {
                 if (response.data.existsWhatsapp) {
-                    setInvalid(false);
-                    setNewContact(value);
-                    handleChange('');
-                    setContacts([...contacts, createNewContact(newContact)]);
-                    navigate('/chat/' + newContact + '@c.us');
-                } else {
-                    setInvalid(true);
-                    handleChange('');
-                }
+                    dispatch(addContactAction(callback(value)));
+                } else dispatch(receivedErrorAction('пользователь не зарегистрирован'));
             })
+            .then(() => dispatch(setIsLoadingAction(false)))
             .catch((error) => {
-                console.log(value);
-                setInvalid(true);
                 console.log(error.message);
-                handleChange('');
             });
     };
 };

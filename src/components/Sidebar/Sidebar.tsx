@@ -6,7 +6,7 @@ import styles from './Sidebar.module.css';
 import { getApiLink } from '../../helpers/api/getApiLink';
 import { axiosInstance } from '../../helpers/axios';
 import { useInputValue } from '../../hooks/useInput';
-import { fetchContacts } from '../../store/asyncActions/contacts.js';
+import { fetchAddNewContact, fetchContacts } from '../../store/asyncActions/contacts.js';
 import { CustomDispatch } from '../../store/index.js';
 import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
@@ -19,7 +19,7 @@ export interface IContact {
 
 const createNewContact = (value: string) => {
     return {
-        id: crypto.randomUUID(),
+        id: value + '@c.us',
         name: value,
         type: 'user',
     };
@@ -30,10 +30,6 @@ const createNewContact = (value: string) => {
 export const Sidebar = () => {
     const dispatch = useDispatch();
     const contacts = useSelector((store) => store.contacts.contactsList);
-    const store = useSelector((store) => store);
-    console.log(store);
-
-    // const [contacts, setContacts] = useState([]);
     const [value, handleChange] = useInputValue();
     const [newContact, setNewContact] = useState('');
     const [invalid, setInvalid] = useState(false);
@@ -46,33 +42,14 @@ export const Sidebar = () => {
 
     useEffect(() => {
         CustomDispatch(fetchContacts());
-        console.log(contacts);
     }, []);
+
+    // TODO: состояние isLoading/Error  - при ожидании запроса / ошибке
 
     const addNewContact = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        axiosInstance
-            .post(getApiLink('checkWhatsapp'), {
-                phoneNumber: `${value}`,
-            })
-            .then((response) => {
-                if (response.data.existsWhatsapp) {
-                    setInvalid(false);
-                    setNewContact(value);
-                    handleChange('');
-                    setContacts([...contacts, createNewContact(newContact)]);
-                    navigate('/chat/' + newContact + '@c.us');
-                } else {
-                    setInvalid(true);
-                    handleChange('');
-                }
-            })
-            .catch((error) => {
-                console.log(value);
-                setInvalid(true);
-                console.log(error.message);
-                handleChange('');
-            });
+        fetchAddNewContact(value, createNewContact);
+        await handleChange('');
     };
 
     return (
@@ -98,13 +75,9 @@ export const Sidebar = () => {
             </div>
             {invalid && <p className={styles.invalid}>номер не найден</p>}
             <div className={styles.sidebarChatList}>
-                {currentContacts ? (
-                    currentContacts.map((contact) => (
-                        <Contact id={contact.id} key={contact.id} name={contact.name} />
-                    ))
-                ) : (
-                    <div className={styles.clearContactList}>Список контактов пуст</div>
-                )}
+                {currentContacts.map((contact) => (
+                    <Contact id={contact.id} key={crypto.randomUUID()} name={contact.name} />
+                ))}
             </div>
         </div>
     );

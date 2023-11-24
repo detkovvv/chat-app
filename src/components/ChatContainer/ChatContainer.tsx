@@ -70,7 +70,7 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
         <div className={styles.chatContainer}>
             <div className={styles.chatContainerHeader}>
                 <div className={styles.chatUserInfo}>
-                    <p>Получатель: {user}</p>
+                    <p>Получатель: {parseInt(user)}</p>
                 </div>
             </div>
             <div className={styles.chatDisplayContainer} ref={chatBox}>
