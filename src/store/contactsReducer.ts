@@ -18,7 +18,7 @@ export const contactsReducer = (state = defaultState, action) => {
         case 'GET_CONTACTS':
             return {
                 ...state,
-                contactsList: [...state.contactsList, ...action.payload],
+                contactsList: [...action.payload],
             };
         case 'SET_IS_LOADING':
             return {

@@ -1,10 +1,7 @@
 import React, { type FormEvent, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import styles from './Sidebar.module.css';
-import { getApiLink } from '../../helpers/api/getApiLink';
-import { axiosInstance } from '../../helpers/axios';
 import { useInputValue } from '../../hooks/useInput';
 import { fetchAddNewContact, fetchContacts } from '../../store/asyncActions/contacts.js';
 import { CustomDispatch } from '../../store/index.js';
@@ -31,9 +28,7 @@ export const Sidebar = () => {
     const dispatch = useDispatch();
     const contacts = useSelector((store) => store.contacts.contactsList);
     const [value, handleChange] = useInputValue();
-    const [newContact, setNewContact] = useState('');
-    const [invalid, setInvalid] = useState(false);
-    const navigate = useNavigate();
+    const invalid = useSelector((store) => store.contacts.error);
 
     const currentContacts = useMemo(() => {
         if (!contacts) return [];
@@ -73,10 +68,10 @@ export const Sidebar = () => {
                     </button>
                 </form>
             </div>
-            {invalid && <p className={styles.invalid}>номер не найден</p>}
+            {invalid && <p className={styles.invalid}>{invalid}</p>}
             <div className={styles.sidebarChatList}>
                 {currentContacts.map((contact) => (
-                    <Contact id={contact.id} key={crypto.randomUUID()} name={contact.name} />
+                    <Contact id={contact.id} key={contact.id} name={contact.name} />
                 ))}
             </div>
         </div>
