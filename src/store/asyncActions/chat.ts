@@ -54,6 +54,11 @@ export const getMessage = (user) => {
                     return data.receiptId;
                 }
             })
+            .then((receiptId) => {
+                if (receiptId) {
+                    axiosInstance.delete(getApiLink('deleteNotification', receiptId));
+                }
+            })
             .catch((error) => console.log(error));
     };
 };

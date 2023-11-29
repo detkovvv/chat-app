@@ -1,17 +1,14 @@
 import { type FC, type KeyboardEventHandler } from 'react';
+import { useSelector } from 'react-redux';
 
 import styles from './AuthorizationPage.module.css';
 import { useAuthorization } from '../../hooks/useAithorization';
 
 export const AuthorizationPage: FC = () => {
-    const {
-        handleSubmit,
-        invalid,
-        idInstance,
-        apiTokenInstance,
-        setIdInstance,
-        setApiTokenInstance,
-    } = useAuthorization();
+    const { handleSubmit, idInstance, apiTokenInstance, setIdInstance, setApiTokenInstance } =
+        useAuthorization();
+    const invalid = useSelector((store) => store.contacts.error);
+    const isLoading = useSelector((store) => store.contacts.isLoading);
 
     const handlePressKey: KeyboardEventHandler<HTMLInputElement> = async (event) => {
         if (event.code === 'Enter') {
@@ -40,11 +37,11 @@ export const AuthorizationPage: FC = () => {
                     required
                     value={apiTokenInstance}
                 />
-                <button className={styles.button} type='submit'>
+                <button className={isLoading ? styles.buttonLoading : styles.button} type='submit'>
                     Войти
                 </button>
             </form>
-            {invalid && <p style={{ color: 'red' }}>Ошибка авторизации</p>}
+            {invalid && <p style={{ color: 'red' }}>{invalid}</p>}
         </div>
     );
 };

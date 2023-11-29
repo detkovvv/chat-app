@@ -7,7 +7,6 @@ export const ChatMessage: FC<{ message: string; sender: string; time: string }> 
     sender,
     time,
 }) => {
-    console.log(time);
     return (
         <div
             className={styles.chatMessage}

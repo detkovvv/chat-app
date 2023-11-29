@@ -1,61 +1,34 @@
-import {
-    useEffect,
-    useRef,
-    useState,
-    type FC,
-    useLayoutEffect,
-    type KeyboardEventHandler,
-} from 'react';
+import { useEffect, useRef, type FC, useLayoutEffect, type KeyboardEventHandler } from 'react';
+import { useSelector } from 'react-redux';
 
 import styles from './ChatContainer.module.css';
-import { getApiLink } from '../../helpers/api/getApiLink';
-import { axiosInstance } from '../../helpers/axios';
 import { type IMessages, useGetMessage } from '../../hooks/useGetMessage';
 import { useInputValue } from '../../hooks/useInput';
+import { CustomDispatch } from '../../store';
+import { fetchChatHistory, sendMessage } from '../../store/asyncActions/chat.js';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 
 // TODO: переписать запросы через работу со store
 
 export const ChatContainer: FC<{ user: string }> = ({ user }) => {
-    const [value, setValue] = useInputValue();
-    const [messages, setMessages] = useState<IMessages[]>([]);
+    const [value, handleChangeValue] = useInputValue();
+    const messages = useSelector((store) => store.chat.chatStore);
 
     const chatBox = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        axiosInstance
-            .post(getApiLink('getChatHistory'), {
-                chatId: `${user}`,
-                count: 10,
-            })
-            .then((response) => {
-                setMessages(response.data);
-            })
-            .catch((error) => console.log(error));
+        CustomDispatch(fetchChatHistory(user));
     }, [user]);
 
-    useGetMessage(user, setMessages, messages);
-
-    const sendMessage = async () => {
-        const response = await axiosInstance.post(getApiLink('sendMessage'), {
-            chatId: `${user}`,
-            message: `${value}`,
-        });
-        setMessages([
-            ...messages,
-            {
-                type: 'outgoing',
-                idMessage: response.data.idMessage,
-                timestamp: Date.now().toString(),
-                textMessage: `${value}`,
-            },
-        ]);
-        setValue('');
+    // useGetMessage(user, setMessages, messages);
+    const handleSendMessage = (event) => {
+        event.preventDefault();
+        sendMessage(user, value);
+        event.target.reset();
     };
-
     const handlePressKey: KeyboardEventHandler<HTMLInputElement> = async (event) => {
         if (event.code === 'Enter') {
-            await sendMessage();
+            await sendMessage(value, user);
         }
     };
 
@@ -83,18 +56,18 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
                     />
                 ))}
             </div>
-            <div className={styles.chatInput}>
+            <form className={styles.chatInput} onSubmit={handleSendMessage}>
                 <input
-                    onChange={setValue}
+                    onChange={handleChangeValue}
                     onKeyDown={handlePressKey}
                     placeholder='Введите сообщение'
                     type='text'
                     value={value}
                 />
-                <button className={styles.chatInputSendBtn} onClick={sendMessage}>
+                <button className={styles.chatInputSendBtn} type='submit'>
                     Отправить
                 </button>
-            </div>
+            </form>
         </div>
     );
 };

@@ -9,7 +9,7 @@ const defaultState = {
 const GET_CHAT_HISTORY = 'GET_CHAT_HISTORY';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
-export const chatReducer = (state = defaultState, action: any) => {
+export const chatReducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'GET_CHAT_HISTORY':
             return {

@@ -1,4 +1,4 @@
-import React, { type FormEvent, useEffect, useMemo, useState } from 'react';
+import React, { type FormEvent, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Sidebar.module.css';
@@ -25,10 +25,10 @@ const createNewContact = (value: string) => {
 // TODO: переписать запросы через работу со store
 
 export const Sidebar = () => {
-    const dispatch = useDispatch();
     const contacts = useSelector((store) => store.contacts.contactsList);
-    const [value, handleChange] = useInputValue();
+    const [value, handleChangeValue] = useInputValue();
     const invalid = useSelector((store) => store.contacts.error);
+    const isLoading = useSelector((store) => store.contacts.isLoading);
 
     const currentContacts = useMemo(() => {
         if (!contacts) return [];
@@ -39,12 +39,9 @@ export const Sidebar = () => {
         CustomDispatch(fetchContacts());
     }, []);
 
-    // TODO: состояние isLoading/Error  - при ожидании запроса / ошибке
-
-    const addNewContact = async (event: FormEvent<HTMLFormElement>) => {
+    const addNewContact = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await fetchAddNewContact(value, createNewContact);
-        handleChange('');
+        CustomDispatch(fetchAddNewContact(value, createNewContact));
     };
 
     return (
@@ -56,14 +53,17 @@ export const Sidebar = () => {
                         autoFocus={true}
                         className={styles.input}
                         name='user'
-                        onChange={handleChange}
+                        onChange={handleChangeValue}
                         placeholder='Введите имя или номер телефона'
                         required
                         size={10}
                         type='phone'
                         value={value}
                     />
-                    <button className={styles.addContact} type='submit'>
+                    <button
+                        className={isLoading ? styles.loadingButton : styles.addContact}
+                        type='submit'
+                    >
                         добавить
                     </button>
                 </form>

@@ -1,8 +1,14 @@
 import { useCallback, useEffect } from 'react';
+import { Dispatch } from 'redux';
 
 import { getApiLink } from '../helpers/api/getApiLink';
 import { axiosInstance } from '../helpers/axios/index';
 import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
+import {
+    getContactsAction,
+    receivedErrorAction,
+    setIsLoadingAction,
+} from '../store/contactsReducer.js';
 
 export interface IMessages {
     type: string;

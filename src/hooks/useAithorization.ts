@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import { getAuthLink } from '../helpers/api/getApiLink';
 import { axiosInstance } from '../helpers/axios';
 import { toLocalStorage } from '../helpers/localStorage';
 import { loginAction, logoutAction } from '../store/authReducer.js';
+import { receivedErrorAction, setIsLoadingAction } from '../store/contactsReducer.js';
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
@@ -15,7 +16,6 @@ export const useAuthorization = () => {
 
     const [idInstance, setIdInstance] = useInputValue();
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
-    const [invalid, setInvalid] = useState(false);
 
     const setIsLoggedIn = (idInstance: string, apiTokenInstance: string) => {
         dispatch(
@@ -28,25 +28,21 @@ export const useAuthorization = () => {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        dispatch(setIsLoadingAction(true));
         const response = await axiosInstance
             .get(getAuthLink(idInstance, apiTokenInstance))
             .then((response) => {
                 if (response.data.stateInstance === 'authorized') {
-                    setInvalid(false);
                     toLocalStorage('idInstance', idInstance);
                     toLocalStorage('apiTokenInstance', apiTokenInstance);
                     setIsLoggedIn(idInstance, apiTokenInstance);
                     navigate('/');
                 } else {
-                    setInvalid(true);
+                    dispatch(receivedErrorAction('неверный логин или пароль'));
                 }
             })
-            .catch((e) => {
-                if (e instanceof Error) {
-                    setInvalid(true);
-                }
-            });
+            .catch((error) => dispatch(receivedErrorAction(error.message)))
+            .finally(() => dispatch(setIsLoadingAction(false)));
     };
     return {
         isLoggedIn: isLoggedIn as boolean,
@@ -54,7 +50,6 @@ export const useAuthorization = () => {
         apiTokenInstance,
         setIsLoggedIn,
         setIsLoggedOut,
-        invalid,
         handleSubmit,
         setIdInstance,
         setApiTokenInstance,

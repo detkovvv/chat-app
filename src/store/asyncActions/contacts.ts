@@ -16,7 +16,8 @@ export const fetchContacts = () => {
             .post(getApiLink('getContacts'))
             .then((response) => dispatch(getContactsAction(response.data)))
             .then(() => dispatch(setIsLoadingAction(false)))
-            .catch((error) => dispatch(receivedErrorAction(error)));
+            .catch((error) => dispatch(receivedErrorAction(error.message)))
+            .finally(() => dispatch(setIsLoadingAction(false)));
     };
 };
 

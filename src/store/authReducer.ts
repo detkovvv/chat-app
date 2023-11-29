@@ -25,9 +25,9 @@ export const authReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 authInfo: {
-                    authorized: true,
                     idInstanceStore: action.payload.idInstanceStore,
                     apiTokenInstanceStore: action.payload.apiTokenInstanceStore,
+                    authorized: true,
                 },
             };
         case 'LOG_OUT':
