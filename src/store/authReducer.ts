@@ -13,6 +13,7 @@ const defaultState = {
         idInstanceStore: '',
         apiTokenInstanceStore: '',
         authorized: false,
+        avatar: '',
     },
 };
 

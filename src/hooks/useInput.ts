@@ -7,6 +7,7 @@ export const useInputValue = () => {
         (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value),
         [],
     );
+    const clearValue = () => setValue('');
 
-    return [value, handleChangeValue] as const;
+    return [value, handleChangeValue, clearValue] as const;
 };

@@ -6,7 +6,7 @@ const defaultState = {
     error: null as null | object,
 };
 
-export type IcontactsList = typeof defaultState;
+export type ContactsList = typeof defaultState;
 
 const GET_CONTACTS = 'GET_CONTACTS';
 const ADD_CONTACT = 'ADD_CONTACT';

@@ -1,5 +1,5 @@
 import React, { type FormEvent, useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import styles from './Sidebar.module.css';
 import { useInputValue } from '../../hooks/useInput';
@@ -22,11 +22,9 @@ const createNewContact = (value: string) => {
     };
 };
 
-// TODO: переписать запросы через работу со store
-
 export const Sidebar = () => {
     const contacts = useSelector((store) => store.contacts.contactsList);
-    const [value, handleChangeValue] = useInputValue();
+    const [value, handleChangeValue, clearValue] = useInputValue();
     const invalid = useSelector((store) => store.contacts.error);
     const isLoading = useSelector((store) => store.contacts.isLoading);
 
@@ -42,6 +40,7 @@ export const Sidebar = () => {
     const addNewContact = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         CustomDispatch(fetchAddNewContact(value, createNewContact));
+        clearValue();
     };
 
     return (

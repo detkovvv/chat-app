@@ -2,7 +2,7 @@ import { useEffect, useRef, type FC, useLayoutEffect, type KeyboardEventHandler 
 import { useSelector } from 'react-redux';
 
 import styles from './ChatContainer.module.css';
-import { type IMessages, useGetMessage } from '../../hooks/useGetMessage';
+import { useGetMessage } from '../../hooks/useGetMessage.js';
 import { useInputValue } from '../../hooks/useInput';
 import { CustomDispatch } from '../../store';
 import { fetchChatHistory, sendMessage } from '../../store/asyncActions/chat.js';
@@ -11,7 +11,7 @@ import { ChatMessage } from '../ChatMessage/ChatMessage';
 // TODO: переписать запросы через работу со store
 
 export const ChatContainer: FC<{ user: string }> = ({ user }) => {
-    const [value, handleChangeValue] = useInputValue();
+    const [value, handleChangeValue, clearValue] = useInputValue();
     const messages = useSelector((store) => store.chat.chatStore);
 
     const chatBox = useRef<HTMLDivElement | null>(null);
@@ -20,15 +20,17 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
         CustomDispatch(fetchChatHistory(user));
     }, [user]);
 
-    // useGetMessage(user, setMessages, messages);
+    useGetMessage(user, messages);
+
     const handleSendMessage = (event) => {
         event.preventDefault();
-        sendMessage(user, value);
-        event.target.reset();
+        CustomDispatch(sendMessage(value, user));
+        clearValue();
     };
-    const handlePressKey: KeyboardEventHandler<HTMLInputElement> = async (event) => {
+    const handlePressKey: KeyboardEventHandler<HTMLInputElement> = (event) => {
         if (event.code === 'Enter') {
-            await sendMessage(value, user);
+            CustomDispatch(sendMessage(value, user));
+            clearValue();
         }
     };
 

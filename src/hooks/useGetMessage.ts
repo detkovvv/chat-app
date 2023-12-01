@@ -1,14 +1,6 @@
 import { useCallback, useEffect } from 'react';
-import { Dispatch } from 'redux';
 
-import { getApiLink } from '../helpers/api/getApiLink';
-import { axiosInstance } from '../helpers/axios/index';
-import { apiLocalStorage, idLocalStorage } from '../helpers/localStorage';
-import {
-    getContactsAction,
-    receivedErrorAction,
-    setIsLoadingAction,
-} from '../store/contactsReducer.js';
+import { getMessage } from '../store/asyncActions/chat.js';
 
 export interface IMessages {
     type: string;
@@ -17,37 +9,15 @@ export interface IMessages {
     textMessage: string;
 }
 
-export const useGetMessage = (user: string, setMessages: any, messages: IMessages[]) => {
-    const getMessage = useCallback(() => {
-        axiosInstance
-            .get(getApiLink('ReceiveNotification'))
-            .then(({ data }) => {
-                if (data) {
-                    if (data.body.senderData.sender === `${user}`) {
-                        setMessages([
-                            ...messages,
-                            {
-                                type: 'incoming',
-                                idMessage: data.body.idMessage,
-                                timestamp: data.body.timestamp,
-                                textMessage: data.body.messageData.textMessageData.textMessage,
-                            },
-                        ]);
-                    }
-                    return data.receiptId;
-                }
-            })
-            .then((receiptId) => {
-                if (receiptId) {
-                    axiosInstance.delete(getApiLink('deleteNotification', receiptId));
-                }
-            });
-    }, [setMessages, apiLocalStorage, idLocalStorage]);
+export const useGetMessage = (user: string, messages: IMessages[]) => {
+    const getMessageCurrent = useCallback(() => {
+        getMessage(user);
+    }, [messages]);
 
     useEffect(() => {
         const timerId = setInterval(() => {
-            getMessage();
+            getMessageCurrent();
         }, 100_000);
         return () => clearInterval(timerId);
-    }, [getMessage]);
+    }, [getMessageCurrent]);
 };
