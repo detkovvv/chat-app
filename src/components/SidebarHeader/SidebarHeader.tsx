@@ -3,7 +3,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './SidebarHeader.module.css';
-import { idLocalStorage, toLocalStorage } from '../../helpers/localStorage';
+import { getAvatar } from '../../helpers/getAvatar.js';
+import { idLocalStorage, toLocalStorage, wid } from '../../helpers/localStorage';
 import { useAuthorization } from '../../hooks/useAithorization.js';
 
 export const SidebarHeader = () => {
@@ -19,11 +20,12 @@ export const SidebarHeader = () => {
             navigate('/login');
         }
     };
+    const myAvatar = getAvatar(wid);
 
     return (
         <div className={styles.sidebarHeader}>
             <div className={styles.avatar}>
-                <img alt='avatar' className={styles.img} src='src/assets/avatar.jpg' />
+                <img alt='avatar' className={styles.img} src={''} />
             </div>
             <p className={styles.userName}>Вы вошли как: {idLocalStorage}</p>
             <IconLogout className={styles.logoutIcon} onClick={handleLogOut} />

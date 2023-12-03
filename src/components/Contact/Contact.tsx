@@ -10,6 +10,7 @@ export const Contact: FC<{ name: string; id: string }> = ({ name, id }) => {
 
     return (
         <div className={styles.user} onClick={() => navigate('/chat/' + id)}>
+            <div className={styles.userAvatar}>{name[0]}</div>
             {name}
         </div>
     );

@@ -33,7 +33,7 @@ export const useAuthorization = () => {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(setIsLoadingAction(true));
-        const response = await axiosInstance
+        await axiosInstance
             .get(getAuthLink(idInstance, apiTokenInstance))
             .then((response) => {
                 if (response.data.wid) {

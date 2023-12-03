@@ -8,12 +8,17 @@
 .chatContainerHeader {
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 70px;
     padding: 5px 0 5px 10px;
     background-color: #ededed;
     justify-content: space-between;
 }
-
+.avatar{
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 .chatUserInfo {
     display: flex;
     flex-direction: row;
