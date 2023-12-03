@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import { getMessage } from '../store/asyncActions/chat.js';
+import { CustomDispatch } from '../store/index.js';
 
 export interface IMessages {
     type: string;
@@ -11,13 +12,14 @@ export interface IMessages {
 
 export const useGetMessage = (user: string, messages: IMessages[]) => {
     const getMessageCurrent = useCallback(() => {
-        getMessage(user);
+        CustomDispatch(getMessage(user));
     }, [messages]);
 
     useEffect(() => {
         const timerId = setInterval(() => {
+            console.log('worked');
             getMessageCurrent();
-        }, 100_000);
+        }, 1000_000);
         return () => clearInterval(timerId);
-    }, [getMessageCurrent]);
+    }, [user]);
 };

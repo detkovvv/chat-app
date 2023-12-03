@@ -1,24 +1,24 @@
-// TODO: сделать типизацию для store
-
 export interface IauthInfo {
     authInfo: {
         idInstanceStore: string;
         apiTokenInstanceStore: string;
-        authorized: boolean;
+        wid: string;
+        avatar: string;
     };
 }
 
-const defaultState = {
+const defaultState: IauthInfo = {
     authInfo: {
         idInstanceStore: '',
         apiTokenInstanceStore: '',
-        authorized: false,
+        wid: '',
         avatar: '',
     },
 };
 
 const LOG_IN = 'LOG_IN';
 const LOG_OUT = 'LOG_OUT';
+const GET_MAIN_AVATAR = 'GET_MAIN_AVATAR';
 
 export const authReducer = (state = defaultState, action) => {
     switch (action.type) {
@@ -28,12 +28,20 @@ export const authReducer = (state = defaultState, action) => {
                 authInfo: {
                     idInstanceStore: action.payload.idInstanceStore,
                     apiTokenInstanceStore: action.payload.apiTokenInstanceStore,
-                    authorized: true,
+                    wid: action.payload.widStore,
+                    avatar: '',
                 },
             };
         case 'LOG_OUT':
             return {
                 ...defaultState,
+            };
+        case 'GET_MAIN_AVATAR':
+            return {
+                ...state,
+                authInfo: {
+                    avatar: action.payload,
+                },
             };
         default:
             return state;
@@ -41,3 +49,4 @@ export const authReducer = (state = defaultState, action) => {
 };
 export const loginAction = (payload) => ({ type: LOG_IN, payload });
 export const logoutAction = (payload) => ({ type: LOG_OUT, payload });
+export const getMainAvatar = (payload) => ({ type: GET_MAIN_AVATAR, payload });

@@ -2,6 +2,7 @@ export const toLocalStorage = (key: string, value: string) => localStorage.setIt
 
 export const idLocalStorage: string | null = localStorage.getItem('idInstance');
 export const apiLocalStorage: string | null = localStorage.getItem('apiTokenInstance');
+export const wid: string | null = localStorage.getItem('wid');
 
 // TODO: переделать работу с lacoStorage через новый хук и wrapper
 // class StorageWrapper {

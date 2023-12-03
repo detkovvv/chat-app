@@ -7,5 +7,5 @@ export const getApiLink = (route: string, additionRoute?: string): string => {
 };
 
 export const getAuthLink = (idInstance: string, apiTokenInstance: string): string => {
-    return `/waInstance${idInstance}/getStateInstance/${apiTokenInstance}`;
+    return `/waInstance${idInstance}/getSettings/${apiTokenInstance}`;
 };

@@ -11,15 +11,19 @@ import { receivedErrorAction, setIsLoadingAction } from '../store/contactsReduce
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
-    const isLoggedIn = useSelector((store) => store.auth.authInfo.authorized);
+    const isLoggedIn = useSelector((store) => store.auth.authInfo.wid);
     const dispatch = useDispatch();
 
     const [idInstance, setIdInstance] = useInputValue();
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
 
-    const setIsLoggedIn = (idInstance: string, apiTokenInstance: string) => {
+    const setIsLoggedIn = (idInstance: string, apiTokenInstance: string, wid: string) => {
         dispatch(
-            loginAction({ idInstanceStore: idInstance, apiTokenInstanceStore: apiTokenInstance }),
+            loginAction({
+                idInstanceStore: idInstance,
+                apiTokenInstanceStore: apiTokenInstance,
+                widStore: wid,
+            }),
         );
     };
     const setIsLoggedOut = () => {
@@ -32,10 +36,11 @@ export const useAuthorization = () => {
         const response = await axiosInstance
             .get(getAuthLink(idInstance, apiTokenInstance))
             .then((response) => {
-                if (response.data.stateInstance === 'authorized') {
+                if (response.data.wid) {
                     toLocalStorage('idInstance', idInstance);
                     toLocalStorage('apiTokenInstance', apiTokenInstance);
-                    setIsLoggedIn(idInstance, apiTokenInstance);
+                    toLocalStorage('wid', response.data.wid);
+                    setIsLoggedIn(idInstance, apiTokenInstance, response.data.wid);
                     navigate('/');
                 } else {
                     dispatch(receivedErrorAction('неверный логин или пароль'));

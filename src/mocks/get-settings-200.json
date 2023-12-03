@@ -1,0 +1,23 @@
+{
+    "wid": "79933556372@c.us",
+    "countryInstance": "",
+    "typeAccount": "",
+    "webhookUrl": "",
+    "webhookUrlToken": "",
+    "delaySendMessagesMilliseconds": 500,
+    "markIncomingMessagesReaded": "no",
+    "markIncomingMessagesReadedOnReply": "no",
+    "sharedSession": "no",
+    "proxyInstance": "system proxy",
+    "outgoingWebhook": "no",
+    "outgoingMessageWebhook": "no",
+    "outgoingAPIMessageWebhook": "no",
+    "incomingWebhook": "yes",
+    "deviceWebhook": "no",
+    "statusInstanceWebhook": "no",
+    "stateWebhook": "no",
+    "enableMessagesHistory": "no",
+    "keepOnlineStatus": "no",
+    "pollMessageWebhook": "no",
+    "incomingBlockWebhook": "no"
+}

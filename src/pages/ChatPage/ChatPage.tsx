@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styles from './ChatPage.module.css';
 import { ChatContainer } from '../../components/ChatContainer/ChatContainer';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
-import { apiLocalStorage, idLocalStorage } from '../../helpers/localStorage';
+import { apiLocalStorage, idLocalStorage, wid } from '../../helpers/localStorage';
 import { useAuthorization } from '../../hooks/useAithorization';
 
 const useInitAuth = () => {
@@ -13,8 +13,8 @@ const useInitAuth = () => {
     const navigate = useNavigate();
 
     useLayoutEffect(() => {
-        if (idLocalStorage && apiLocalStorage) {
-            setIsLoggedIn(idLocalStorage, apiLocalStorage);
+        if (idLocalStorage && apiLocalStorage && wid) {
+            setIsLoggedIn(idLocalStorage, apiLocalStorage, wid);
         }
         setIsChecked(true);
     }, []);
