@@ -20,7 +20,7 @@ export const SidebarHeader = () => {
             navigate('/login');
         }
     };
-    const myAvatar = getAvatar(wid);
+    // const myAvatar = getAvatar(wid);
 
     return (
         <div className={styles.sidebarHeader}>
