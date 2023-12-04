@@ -1,21 +1,25 @@
 import { getApiLink } from '../../helpers/api/getApiLink.js';
 import { axiosInstance } from '../../helpers/axios/index.js';
 import { addMessageAction, getChatHistoryAction } from '../chatReducer.js';
+import { receivedErrorAction, setIsLoadingAction } from '../contactsReducer.js';
 
 export const fetchChatHistory = (person) => {
     return (dispatch) => {
+        dispatch(setIsLoadingAction(true));
         axiosInstance
             .post(getApiLink('getChatHistory'), {
                 chatId: `${person}`,
-                count: 10,
+                count: 20,
             })
             .then((response) => dispatch(getChatHistoryAction(response.data)))
-            .catch((error) => console.log(error));
+            .catch((error) => dispatch(receivedErrorAction(error.message)))
+            .finally(() => dispatch(setIsLoadingAction(false)));
     };
 };
 
 export const sendMessage = (person, value) => {
     return (dispatch) => {
+        dispatch(setIsLoadingAction(true));
         axiosInstance
             .post(getApiLink('sendMessage'), {
                 chatId: `${person}`,
@@ -31,12 +35,14 @@ export const sendMessage = (person, value) => {
                     }),
                 ),
             )
-            .catch((error) => console.log(error));
+            .catch((error) => dispatch(receivedErrorAction(error.message)))
+            .finally(() => dispatch(setIsLoadingAction(false)));
     };
 };
 
 export const getMessage = (user) => {
     return (dispatch) => {
+        dispatch(setIsLoadingAction(true));
         axiosInstance
             .post(getApiLink('ReceiveNotification'))
             .then(({ data }) => {
@@ -59,6 +65,7 @@ export const getMessage = (user) => {
                     axiosInstance.delete(getApiLink('deleteNotification', receiptId));
                 }
             })
-            .catch((error) => console.log(error));
+            .catch((error) => dispatch(receivedErrorAction(error.message)))
+            .finally(() => dispatch(setIsLoadingAction(false)));
     };
 };

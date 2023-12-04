@@ -1,4 +1,8 @@
-import { type IContact } from '../components/Sidebar/Sidebar.js';
+export interface IContact {
+    id: string;
+    name: string;
+    type: string;
+}
 
 const defaultState = {
     contactsList: [] as IContact[],

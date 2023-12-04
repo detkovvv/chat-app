@@ -25,17 +25,17 @@ export const fetchAddNewContact = (value, callback) => {
     return (dispatch: Dispatch) => {
         dispatch(setIsLoadingAction(true));
         axiosInstance
-            .post(getApiLink('checkWhatsapp'), {
-                phoneNumber: `${value}`,
+            .post(getApiLink('GetContactInfo'), {
+                chatId: `${value}@c.us`,
             })
             .then((response) => {
-                if (response.data.existsWhatsapp) {
-                    dispatch(addContactAction(callback(value)));
+                if (response.data.chatId) {
+                    dispatch(receivedErrorAction(false));
+                    dispatch(addContactAction(callback(value, parseInt(response.data.chatId))));
                 } else dispatch(receivedErrorAction('пользователь не зарегистрирован'));
             })
             .catch((error) => {
                 dispatch(receivedErrorAction(error.message));
-                console.log(error.message);
             })
             .finally(() => dispatch(setIsLoadingAction(false)));
     };

@@ -14,12 +14,12 @@ export const chatReducer = (state = defaultState, action) => {
         case 'GET_CHAT_HISTORY':
             return {
                 ...state,
-                chatStore: [...action.payload],
+                chatStore: [...action.payload.reverse()],
             };
         case 'ADD_MESSAGE':
             return {
                 ...state,
-                chatStore: [...action.payload],
+                chatStore: [...state.chatStore, action.payload],
             };
         default:
             return state;

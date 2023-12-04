@@ -8,16 +8,10 @@ import { CustomDispatch } from '../../store/index.js';
 import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
 
-export interface IContact {
-    id: string;
-    name: string;
-    type: string;
-}
-
-const createNewContact = (value: string) => {
+const createNewContact = (value: string, name) => {
     return {
         id: value + '@c.us',
-        name: value,
+        name: name,
         type: 'user',
     };
 };

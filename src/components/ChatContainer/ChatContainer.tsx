@@ -2,7 +2,7 @@ import { useEffect, useRef, type FC, useLayoutEffect, type KeyboardEventHandler 
 import { useSelector } from 'react-redux';
 
 import styles from './ChatContainer.module.css';
-import { getAvatar } from '../../helpers/getAvatar.js';
+import { getAvatar } from '../../helpers/fetchAvatarLink.js';
 import { useGetMessage } from '../../hooks/useGetMessage.js';
 import { useInputValue } from '../../hooks/useInput';
 import { CustomDispatch } from '../../store';
