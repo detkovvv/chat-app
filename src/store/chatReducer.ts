@@ -1,5 +1,11 @@
-export interface IchatStore {
-    chatStore: string[];
+export interface IMessages {
+    type: string;
+    idMessage: string;
+    timestamp: string;
+    textMessage: string;
+}
+export interface IChatStore {
+    chatStore: IMessages[];
 }
 
 const defaultState = {

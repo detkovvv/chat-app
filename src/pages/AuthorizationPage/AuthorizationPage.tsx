@@ -1,17 +1,14 @@
 import { type FC, type KeyboardEventHandler } from 'react';
-import { type TypedUseSelectorHook, useSelector } from 'react-redux';
 
 import styles from './AuthorizationPage.module.css';
 import { useAuthorization } from '../../hooks/useAithorization';
-import { type RootState } from '../../store/index.js';
+import { useAppSelector } from '../../store/index.js';
 
 export const AuthorizationPage: FC = () => {
     const { handleSubmit, idInstance, apiTokenInstance, setIdInstance, setApiTokenInstance } =
         useAuthorization();
-    const invalid: TypedUseSelectorHook<RootState> = useSelector((store) => store.contacts.error);
-    const isLoading: TypedUseSelectorHook<RootState> = useSelector(
-        (store) => store.contacts.isLoading,
-    );
+    const invalid = useAppSelector((store) => store.contacts.error);
+    const isLoading = useAppSelector((store) => store.contacts.isLoading);
 
     const handlePressKey: KeyboardEventHandler<HTMLInputElement> = async (event) => {
         if (event.code === 'Enter') {

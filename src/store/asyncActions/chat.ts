@@ -30,7 +30,7 @@ export const sendMessage = (person, value) => {
                     addMessageAction({
                         type: 'outgoing',
                         idMessage: response.data.idMessage,
-                        timestamp: Date.now().toString(),
+                        timestamp: Date.now(),
                         textMessage: `${value}`,
                     }),
                 ),
@@ -42,9 +42,8 @@ export const sendMessage = (person, value) => {
 
 export const getMessage = (user) => {
     return (dispatch) => {
-        dispatch(setIsLoadingAction(true));
         axiosInstance
-            .post(getApiLink('ReceiveNotification'))
+            .get(getApiLink('receiveNotification'))
             .then(({ data }) => {
                 if (data) {
                     if (data.body.senderData.sender === `${user}`) {
@@ -65,7 +64,6 @@ export const getMessage = (user) => {
                     axiosInstance.delete(getApiLink('deleteNotification', receiptId));
                 }
             })
-            .catch((error) => dispatch(receivedErrorAction(error.message)))
-            .finally(() => dispatch(setIsLoadingAction(false)));
+            .catch((error) => console.log(error.message));
     };
 };

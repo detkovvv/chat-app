@@ -1,17 +1,15 @@
 import { useEffect, useRef, type FC, useLayoutEffect, type KeyboardEventHandler } from 'react';
-import { useSelector } from 'react-redux';
 
 import styles from './ChatContainer.module.css';
-import { getAvatar } from '../../helpers/fetchAvatarLink.js';
 import { useGetMessage } from '../../hooks/useGetMessage.js';
 import { useInputValue } from '../../hooks/useInput';
-import { CustomDispatch } from '../../store';
+import { useAppSelector, CustomDispatch } from '../../store';
 import { fetchChatHistory, sendMessage } from '../../store/asyncActions/chat.js';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 
 export const ChatContainer: FC<{ user: string }> = ({ user }) => {
     const [value, handleChangeValue, clearValue] = useInputValue();
-    const messages = useSelector((store) => store.chat.chatStore);
+    const messages = useAppSelector((store) => store.chat.chatStore);
 
     const chatBox = useRef<HTMLDivElement | null>(null);
 

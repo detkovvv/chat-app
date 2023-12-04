@@ -1,4 +1,4 @@
-export interface IauthInfo {
+export interface IAuthInfo {
     authInfo: {
         idInstanceStore: string;
         apiTokenInstanceStore: string;
@@ -6,7 +6,7 @@ export interface IauthInfo {
     };
 }
 
-const defaultState: IauthInfo = {
+const defaultState: IAuthInfo = {
     authInfo: {
         idInstanceStore: '',
         apiTokenInstanceStore: '',

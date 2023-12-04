@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import styles from './Sidebar.module.css';
 import { useInputValue } from '../../hooks/useInput';
 import { fetchAddNewContact, fetchContacts } from '../../store/asyncActions/contacts.js';
+import { type IContact } from '../../store/contactsReducer.js';
 import { CustomDispatch } from '../../store/index.js';
 import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
@@ -17,7 +18,7 @@ const createNewContact = (value: string, name) => {
 };
 
 export const Sidebar = () => {
-    const contacts = useSelector((store) => store.contacts.contactsList);
+    const contacts: IContact[] = useSelector((store) => store.contacts.contactsList);
     const [value, handleChangeValue, clearValue] = useInputValue();
     const invalid = useSelector((store) => store.contacts.error);
     const isLoading = useSelector((store) => store.contacts.isLoading);
