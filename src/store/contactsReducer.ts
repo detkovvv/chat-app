@@ -3,8 +3,13 @@ export interface IContact {
     name: string;
     type: string;
 }
+export interface IContactsState {
+    contactsList: IContact[];
+    isLoading: false;
+    error: null | object;
+}
 
-const defaultState = {
+const defaultState: IContactsState = {
     contactsList: [] as IContact[],
     isLoading: false,
     error: null as null | object,
@@ -17,7 +22,7 @@ const ADD_CONTACT = 'ADD_CONTACT';
 const SET_IS_LOADING = 'SET_IS_LOADING';
 const RECEIVED_AN_ERROR = 'RECEIVED_AN_ERROR';
 
-export const contactsReducer = (state = defaultState, action) => {
+export const contactsReducer = (state = defaultState, action): IContactsState => {
     switch (action.type) {
         case 'GET_CONTACTS':
             return {

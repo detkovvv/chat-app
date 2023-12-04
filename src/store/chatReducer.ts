@@ -15,7 +15,7 @@ const defaultState = {
 const GET_CHAT_HISTORY = 'GET_CHAT_HISTORY';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
-export const chatReducer = (state = defaultState, action) => {
+export const chatReducer = (state = defaultState, action): IChatStore => {
     switch (action.type) {
         case 'GET_CHAT_HISTORY':
             return {

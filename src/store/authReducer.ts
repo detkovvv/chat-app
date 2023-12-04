@@ -17,7 +17,7 @@ const defaultState: IAuthInfo = {
 const LOG_IN = 'LOG_IN';
 const LOG_OUT = 'LOG_OUT';
 
-export const authReducer = (state = defaultState, action) => {
+export const authReducer = (state = defaultState, action): IAuthInfo => {
     switch (action.type) {
         case 'LOG_IN':
             return {
