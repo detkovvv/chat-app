@@ -8,11 +8,12 @@ import { axiosInstance } from '../helpers/axios';
 import { toLocalStorage } from '../helpers/localStorage';
 import { loginAction, logoutAction } from '../store/authReducer.js';
 import { receivedErrorAction, setIsLoadingAction } from '../store/contactsReducer.js';
+import { type DispatchType } from '../store/index.js';
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector((store) => store.auth.authInfo.wid);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<DispatchType>();
 
     const [idInstance, setIdInstance] = useInputValue();
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
