@@ -13,7 +13,7 @@ export const useGetMessage = (user: string, messages: IMessages[]) => {
         const timerId = setInterval(() => {
             console.log('worked');
             getMessageCurrent();
-        }, 1000_0000);
+        }, 5000_0000);
         return () => clearInterval(timerId);
     }, [messages]);
 };

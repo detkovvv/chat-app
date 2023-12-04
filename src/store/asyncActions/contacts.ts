@@ -21,7 +21,7 @@ export const fetchContacts = () => {
     };
 };
 
-export const fetchAddNewContact = (value, callback) => {
+export const fetchAddNewContact = (value: string, callback: CallableFunction) => {
     return (dispatch: Dispatch) => {
         dispatch(setIsLoadingAction(true));
         axiosInstance
