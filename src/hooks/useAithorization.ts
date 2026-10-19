@@ -1,19 +1,19 @@
 import { type FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useInputValue } from './useInput';
 import { getAuthLink } from '../helpers/api/getApiLink';
 import { axiosInstance } from '../helpers/axios';
-import { toLocalStorage } from '../helpers/localStorage';
+import { saveAuthSession } from '../helpers/localStorage';
 import { loginAction, logoutAction } from '../store/authReducer.js';
-import { receivedErrorAction, setIsLoadingAction } from '../store/contactsReducer.js';
-import { type DispatchType } from '../store/index.js';
+import { clearChatAction } from '../store/chatReducer.js';
+import { clearContactsAction, receivedErrorAction, setIsLoadingAction } from '../store/contactsReducer.js';
+import { useAppDispatch, useAppSelector } from '../store/index.js';
 
 export const useAuthorization = () => {
     const navigate = useNavigate();
-    const isLoggedIn = useSelector((store) => store.auth.authInfo.wid);
-    const dispatch = useDispatch<DispatchType>();
+    const isLoggedIn = useAppSelector((store) => store.auth.authInfo.wid);
+    const dispatch = useAppDispatch();
 
     const [idInstance, setIdInstance] = useInputValue();
     const [apiTokenInstance, setApiTokenInstance] = useInputValue();
@@ -28,21 +28,22 @@ export const useAuthorization = () => {
         );
     };
     const setIsLoggedOut = () => {
-        dispatch(logoutAction({}));
+        dispatch(logoutAction());
+        dispatch(clearContactsAction());
+        dispatch(clearChatAction());
     };
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        dispatch(receivedErrorAction(null));
         dispatch(setIsLoadingAction(true));
         await axiosInstance
             .get(getAuthLink(idInstance, apiTokenInstance))
             .then((response) => {
                 if (response.data.wid) {
-                    toLocalStorage('idInstance', idInstance);
-                    toLocalStorage('apiTokenInstance', apiTokenInstance);
-                    toLocalStorage('wid', response.data.wid);
+                    saveAuthSession(idInstance, apiTokenInstance, response.data.wid);
                     setIsLoggedIn(idInstance, apiTokenInstance, response.data.wid);
-                    navigate('/');
+                    navigate('/live');
                 } else {
                     dispatch(receivedErrorAction('неверный логин или пароль'));
                 }
@@ -51,7 +52,7 @@ export const useAuthorization = () => {
             .finally(() => dispatch(setIsLoadingAction(false)));
     };
     return {
-        isLoggedIn: isLoggedIn as boolean,
+        isLoggedIn: Boolean(isLoggedIn),
         idInstance,
         apiTokenInstance,
         setIsLoggedIn,

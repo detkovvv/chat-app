@@ -1,32 +1,32 @@
-import React, { type FormEvent, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { type FormEvent, useEffect, useMemo, useState } from 'react';
 
 import styles from './Sidebar.module.css';
 import { useInputValue } from '../../hooks/useInput';
 import { fetchAddNewContact, fetchContacts } from '../../store/asyncActions/contacts.js';
 import { type IContact } from '../../store/contactsReducer.js';
-import { CustomDispatch } from '../../store/index.js';
+import { CustomDispatch, useAppSelector } from '../../store/index.js';
 import { Contact } from '../Contact/Contact';
 import { SidebarHeader } from '../SidebarHeader/SidebarHeader';
 
-const createNewContact = (value: string, name) => {
+const createNewContact = (value: string): IContact => {
     return {
         id: value + '@c.us',
-        name: name,
+        name: value,
         type: 'user',
     };
 };
 
 export const Sidebar = () => {
-    const contacts: IContact[] = useSelector((store) => store.contacts.contactsList);
+    const contacts = useAppSelector((store) => store.contacts.contactsList);
     const [value, handleChangeValue, clearValue] = useInputValue();
-    const invalid = useSelector((store) => store.contacts.error);
-    const isLoading = useSelector((store) => store.contacts.isLoading);
+    const [query, setQuery] = useState('');
+    const invalid = useAppSelector((store) => store.contacts.error);
+    const isLoading = useAppSelector((store) => store.contacts.isLoading);
 
     const currentContacts = useMemo(() => {
         if (!contacts) return [];
-        return contacts.filter((item) => item.name.toUpperCase().includes(value.toUpperCase()));
-    }, [contacts, value]);
+        return contacts.filter((item) => item.name.toUpperCase().includes(query.toUpperCase()));
+    }, [contacts, query]);
 
     useEffect(() => {
         CustomDispatch(fetchContacts());
@@ -34,7 +34,9 @@ export const Sidebar = () => {
 
     const addNewContact = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        CustomDispatch(fetchAddNewContact(value, createNewContact));
+        const phoneNumber = value.replace(/\D/g, '');
+        if (!phoneNumber) return;
+        CustomDispatch(fetchAddNewContact(phoneNumber, createNewContact));
         clearValue();
     };
 
@@ -42,16 +44,23 @@ export const Sidebar = () => {
         <div className={styles.sidebar}>
             <SidebarHeader />
             <div className={styles.sidebarSearch}>
+                <input
+                    aria-label='Поиск контакта'
+                    className={styles.searchInput}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder='Поиск контакта'
+                    type='search'
+                    value={query}
+                />
                 <form className={styles.sidebarForm} onSubmit={addNewContact}>
                     <input
-                        autoFocus={true}
+                        aria-label='Номер нового контакта'
                         className={styles.input}
                         name='user'
                         onChange={handleChangeValue}
-                        placeholder='Введите имя или номер телефона'
+                        placeholder='Номер нового контакта'
                         required
-                        size={10}
-                        type='phone'
+                        type='tel'
                         value={value}
                     />
                     <button

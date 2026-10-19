@@ -1,5 +1,3 @@
-import { type Dispatch } from 'redux';
-
 import { getApiLink } from '../../helpers/api/getApiLink.js';
 import { axiosInstance } from '../../helpers/axios/index.js';
 import {
@@ -7,10 +5,12 @@ import {
     getContactsAction,
     receivedErrorAction,
     setIsLoadingAction,
+    type IContact,
 } from '../contactsReducer.js';
+import { type DispatchType } from '../index.js';
 
 export const fetchContacts = () => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: DispatchType) => {
         dispatch(setIsLoadingAction(true));
         axiosInstance
             .post(getApiLink('getContacts'))
@@ -21,8 +21,8 @@ export const fetchContacts = () => {
     };
 };
 
-export const fetchAddNewContact = (value: string, callback: CallableFunction) => {
-    return (dispatch: Dispatch) => {
+export const fetchAddNewContact = (value: string, callback: (value: string) => IContact) => {
+    return (dispatch: DispatchType) => {
         dispatch(setIsLoadingAction(true));
         axiosInstance
             .post(getApiLink('GetContactInfo'), {
@@ -30,8 +30,8 @@ export const fetchAddNewContact = (value: string, callback: CallableFunction) =>
             })
             .then((response) => {
                 if (response.data.chatId) {
-                    dispatch(receivedErrorAction(false));
-                    dispatch(addContactAction(callback(value, parseInt(response.data.chatId))));
+                    dispatch(receivedErrorAction(null));
+                    dispatch(addContactAction(callback(value)));
                 } else dispatch(receivedErrorAction('пользователь не зарегистрирован'));
             })
             .catch((error) => {

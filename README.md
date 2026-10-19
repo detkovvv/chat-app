@@ -1,3 +1,11 @@
+# Chat App
+
+Демо работает без регистрации и ключей: после открытия приложения выберите контакт и отправьте сообщение. Данные демо сохраняются только в браузере; кнопка «Сбросить демо» возвращает исходные переписки.
+
+Режим Green API доступен по ссылке «Подключить Green API». Для него нужны собственные `IdInstance` и `ApiTokenInstance`; данные хранятся в `sessionStorage` до закрытия вкладки. Для обновления GitHub Pages используется `.github/workflows/deploy.yml` из ветки `Redux`.
+
+Опубликованное демо: https://detkovvv.github.io/chat-app/.
+
 <h1 align="center">Инструкция для локального запуска проекта</h1>
 Клонируем проект к себе локально с помощью git clone <a href="https://github.com/detkovvv/chat-app.git" target="_blank">"https://github.com/detkovvv/chat-app.git"</a>,
 затем скачиваем все зависимости с помощью команды <b>"yarn install"</b> и запускаем приложение <b>"yarn dev"</b>.

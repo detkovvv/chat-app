@@ -1,8 +1,21 @@
-export const toLocalStorage = (key: string, value: string) => localStorage.setItem(key, value);
+const authKeys = ['idInstance', 'apiTokenInstance', 'wid'] as const;
 
-export const idLocalStorage: string | null = localStorage.getItem('idInstance');
-export const apiLocalStorage: string | null = localStorage.getItem('apiTokenInstance');
-export const wid: string | null = localStorage.getItem('wid');
+// Credentials from older versions were stored persistently. Remove them when this version opens.
+authKeys.forEach((key) => localStorage.removeItem(key));
+
+export const getAuthSession = () => ({
+    idInstance: sessionStorage.getItem('idInstance'),
+    apiTokenInstance: sessionStorage.getItem('apiTokenInstance'),
+    wid: sessionStorage.getItem('wid'),
+});
+
+export const saveAuthSession = (idInstance: string, apiTokenInstance: string, wid: string) => {
+    sessionStorage.setItem('idInstance', idInstance);
+    sessionStorage.setItem('apiTokenInstance', apiTokenInstance);
+    sessionStorage.setItem('wid', wid);
+};
+
+export const clearAuthSession = () => authKeys.forEach((key) => sessionStorage.removeItem(key));
 
 // TODO: переделать работу с lacoStorage через новый хук и wrapper
 // class StorageWrapper {

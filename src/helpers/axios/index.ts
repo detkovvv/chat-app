@@ -1,13 +1,13 @@
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-
-import deleteNotification from '../../mocks/delete-notification-200.json';
-import getNotification from '../../mocks/get-notification-200.json';
-import getSettings from '../../mocks/get-settings-200.json';
-import postCheckWhatsapp from '../../mocks/post-check-whatsapp-200.json';
-import postContacts from '../../mocks/post-contacts-200.json';
-import postMessagesHistory from '../../mocks/post-messages-history-200.json';
-import { getApiLink } from '../api/getApiLink';
+// import MockAdapter from 'axios-mock-adapter';
+//
+// import deleteNotification from '../../mocks/delete-notification-200.json';
+// import getNotification from '../../mocks/get-notification-200.json';
+// import getSettings from '../../mocks/get-settings-200.json';
+// import postCheckWhatsapp from '../../mocks/post-check-whatsapp-200.json';
+// import postContacts from '../../mocks/post-contacts-200.json';
+// import postMessagesHistory from '../../mocks/post-messages-history-200.json';
+// import { getApiLink } from '../api/getApiLink';
 
 // const useMock = import.meta.env.VITE_USE_MOCKS || true;
 //
@@ -22,6 +22,6 @@ import { getApiLink } from '../api/getApiLink';
 
 export const axiosInstance = axios.create({
     baseURL: 'https://api.green-api.com',
-    timeout: 500,
+    timeout: 10_000,
     headers: { 'Content-Type': 'application/json' },
 });

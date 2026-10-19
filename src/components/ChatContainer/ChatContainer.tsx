@@ -1,4 +1,5 @@
-import { useEffect, useRef, type FC, useLayoutEffect, type KeyboardEventHandler } from 'react';
+import { useEffect, useRef, type FC, useLayoutEffect, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './ChatContainer.module.css';
 import { useGetMessage } from '../../hooks/useGetMessage.js';
@@ -8,6 +9,7 @@ import { fetchChatHistory, sendMessage } from '../../store/asyncActions/chat.js'
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 
 export const ChatContainer: FC<{ user: string }> = ({ user }) => {
+    const navigate = useNavigate();
     const [value, handleChangeValue, clearValue] = useInputValue();
     const messages = useAppSelector((store) => store.chat.chatStore);
 
@@ -17,18 +19,13 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
         CustomDispatch(fetchChatHistory(user));
     }, [user]);
 
-    useGetMessage(user, messages);
+    useGetMessage(user);
 
-    const handleSendMessage = (event) => {
+    const handleSendMessage = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        CustomDispatch(sendMessage(user, value));
+        if (!value.trim()) return;
+        CustomDispatch(sendMessage(user, value.trim()));
         clearValue();
-    };
-    const handlePressKey: KeyboardEventHandler<HTMLInputElement> = (event) => {
-        if (event.code === 'Enter') {
-            CustomDispatch(sendMessage(user, value));
-            clearValue();
-        }
     };
 
     useLayoutEffect(() => {
@@ -41,8 +38,9 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
     return (
         <div className={styles.chatContainer}>
             <div className={styles.chatContainerHeader}>
+                <button aria-label='К контактам' className={styles.backButton} onClick={() => navigate('/live')} type='button'>←</button>
                 <div className={styles.chatUserInfo}>
-                    <img alt='avatar' className={styles.avatar} src={''} />
+                    <span aria-hidden='true' className={styles.avatar}>{user[0]}</span>
                     {user}
                 </div>
             </div>
@@ -52,14 +50,13 @@ export const ChatContainer: FC<{ user: string }> = ({ user }) => {
                         key={message.idMessage}
                         message={message.textMessage}
                         sender={message.type}
-                        time={message.timestamp}
+                        time={String(message.timestamp)}
                     />
                 ))}
             </div>
             <form className={styles.chatInput} onSubmit={handleSendMessage}>
                 <input
                     onChange={handleChangeValue}
-                    onKeyDown={handlePressKey}
                     placeholder='Введите сообщение'
                     type='text'
                     value={value}

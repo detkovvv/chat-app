@@ -9,9 +9,9 @@ export const Contact: FC<{ name: string; id: string }> = ({ name, id }) => {
     const navigate = useNavigate();
 
     return (
-        <div className={styles.user} onClick={() => navigate('/chat/' + id)}>
+        <button className={styles.user} onClick={() => navigate('/live/chat/' + id)} type='button'>
             <div className={styles.userAvatar}>{name[0]}</div>
             {name}
-        </div>
+        </button>
     );
 };

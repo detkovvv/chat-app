@@ -1,8 +1,9 @@
 import { IconLogout } from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './SidebarHeader.module.css';
-import { idLocalStorage, toLocalStorage } from '../../helpers/localStorage';
+import avatar from '../../assets/avatar.jpg';
+import { clearAuthSession, getAuthSession } from '../../helpers/localStorage';
 import { useAuthorization } from '../../hooks/useAithorization.js';
 
 export const SidebarHeader = () => {
@@ -12,9 +13,7 @@ export const SidebarHeader = () => {
     const handleLogOut = () => {
         const isLogOut: boolean = confirm('Вы действительно хотите выйти?');
         if (isLogOut) {
-            toLocalStorage('idInstance', '');
-            toLocalStorage('apiTokenInstance', '');
-            toLocalStorage('wid', '');
+            clearAuthSession();
             setIsLoggedOut();
             navigate('/login');
         }
@@ -26,11 +25,12 @@ export const SidebarHeader = () => {
                 <img
                     alt='avatar'
                     className={styles.img}
-                    src='https://pps.whatsapp.net/v/t61.24694-24/359687880_663953382289350_5037816929807844825_n.jpg?ccb=11-4&oh=01_AdSNwTvbxnLdjY8ykxTLjrKCUF8sCzxoF11LRKdnODRc5w&oe=657AA7A1&_nc_sid=e6ed6c&_nc_cat=104'
+                    src={avatar}
                 />
             </div>
-            <p className={styles.userName}>Вы вошли как: {idLocalStorage}</p>
-            <IconLogout className={styles.logoutIcon} onClick={handleLogOut} />
+            <p className={styles.userName}>Вы вошли как: {getAuthSession().idInstance}</p>
+            <Link className={styles.demoLink} to='/demo'>Демо</Link>
+            <button aria-label='Выйти' className={styles.logoutButton} onClick={handleLogOut} type='button'><IconLogout className={styles.logoutIcon} /></button>
         </div>
     );
 };

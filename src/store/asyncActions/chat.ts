@@ -1,11 +1,13 @@
 import { getApiLink } from '../../helpers/api/getApiLink.js';
 import { axiosInstance } from '../../helpers/axios/index.js';
-import { addMessageAction, getChatHistoryAction } from '../chatReducer.js';
+import { addMessageAction, clearChatAction, getChatHistoryAction } from '../chatReducer.js';
 import { receivedErrorAction, setIsLoadingAction } from '../contactsReducer.js';
+import { type DispatchType } from '../index.js';
 
-export const fetchChatHistory = (person) => {
-    return (dispatch) => {
+export const fetchChatHistory = (person: string) => {
+    return (dispatch: DispatchType) => {
         dispatch(setIsLoadingAction(true));
+        dispatch(clearChatAction());
         axiosInstance
             .post(getApiLink('getChatHistory'), {
                 chatId: `${person}`,
@@ -17,8 +19,8 @@ export const fetchChatHistory = (person) => {
     };
 };
 
-export const sendMessage = (person, value) => {
-    return (dispatch) => {
+export const sendMessage = (person: string, value: string) => {
+    return (dispatch: DispatchType) => {
         dispatch(setIsLoadingAction(true));
         axiosInstance
             .post(getApiLink('sendMessage'), {
@@ -40,18 +42,18 @@ export const sendMessage = (person, value) => {
     };
 };
 
-export const getMessage = (user) => {
-    return (dispatch) => {
+export const getMessage = (user: string) => {
+    return (dispatch: DispatchType) => {
         axiosInstance
             .get(getApiLink('receiveNotification'))
             .then(({ data }) => {
-                if (data) {
-                    if (data.body.senderData.sender === `${user}`) {
+                if (data?.body) {
+                    if (data.body.senderData?.sender === user && data.body.messageData?.textMessageData?.textMessage) {
                         dispatch(
                             addMessageAction({
                                 type: 'incoming',
                                 idMessage: data.body.idMessage,
-                                timestamp: data.body.timestamp,
+                                timestamp: String(data.body.timestamp),
                                 textMessage: data.body.messageData.textMessageData.textMessage,
                             }),
                         );
@@ -64,6 +66,6 @@ export const getMessage = (user) => {
                     axiosInstance.delete(getApiLink('deleteNotification', receiptId));
                 }
             })
-            .catch((error) => console.log(error.message));
+            .catch((error) => dispatch(receivedErrorAction(error.message)));
     };
 };

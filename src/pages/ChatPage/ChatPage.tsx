@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styles from './ChatPage.module.css';
 import { ChatContainer } from '../../components/ChatContainer/ChatContainer';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
-import { apiLocalStorage, idLocalStorage, wid } from '../../helpers/localStorage';
+import { getAuthSession } from '../../helpers/localStorage';
 import { useAuthorization } from '../../hooks/useAithorization';
 
 const useInitAuth = () => {
@@ -13,6 +13,7 @@ const useInitAuth = () => {
     const navigate = useNavigate();
 
     useLayoutEffect(() => {
+        const { idInstance: idLocalStorage, apiTokenInstance: apiLocalStorage, wid } = getAuthSession();
         if (idLocalStorage && apiLocalStorage && wid) {
             setIsLoggedIn(idLocalStorage, apiLocalStorage, wid);
         }
@@ -22,11 +23,13 @@ const useInitAuth = () => {
     useEffect(() => {
         if (isChecked && !isLoggedIn) navigate('/login');
     }, [isChecked, isLoggedIn]);
+
+    return isChecked && isLoggedIn;
 };
 
 const WithAuth: FC<{ children: JSX.Element }> = ({ children }) => {
-    useInitAuth();
-    return children;
+    const ready = useInitAuth();
+    return ready ? children : null;
 };
 
 export const ChatPage: FC = () => {
@@ -35,7 +38,7 @@ export const ChatPage: FC = () => {
     return (
         <WithAuth>
             <div className={styles.chatPage}>
-                <div className={styles.chatPageContainer}>
+                <div className={`${styles.chatPageContainer} ${phoneNumber ? styles.open : ''}`}>
                     <Sidebar />
                     {phoneNumber ? (
                         <ChatContainer user={phoneNumber} />

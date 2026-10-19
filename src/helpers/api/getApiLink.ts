@@ -1,7 +1,8 @@
-import { apiLocalStorage, idLocalStorage } from '../localStorage.js';
+import { getAuthSession } from '../localStorage.js';
 
 export const getApiLink = (route: string, additionRoute?: string): string => {
-    return `/waInstance${idLocalStorage}/${route}/${apiLocalStorage}${
+    const { idInstance, apiTokenInstance } = getAuthSession();
+    return `/waInstance${idInstance}/${route}/${apiTokenInstance}${
         additionRoute ? `/${additionRoute}` : ''
     }`;
 };

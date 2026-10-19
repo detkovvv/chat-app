@@ -17,7 +17,7 @@ const defaultState: IAuthInfo = {
 const LOG_IN = 'LOG_IN';
 const LOG_OUT = 'LOG_OUT';
 
-export const authReducer = (state = defaultState, action): IAuthInfo => {
+export const authReducer = (state = defaultState, action: AnyAction): IAuthInfo => {
     switch (action.type) {
         case 'LOG_IN':
             return {
@@ -36,5 +36,10 @@ export const authReducer = (state = defaultState, action): IAuthInfo => {
             return state;
     }
 };
-export const loginAction = (payload) => ({ type: LOG_IN, payload });
-export const logoutAction = (payload) => ({ type: LOG_OUT, payload });
+export const loginAction = (payload: {
+    idInstanceStore: string;
+    apiTokenInstanceStore: string;
+    widStore: string;
+}) => ({ type: LOG_IN, payload });
+export const logoutAction = () => ({ type: LOG_OUT });
+import { type AnyAction } from 'redux';
